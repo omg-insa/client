@@ -1,6 +1,7 @@
 package network;
 
 import java.net.MalformedURLException;
+import org.json.JSONObject;
 
 public class ServerConnection {
 
@@ -34,16 +35,23 @@ public class ServerConnection {
 
 	public Object connect(String service, String parameters) {
 		HttpRequest request = null;
+		JSONObject returnObj = null;
 		setRequestUrl(getRequestUrl() + service);
 		try {
 			if(service.equals(LOGIN))
+			{
 				request = new HttpRequest(requestUrl, parameters);
+				returnObj = request.executePost();
+			}
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return this;
+		return returnObj;
+	}
+	
+	public Object connect(String service) {
+		return this.connect(service, "");
 	}
 
 	public String getRequestUrl() {

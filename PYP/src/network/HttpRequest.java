@@ -8,6 +8,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import lib.JSONParser;
+
+import org.json.JSONObject;
+
 public class HttpRequest {
 	private URL url;
 	private String urlParameters;
@@ -34,7 +38,7 @@ public class HttpRequest {
 		this(new URL(url), urlParameters);
 	}
 
-	public String executePost()
+	public JSONObject executePost()
 	{
 		try {
 			connection.setRequestMethod("POST");
@@ -54,17 +58,28 @@ public class HttpRequest {
 			wr.flush();
 			wr.close();
 
-			//Get Response	
-			InputStream is = connection.getInputStream();
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-			String line;
-			StringBuffer response = new StringBuffer(); 
-			while((line = rd.readLine()) != null) {
-				response.append(line);
-				response.append('\r');
+			//Get Response
+			int code = connection.getResponseCode();
+			
+			switch(code)
+			{
+			case 400:
+			case 200:
+				InputStream is = connection.getInputStream();
+				BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+				String line;
+				StringBuffer response = new StringBuffer(); 
+				while((line = rd.readLine()) != null) {
+					response.append(line);
+					response.append('\r');
+				}
+				rd.close();
+				return JSONParser.getJSONObject(response.toString());
+			case 405:
+				throw new Exception("Only POST is allowed!");
+			default:
+				throw new Exception("Response code unknown");
 			}
-			rd.close();
-			return response.toString();
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
