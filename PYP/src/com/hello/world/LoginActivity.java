@@ -131,11 +131,11 @@ public class LoginActivity extends Activity {
 			mUserNameView.setError(getString(R.string.error_field_required));
 			focusView = mUserNameView;
 			cancel = true;
-		} else if (!mUserName.contains("@")) {
+		} /*else if (!mUserName.contains("@")) {
 			mUserNameView.setError(getString(R.string.error_invalid_email));
 			focusView = mUserNameView;
 			cancel = true;
-		}
+		}*/
 
 		if (cancel) {
 			// There was an error; don't attempt login and focus the first
