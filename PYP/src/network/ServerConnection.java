@@ -16,7 +16,7 @@ public class ServerConnection {
 	static final boolean LOCAL = false;
 
 	//services
-	private static final String LOGIN = "login";
+	public static final String LOGIN = "login/";
 
 	private ServerConnection()
 	{

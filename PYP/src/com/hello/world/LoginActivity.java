@@ -1,5 +1,6 @@
 package com.hello.world;
 
+import network.ServerConnection;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -38,11 +39,11 @@ public class LoginActivity extends Activity {
 	private UserLoginTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
-	private String mEmail;
+	private String mUserName;
 	private String mPassword;
 
 	// UI references.
-	private EditText mEmailView;
+	private EditText mUserNameView;
 	private EditText mPasswordView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
@@ -55,9 +56,9 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
-		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-		mEmailView = (EditText) findViewById(R.id.email);
-		mEmailView.setText(mEmail);
+		mUserName = getIntent().getStringExtra(EXTRA_EMAIL);
+		mUserNameView = (EditText) findViewById(R.id.email);
+		mUserNameView.setText(mUserName);
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
@@ -104,11 +105,11 @@ public class LoginActivity extends Activity {
 		}
 
 		// Reset errors.
-		mEmailView.setError(null);
+		mUserNameView.setError(null);
 		mPasswordView.setError(null);
 
 		// Store values at the time of the login attempt.
-		mEmail = mEmailView.getText().toString();
+		mUserName = mUserNameView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
 
 		boolean cancel = false;
@@ -126,13 +127,13 @@ public class LoginActivity extends Activity {
 		}
 
 		// Check for a valid email address.
-		if (TextUtils.isEmpty(mEmail)) {
-			mEmailView.setError(getString(R.string.error_field_required));
-			focusView = mEmailView;
+		if (TextUtils.isEmpty(mUserName)) {
+			mUserNameView.setError(getString(R.string.error_field_required));
+			focusView = mUserNameView;
 			cancel = true;
-		} else if (!mEmail.contains("@")) {
-			mEmailView.setError(getString(R.string.error_invalid_email));
-			focusView = mEmailView;
+		} else if (!mUserName.contains("@")) {
+			mUserNameView.setError(getString(R.string.error_invalid_email));
+			focusView = mUserNameView;
 			cancel = true;
 		}
 
@@ -200,20 +201,32 @@ public class LoginActivity extends Activity {
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
 
-			try {
+			ServerConnection srvCon = ServerConnection.GetServerConnection();
+			
+			String parameters = "{\"username\" : \""+mUserName+"\","
+								+"\"password\" : \""+mPassword+"\","
+								+"\"device_type\" : \""+android.os.Build.TYPE+"\","
+								+"\"device_manufacturer\" : \""+android.os.Build.MANUFACTURER+"\","
+								+"\"device_os\" : \"Android\","
+								+"\"os_version\" : \""+android.os.Build.VERSION.SDK_INT+"\","
+								+"\"device_id\" : \""+android.os.Build.ID+"\""
+								+"}";
+			srvCon.connect(ServerConnection.LOGIN, parameters);
+			
+			/*try {
 				// Simulate network access.
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				return false;
-			}
+			}*/
 
-			for (String credential : DUMMY_CREDENTIALS) {
+			/*for (String credential : DUMMY_CREDENTIALS) {
 				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
+				if (pieces[0].equals(mUserName)) {
 					// Account exists, return true if the password matches.
 					return pieces[1].equals(mPassword);
 				}
-			}
+			}*/
 
 			// TODO: register the new account here.
 			return true;
