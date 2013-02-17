@@ -1,5 +1,11 @@
 package com.hello.world;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import network.ServerConnection;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -9,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -200,17 +207,23 @@ public class LoginActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
-
+			Log.d("PNP", "Sending login request");
+			String manufacturer = android.os.Build.MANUFACTURER;
+			if(manufacturer == null)
+			{
+				manufacturer = "Simulator";
+			}
 			ServerConnection srvCon = ServerConnection.GetServerConnection();
 			
-			String parameters = "{\"username\" : \""+mUserName+"\","
-								+"\"password\" : \""+mPassword+"\","
-								+"\"device_type\" : \""+android.os.Build.TYPE+"\","
-								+"\"device_manufacturer\" : \""+android.os.Build.MANUFACTURER+"\","
-								+"\"device_os\" : \"Android\","
-								+"\"os_version\" : \""+android.os.Build.VERSION.SDK_INT+"\","
-								+"\"device_id\" : \""+android.os.Build.ID+"\""
-								+"}";
+			  List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+			  parameters.add(new BasicNameValuePair("username", mUserName));
+			  parameters.add(new BasicNameValuePair("password",mPassword));
+			  parameters.add(new BasicNameValuePair("device_type",android.os.Build.TYPE));
+			  parameters.add(new BasicNameValuePair("device_manufacturer",manufacturer));
+			  parameters.add(new BasicNameValuePair("device_os","Android"));
+			  parameters.add(new BasicNameValuePair("os_version",String.valueOf(android.os.Build.VERSION.SDK_INT)));
+		      parameters.add(new BasicNameValuePair("device_id",android.os.Build.ID));
+		      
 			srvCon.connect(ServerConnection.LOGIN, parameters);
 			
 			/*try {

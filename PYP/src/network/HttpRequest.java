@@ -1,135 +1,120 @@
 package network;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import lib.JSONParser;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+
 public class HttpRequest {
-	private URL url;
-	private String urlParameters;
-	private HttpURLConnection connection = null;
+	private String url;
+	private List<NameValuePair> urlParameters;
+	private HttpClient httpClient;
 
 	public HttpRequest() {
-		super();
 	}
 
-	public HttpRequest(URL url, String urlParameters) {
-		super();
+	public HttpRequest(String url, List<NameValuePair> urlParameters) {
+		this.url = url;
 		this.urlParameters = urlParameters;
+		// Creating HTTP client
+	    this.httpClient = new DefaultHttpClient();
+		// Creating HTTP Post
+	}
+	
+	public JSONObject executePost() throws Exception{
+		HttpPost httpPost = new HttpPost(this.url);
+		// Url Encoding the POST parameters
 		try {
-			this.url = url;
-			connection = (HttpURLConnection)this.url.openConnection();
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
+		    httpPost.setEntity(new UrlEncodedFormEntity(urlParameters));
 		}
-		
-	}
-
-	public HttpRequest(String url, String urlParameters) throws MalformedURLException {
-		this(new URL(url), urlParameters);
-	}
-
-	public JSONObject executePost()
-	{
-		try {
-			connection.setRequestMethod("POST");
-			connection.setRequestProperty("Content-Type", 
-					"application/x-www-form-urlencoded");
-
-			connection.setRequestProperty("Content-Length", "" + 
-					Integer.toString(urlParameters.getBytes().length)); 
-
-			connection.setUseCaches (false);
-			connection.setDoInput(true);
-			connection.setDoOutput(true);
-
-			//Send request
-			DataOutputStream wr = new DataOutputStream (connection.getOutputStream ());
-			wr.writeBytes (urlParameters);
-			wr.flush();
-			wr.close();
-
-			//Get Response
-			int code = connection.getResponseCode();
-			
+		catch (UnsupportedEncodingException e) {
+		    // writing error to Log
+		    e.printStackTrace();
+		}
+        // Making HTTP Request
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+			int code = response.getStatusLine().getStatusCode();
 			switch(code)
 			{
 			case 400:
 			case 200:
-				InputStream is = connection.getInputStream();
-				BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-				String line;
-				StringBuffer response = new StringBuffer(); 
-				while((line = rd.readLine()) != null) {
-					response.append(line);
-					response.append('\r');
-				}
-				rd.close();
-				return JSONParser.getJSONObject(response.toString());
+				HttpEntity entity = response.getEntity();
+				if(entity != null) {
+			        String responseBody = EntityUtils.toString(entity);
+					return JSONParser.getJSONObject(responseBody);
+			    }
+				return null;
 			case 405:
 				throw new Exception("Only POST is allowed!");
 			default:
 				throw new Exception("Response code unknown");
 			}
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		} 
-		finally {
-			if(connection != null) {
-				connection.disconnect(); 
-			}
-		}
+        } catch (ClientProtocolException e) {
+            // writing exception to log
+            e.printStackTrace();
+        } catch (IOException e) {
+            // writing exception to log
+            e.printStackTrace();
+        }
+		return null;
 	}
 	
-	public String executeGet()
-	{
-		try {
-			connection.setRequestMethod("GET");
-			connection.setRequestProperty("Content-Type", 
-					"application/x-www-form-urlencoded"); 
-
-			connection.setUseCaches (false);
-			connection.setDoInput(true);
-			connection.setDoOutput(true);
-
-			//Send request
-			DataOutputStream wr = new DataOutputStream (connection.getOutputStream ());
-			wr.flush();
-			wr.close();
-
-			//Get Response
-			InputStream is = connection.getInputStream();
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-			String line;
-			StringBuffer response = new StringBuffer(); 
-			while((line = rd.readLine()) != null) {
-				response.append(line);
-				response.append('\r');
+	public JSONObject executeGet() throws Exception{
+		boolean is_first = true;
+		for (NameValuePair el : urlParameters){
+			if (is_first){
+				is_first=false;
+				this.url += '?';
 			}
-			rd.close();
-			return response.toString();
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		} 
-		finally {
-			if(connection != null) {
-				connection.disconnect(); 
+			else{
+			this.url += '&';
 			}
+			this.url +=	el.getName()+'='+ el.getValue();
+
 		}
+		HttpGet httpGet = new HttpGet(this.url);
+        // Making HTTP Request
+        try {
+            HttpResponse response = httpClient.execute(httpGet);
+			int code = response.getStatusLine().getStatusCode();
+			switch(code)
+			{
+			case 400:
+			case 200:
+				HttpEntity entity = response.getEntity();
+				if(entity != null) {
+			        String responseBody = EntityUtils.toString(entity);
+					return JSONParser.getJSONObject(responseBody);
+			    }
+				return null;
+			case 405:
+				throw new Exception("Only GET is allowed!");
+			default:
+				throw new Exception("Response code unknown");
+			}
+        } catch (ClientProtocolException e) {
+            // writing exception to log
+            e.printStackTrace();
+        } catch (IOException e) {
+            // writing exception to log
+            e.printStackTrace();
+        }
+		return null;
 	}
-
-
 }

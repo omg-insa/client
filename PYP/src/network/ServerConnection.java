@@ -1,7 +1,10 @@
 package network;
 
-import java.net.MalformedURLException;
+import java.util.List;
+import org.apache.http.NameValuePair;
 import org.json.JSONObject;
+
+import android.util.Log;
 
 public class ServerConnection {
 
@@ -33,27 +36,25 @@ public class ServerConnection {
 		else return serverConnection;
 	}
 
-	public Object connect(String service, String parameters) {
+	public Object connect(String service, List<NameValuePair> parameters) {
 		HttpRequest request = null;
 		JSONObject returnObj = null;
 		setRequestUrl(getRequestUrl() + service);
 		try {
-			if(service.equals(LOGIN))
+		if(service.equals(LOGIN))
 			{
 				request = new HttpRequest(requestUrl, parameters);
 				returnObj = request.executePost();
+				Log.d("PNP", returnObj.toString());
 			}
-		} catch (MalformedURLException e) {
+		return returnObj;
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return returnObj;
+		return null;
 	}
 	
-	public Object connect(String service) {
-		return this.connect(service, "");
-	}
-
 	public String getRequestUrl() {
 		return requestUrl;
 	}
