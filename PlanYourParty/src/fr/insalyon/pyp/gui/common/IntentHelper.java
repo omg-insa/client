@@ -23,7 +23,6 @@ public class IntentHelper {
 	 */
 	public static void openNewActivity(Class<? extends BaseActivity> cls, Serializable params,boolean forceExit) {
 	
-		PYPContext.getActiveActivity().forceExit = forceExit;
 		Intent intent = new Intent(PYPContext.getContext(), cls);
 		intent.putExtra(Constants.PARAMNAME,params);
 		PYPContext.getContext().startActivity(intent);

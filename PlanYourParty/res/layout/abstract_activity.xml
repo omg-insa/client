@@ -4,7 +4,7 @@
 	android:layout_height="fill_parent" android:id="@+id/abstractLinearLayoutGlobal">
 	<LinearLayout android:id="@+id/abstractLinearLayout"
 		android:orientation="vertical" android:layout_height="fill_parent"
-		android:layout_width="fill_parent" android:background="@drawable/backgorund">
+		android:layout_width="fill_parent" android:background="@drawable/background">
 		<RelativeLayout android:id="@+id/abstract_header_layout"
 			android:layout_width="fill_parent" android:weightSum="1"
 			android:layout_height="50dip">
@@ -17,11 +17,8 @@
 				android:layout_alignParentBottom="true"
 				android:layout_alignParentRight="true">
 				<ImageView android:layout_height="wrap_content"
-					android:src="@drawable/info" android:layout_width="wrap_content"
-					android:id="@+id/info" android:visibility="gone"></ImageView>
-				<ImageView android:layout_height="wrap_content"
 					android:src="@drawable/home_icon" android:layout_width="wrap_content"
-					android:id="@+id/abstract_header_picto_left" android:visibility="gone"></ImageView>
+					android:id="@+id/abstract_header_picto_left" android:visibility="visible"></ImageView>
 			</LinearLayout>
 
 		</RelativeLayout>

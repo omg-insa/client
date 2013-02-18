@@ -19,6 +19,10 @@ public class Constants {
 	public static final String PARAMNAME = "pypParamName";
 	
 	public static final int HOME_CONST = 2000;
+	
+	public static final int LOGIN_CONST	= 2001;
+	public static final int REGISTER_CONST = 2002;
+	
 	public static final int PUB_CONST = 2010;
 	public static final int SUBSCRIPTION_CONST_0 = 3000;
 	public static final int SUBSCRIPTION_CONST_1 = 3010;
