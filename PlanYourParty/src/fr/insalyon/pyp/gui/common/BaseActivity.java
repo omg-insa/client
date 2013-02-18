@@ -17,10 +17,8 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -337,3 +335,4 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 
 
 }
+
