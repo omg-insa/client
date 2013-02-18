@@ -60,6 +60,8 @@ public class HttpRequest {
 					return JSONParser.getJSONObject(responseBody);
 			    }
 				return null;
+			case 403:
+				throw new Exception("Not Authorized");
 			case 405:
 				throw new Exception("Only POST is allowed!");
 			default:
@@ -103,6 +105,8 @@ public class HttpRequest {
 					return JSONParser.getJSONObject(responseBody);
 			    }
 				return null;
+			case 403:
+				throw new Exception("Not Authorized");
 			case 405:
 				throw new Exception("Only GET is allowed!");
 			default:
