@@ -16,7 +16,7 @@ public class Constants {
 	
 	public static final String TAG = "PYP-android";
 	
-	public static final String PARAMNAME = "bnppParamName";
+	public static final String PARAMNAME = "pypParamName";
 	
 	public static final int HOME_CONST = 2000;
 	public static final int PUB_CONST = 2010;

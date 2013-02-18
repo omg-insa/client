@@ -32,7 +32,7 @@ import android.widget.RelativeLayout;
 
 /**
  * This class acts as a base class to all the activities in the
- * BNPP-eSafe-Android project.
+ * PYP-Android project.
  */
 public class BaseActivity extends Activity implements OnMenuItemSelectedListener {
 
