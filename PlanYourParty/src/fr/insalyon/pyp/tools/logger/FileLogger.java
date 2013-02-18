@@ -22,7 +22,7 @@ public class FileLogger {
 	private PrintWriter writer;
 	private boolean append;
 
-	private static final String LOG_FILENAME = "bnpp-esafe-android.log";
+	private static final String LOG_FILENAME = "pyp-android.log";
 
 	/**
 	 * if set to true, a new file will be created everytime the file reaches the

@@ -6,19 +6,18 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import fr.insalyon.pyp.R;
-import fr.insalyon.pyp.gui.common.*;
+import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
-import fr.insalyon.pyp.tools.PYPContext;
 
-public class LoginActivity extends BaseActivity {
+public class RegisterActivity extends BaseActivity {
 	private LinearLayout abstractView;
 	private LinearLayout mainView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState, Constants.LOGIN_CONST);
-		AppTools.info("on create LoginActivity");
+		super.onCreate(savedInstanceState, Constants.REGISTER_CONST);
+		AppTools.info("on create RegisterActivity");
 		initGraphicalInterface();
 	}
 
@@ -26,11 +25,11 @@ public class LoginActivity extends BaseActivity {
 		// set layouts
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-		mainView = (LinearLayout) mInflater.inflate(R.layout.login_activity, null);
+		mainView = (LinearLayout) mInflater.inflate(R.layout.register_activity, null);
 		abstractView.addView(mainView);
 		
 		Drawable background =((LinearLayout) findViewById(R.id.login_backgorund)).getBackground();
-		background.setAlpha(95);
+		background.setAlpha(80);
 		
 		hideHeader(true);
 	}

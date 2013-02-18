@@ -4,7 +4,7 @@
 	android:layout_height="fill_parent" android:id="@+id/abstractLinearLayoutGlobal">
 	<LinearLayout android:id="@+id/abstractLinearLayout"
 		android:orientation="vertical" android:layout_height="fill_parent"
-		android:layout_width="fill_parent" android:background="@drawable/backgorund">
+		android:layout_width="fill_parent" android:background="@drawable/background">
 		<RelativeLayout android:id="@+id/abstract_header_layout"
 			android:layout_width="fill_parent" android:weightSum="1"
 			android:layout_height="50dip">

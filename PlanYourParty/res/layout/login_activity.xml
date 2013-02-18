@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/forgotten_password"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#0000FF" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#dddddd" />
 </LinearLayout>
 </LinearLayout>
