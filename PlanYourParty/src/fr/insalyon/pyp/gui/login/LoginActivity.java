@@ -26,7 +26,6 @@ import fr.insalyon.pyp.gui.common.popup.Popups;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
-import fr.insalyon.pyp.tools.PYPContext;
 import fr.insalyon.pyp.tools.TerminalInfo;
 
 public class LoginActivity extends BaseActivity {
@@ -36,7 +35,7 @@ public class LoginActivity extends BaseActivity {
 	private Button registerButton;
 	private TextView usernameField;
 	private TextView passwordField;
-
+	private TextView forgotPasswordText;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, Constants.LOGIN_CONST);
@@ -55,6 +54,7 @@ public class LoginActivity extends BaseActivity {
 		registerButton = (Button) findViewById(R.id.register);
 		usernameField = (TextView) findViewById(R.id.username);
 		passwordField = (TextView) findViewById(R.id.password);
+		forgotPasswordText = (TextView) findViewById(R.id.forgotPassword);
 		Drawable background = ((LinearLayout) findViewById(R.id.login_backgorund))
 				.getBackground();
 		background.setAlpha(95);
@@ -68,7 +68,16 @@ public class LoginActivity extends BaseActivity {
 				new LoginTask().execute();
 			}
 		});
-
+		registerButton.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				IntentHelper.openNewActivity(RegisterActivity.class, null, false);
+			}
+		});
+		forgotPasswordText.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				IntentHelper.openNewActivity(ForgotPasswordActivity.class, null, false);
+			}
+		});
 		hideHeader(true);
 	}
 
@@ -117,7 +126,6 @@ public class LoginActivity extends BaseActivity {
 					    settings.edit().putString("auth_token", token);
 					}
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

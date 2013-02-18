@@ -10,7 +10,7 @@ import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
 
-public class RegisterActivity extends BaseActivity {
+public class ForgotPasswordActivity extends BaseActivity {
 	private LinearLayout abstractView;
 	private LinearLayout mainView;
 	
@@ -25,9 +25,10 @@ public class RegisterActivity extends BaseActivity {
 		// set layouts
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-		mainView = (LinearLayout) mInflater.inflate(R.layout.register_activity, null);
+		mainView = (LinearLayout) mInflater.inflate(R.layout.forgot_password_activity, null);
 		abstractView.addView(mainView);
-	
+		
+		
 		hideHeader(true);
 	}
 
@@ -43,5 +44,4 @@ public class RegisterActivity extends BaseActivity {
 	public void onResume() {
 		super.onResume();
 	}
-
 }

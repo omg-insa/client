@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
      <activity android:name=".gui.login.RegisterActivity"></activity>
+     <activity android:name=".gui.login.ForgotPasswordActivity"></activity>
+    
        </application>
      
 </manifest>
