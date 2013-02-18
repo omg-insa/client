@@ -17,11 +17,8 @@
 				android:layout_alignParentBottom="true"
 				android:layout_alignParentRight="true">
 				<ImageView android:layout_height="wrap_content"
-					android:src="@drawable/info" android:layout_width="wrap_content"
-					android:id="@+id/info" android:visibility="gone"></ImageView>
-				<ImageView android:layout_height="wrap_content"
 					android:src="@drawable/home_icon" android:layout_width="wrap_content"
-					android:id="@+id/abstract_header_picto_left" android:visibility="gone"></ImageView>
+					android:id="@+id/abstract_header_picto_left" android:visibility="visible"></ImageView>
 			</LinearLayout>
 
 		</RelativeLayout>

@@ -31,8 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 /**
- * This class acts as a base class to all the activities in the
- * BNPP-eSafe-Android project.
+ * This class acts as a base class to all the activities in the PYP project
  */
 public class BaseActivity extends Activity implements OnMenuItemSelectedListener {
 
@@ -44,19 +43,13 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	protected int ACTIVITY_CONST = 1000;
 	protected boolean paused;
 	protected boolean startingActivity;
-
-	protected boolean forceExit;
-
 	protected List<AsyncTask<?, ?, ?>> asyncTasks;
-
 	protected boolean isMenuActive = false;
-
 	protected CustomMenuHelper myMenu;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		onCreate(savedInstanceState, ABSTRACT_CONST);
-		forceExit = false;
 	}
 
 	public void onCreate(Bundle savedInstanceState, int activityId) {
@@ -71,9 +64,9 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 		
 		AppTools.setToExit(false);
 
-		{
-			AppTools.log(this.getClass().getSimpleName() + " is creating", Level.INFO);
-		}
+		
+		AppTools.log(this.getClass().getSimpleName() + " is creating", Level.INFO);
+		
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -157,8 +150,6 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 
 	@Override
 	protected void onResume() {
-		if (forceExit)
-			finish();
 		if (AppTools.isToExit())
 			finish();
 		super.onResume();
@@ -167,17 +158,13 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 
 		startingActivity = false;
 		if (paused) {
-
 			AppTools.log(this.getClass().getSimpleName() + " has been resumed from a paused state", Level.INFO);
 			paused = false;
-
 			startupProcess();
 		}
 	}
 
 	protected void onResume(boolean forceExitOverrided) {
-		if (forceExit && forceExitOverrided)
-			finish();
 		if (AppTools.isToExit())
 			finish();
 		super.onResume();
@@ -186,10 +173,8 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 
 		startingActivity = false;
 		if (paused) {
-
 			AppTools.log(this.getClass().getSimpleName() + " has been resumed from a paused state", Level.INFO);
 			paused = false;
-
 			startupProcess();
 		}
 	}
