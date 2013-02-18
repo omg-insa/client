@@ -8,4 +8,8 @@ public class Constants {
 	public static final int REGISTER_CONST = 2002;
 
 	
+	//popups id
+	
+	public static final String WrongUsernameOrPassword = "WrongUsernameOrPassword";
+	public static final String IncompleatData = "IncompleatData";
 }
