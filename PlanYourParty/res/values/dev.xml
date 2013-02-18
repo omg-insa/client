@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="prop_logging">console</string>
+    <!--  BNPP by Orange settings -->
+    <string name="time_to_check_network">60</string>
+    <string name="type_to_check_network">SUB</string>
+</resources>
