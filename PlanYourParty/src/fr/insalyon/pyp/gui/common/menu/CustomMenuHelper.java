@@ -44,7 +44,7 @@ public class CustomMenuHelper {
 		} else {
 			// Note it doesn't matter what widget you send the menu as long as
 			// it gets view.
-			mMenu.show(PYPContext.getActiveActivity().findViewById(R.id.abstract_header_layout));
+			mMenu.show(PYPContext.getActiveActivity().findViewById(R.id.abstract_header_layout_header));
 		}
 	}
 }
