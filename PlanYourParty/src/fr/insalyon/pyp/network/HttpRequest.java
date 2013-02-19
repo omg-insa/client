@@ -19,6 +19,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import fr.insalyon.pyp.lib.JSONParser;
+import fr.insalyon.pyp.tools.AppTools;
 
 
 public class HttpRequest {
@@ -62,11 +63,11 @@ public class HttpRequest {
 			    }
 				return null;
 			case 403:
-				throw new Exception("Not Authorized");
+				throw new Exception("403");
 			case 405:
-				throw new Exception("Only POST is allowed!");
+				throw new Exception("405");
 			default:
-				throw new Exception("Response code unknown");
+				throw new Exception("Unknown");
 			}
         } catch (ClientProtocolException e) {
             // writing exception to log
@@ -96,6 +97,7 @@ public class HttpRequest {
         try {
             HttpResponse response = httpClient.execute(httpGet);
 			int code = response.getStatusLine().getStatusCode();
+			AppTools.debug("Status code :" + code);
 			switch(code)
 			{
 			case 400:
@@ -107,11 +109,11 @@ public class HttpRequest {
 			    }
 				return null;
 			case 403:
-				throw new Exception("Not Authorized");
+				throw new Exception("403");
 			case 405:
-				throw new Exception("Only GET is allowed!");
+				throw new Exception("405");
 			default:
-				throw new Exception("Response code unknown");
+				throw new Exception("Unknown");
 			}
         } catch (ClientProtocolException e) {
             // writing exception to log

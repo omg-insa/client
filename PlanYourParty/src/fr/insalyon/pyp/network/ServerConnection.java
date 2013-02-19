@@ -3,8 +3,7 @@ package fr.insalyon.pyp.network;
 import java.util.List;
 import org.apache.http.NameValuePair;
 import org.json.JSONObject;
-
-import android.util.Log;
+import fr.insalyon.pyp.tools.AppTools;
 
 public class ServerConnection {
 
@@ -36,7 +35,7 @@ public class ServerConnection {
 		else return serverConnection;
 	}
 
-	public Object connect(String service, List<NameValuePair> parameters) {
+	public JSONObject connect(String service, List<NameValuePair> parameters) throws Exception {
 		HttpRequest request = null;
 		JSONObject returnObj = null;
 		setRequestUrl(getRequestUrl() + service);
@@ -45,14 +44,12 @@ public class ServerConnection {
 			{
 				request = new HttpRequest(requestUrl, parameters);
 				returnObj = request.executePost();
-				Log.d("PNP", returnObj.toString());
+				AppTools.debug(returnObj.toString());
 			}
 		return returnObj;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
-		return null;
 	}
 	
 	public String getRequestUrl() {

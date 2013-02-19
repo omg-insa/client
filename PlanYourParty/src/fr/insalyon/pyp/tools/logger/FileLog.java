@@ -18,7 +18,7 @@ import android.content.Context;
 public class FileLog implements AbstractLogger {
 
 	/* (non-Javadoc)
-	 * @see bnpp.esafe.tools.logger.AbstractLogger#write(java.lang.String, java.util.logging.Level)
+	 * @see fr.insalyon.pyp.tools.logger.AbstractLogger#write(java.lang.String, java.util.logging.Level)
 	 */
 	public void write(String message, Level level) {
 		try {
