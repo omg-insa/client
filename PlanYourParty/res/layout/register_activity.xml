@@ -17,28 +17,34 @@
         android:id="@+id/Register_UserName"
    		android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:ems="10"
         android:hint="@string/username"
-        android:inputType="text" />
+        android:inputType="text"
+        style="@style/text_edit"
+        android:layout_gravity="center"
+        android:background="@drawable/text_edit" />
 
     <EditText
         android:id="@+id/Register_Email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        style="@style/text_edit" 
+        android:layout_gravity="center"
+        android:background="@drawable/text_edit"/>
 
     <EditText
         android:id="@+id/Register_Password"
     	android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword" >
+        android:inputType="textPassword"
+        style="@style/text_edit"
+        android:layout_gravity="center"
+        android:background="@drawable/text_edit" >
 
         <requestFocus />
     </EditText>
@@ -52,13 +58,30 @@
         android:layout_gravity="center"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword" />
-   <Button
-        android:id="@+id/Register_buttonConfirm"
-            android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/confirm" />
+        android:inputType="textPassword"
+        style="@style/text_edit"
+        android:background="@drawable/text_edit" />
+    
+    <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal" >
+        
+	   <Button
+	        android:id="@+id/Register_buttonConfirm"
+	        android:layout_width="100dp"
+			style="@style/button_text"
+	        android:text="@string/confirm"
+	        android:background="@drawable/blue_button" />
+	   
+	   <Button
+	        android:id="@+id/Register_buttonCancel"
+	        android:layout_width="100dp"
+	        style="@style/button_text"
+	        android:background="@drawable/red_button"
+	        android:text="@string/cancel" />
+	   
+   </LinearLayout>
    
 </LinearLayout>
 </LinearLayout>
