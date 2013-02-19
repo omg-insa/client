@@ -171,7 +171,7 @@ public class LoginActivity extends BaseActivity {
 			try {
 				res = srvCon.connect(ServerConnection.LOGIN, parameters);
 			} catch (Exception e) {
-				if (e.getMessage().equals("403")) {
+				if (e.getMessage()!= null && e.getMessage().equals("403")) {
 					SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
 				    settings.edit().remove("auth_token");
 				} else {

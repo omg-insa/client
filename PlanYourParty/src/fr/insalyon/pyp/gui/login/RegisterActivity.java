@@ -80,10 +80,11 @@ public class RegisterActivity extends BaseActivity {
 					Popups.showPopup(Constants.passwordTooShort);
 					return;
 				}
-				if (AppTools.isEmailValid(emailField.getText().toString())) {
+				if (!AppTools.isEmailValid(emailField.getText().toString())) {
 					Popups.showPopup(Constants.InvalidEmail);
 					return;
 				}
+				new RegisterTask().execute();
 			}
 		});
 	}
@@ -107,7 +108,8 @@ public class RegisterActivity extends BaseActivity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			mProgressDialog.dismiss();
+			//mProgressDialog.dismiss();
+			
 			if (res != null) {
 				try {
 					if (res.has("error")) {
@@ -149,8 +151,8 @@ public class RegisterActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
-			mProgressDialog = ProgressDialog.show(RegisterActivity.this,
-					getString(R.string.app_name), getString(R.string.loading));
+			//mProgressDialog = ProgressDialog.show(RegisterActivity.this,
+			//		getString(R.string.app_name), getString(R.string.loading));
 		}
 
 		@Override
@@ -167,7 +169,7 @@ public class RegisterActivity extends BaseActivity {
 			try {
 				res = srvCon.connect(ServerConnection.REGISTER, parameters);
 			} catch (Exception e) {
-				if (e.getMessage().equals("403")) {
+				if (e.getMessage()!= null && e.getMessage().equals("403")) {
 					SharedPreferences settings = getSharedPreferences(
 							Constants.TAG, 0);
 					settings.edit().remove("auth_token");
