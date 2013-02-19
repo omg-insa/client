@@ -55,6 +55,7 @@ public class RegisterActivity extends BaseActivity {
 				null);
 		abstractView.addView(mainView);
 		registerButton = (Button) findViewById(R.id.Register_buttonConfirm);
+		cancelButton = (Button) findViewById(R.id.Register_buttonCancel);
 		usernameField = (TextView) findViewById(R.id.Register_UserName);
 		passwordField = (TextView) findViewById(R.id.Register_Password);
 		emailField = (TextView) findViewById(R.id.Register_Email);
@@ -90,6 +91,12 @@ public class RegisterActivity extends BaseActivity {
 					return;
 				}
 				new RegisterTask().execute();
+			}
+		});
+		
+		cancelButton.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				finish();
 			}
 		});
 	}
