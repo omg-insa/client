@@ -2,25 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:id="@+id/abstractLinearLayoutGlobal">
-	<LinearLayout android:id="@+id/abstractLinearLayout"
-		android:orientation="vertical" android:layout_height="fill_parent"
-		android:layout_width="fill_parent" android:background="@drawable/background">
-		<RelativeLayout android:id="@+id/abstract_header_layout"
-			android:layout_width="fill_parent" android:weightSum="1"
-			android:layout_height="50dip">
-			<ImageView android:id="@+id/abstract_header_picto_rigth"
-				android:layout_gravity="left" android:visibility="visible"
-				android:src="@drawable/logo" android:layout_height="wrap_content"
-				android:layout_width="wrap_content"></ImageView>
-			<LinearLayout android:id="@+id/linearLayout1"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:layout_alignParentBottom="true"
-				android:layout_alignParentRight="true">
-				<ImageView android:layout_height="wrap_content"
-					android:src="@drawable/home_icon" android:layout_width="wrap_content"
-					android:id="@+id/abstract_header_picto_left" android:visibility="visible"></ImageView>
-			</LinearLayout>
 
-		</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/abstract_header_layout_header"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:weightSum="1" >
+
+        <ImageView
+            android:id="@+id/abstract_header_picto_rigth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:src="@drawable/logo"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true" >
+
+            <ImageView
+                android:id="@+id/abstract_header_picto_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/home_icon"
+                android:visibility="visible" />
+        </LinearLayout>
+    </RelativeLayout>
+
+	<LinearLayout
+	    android:id="@+id/abstractLinearLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:background="@drawable/background"
+	    android:gravity="center_vertical|center_horizontal|center"
+	    android:orientation="vertical" >
+
 	</LinearLayout>
 </LinearLayout>
