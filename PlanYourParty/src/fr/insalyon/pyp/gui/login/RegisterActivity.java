@@ -14,7 +14,6 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,7 +27,6 @@ import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
 import fr.insalyon.pyp.tools.PYPContext;
-import fr.insalyon.pyp.tools.TerminalInfo;
 
 public class RegisterActivity extends BaseActivity {
 	private LinearLayout abstractView;
@@ -55,6 +53,7 @@ public class RegisterActivity extends BaseActivity {
 				null);
 		abstractView.addView(mainView);
 		registerButton = (Button) findViewById(R.id.Register_buttonConfirm);
+		cancelButton = (Button) findViewById(R.id.Register_buttonCancel);
 		usernameField = (TextView) findViewById(R.id.Register_UserName);
 		passwordField = (TextView) findViewById(R.id.Register_Password);
 		emailField = (TextView) findViewById(R.id.Register_Email);
@@ -63,11 +62,11 @@ public class RegisterActivity extends BaseActivity {
 				.getBackground();
 		background.setAlpha(95);
 		hideHeader(false);
-		//cancelButton.setOnClickListener(new OnClickListener() {
-		//	public void onClick(View v) {
-		//		RegisterActivity.this.finish();
-		//	}
-		//});
+		cancelButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				RegisterActivity.this.finish();
+			}
+		});
 		registerButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				if (usernameField.getText().toString().equals("")
@@ -94,13 +93,6 @@ public class RegisterActivity extends BaseActivity {
 		});
 	}
 
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -113,7 +105,7 @@ public class RegisterActivity extends BaseActivity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			// mProgressDialog.dismiss();
+			mProgressDialog.dismiss();
 
 			if (res != null) {
 				try {
@@ -123,22 +115,25 @@ public class RegisterActivity extends BaseActivity {
 						error = res.getString("error");
 						if (error.equals("Invalid email")) {
 							Popups.showPopup(Constants.InvalidEmail);
+							return;
 						}
 						if (error.equals("Password too short")) {
 							Popups.showPopup(Constants.passwordTooShort);
+							return;
 						}
 						if (error.equals("Email already used")) {
 							Popups.showPopup(Constants.EmailAlreadyUsed);
+							return;
 						}
 						if (error.equals("User already registered")) {
 							Popups.showPopup(Constants.UsernameAlreadyUsed);
+							return;
 						}
 						if (error.equals("Incomplete data")) {
 							Popups.showPopup(Constants.IncompleatData);
+							return;
 						}
-					}
-
-					else {
+					} else {
 						String[] params = new String[2];
 						params[0] = usernameField.getText().toString();
 						params[1] = passwordField.getText().toString();
@@ -151,13 +146,14 @@ public class RegisterActivity extends BaseActivity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
+
 			}
 		}
 
 		@Override
 		protected void onPreExecute() {
-			// mProgressDialog = ProgressDialog.show(RegisterActivity.this,
-			// getString(R.string.app_name), getString(R.string.loading));
+			mProgressDialog = ProgressDialog.show(RegisterActivity.this,
+					getString(R.string.app_name), getString(R.string.loading));
 		}
 
 		@Override

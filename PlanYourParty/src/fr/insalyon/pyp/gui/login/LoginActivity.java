@@ -15,7 +15,6 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -72,23 +71,18 @@ public class LoginActivity extends BaseActivity {
 		});
 		registerButton.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
-				IntentHelper.openNewActivity(RegisterActivity.class, null, false,true);
+				Intent i =  new Intent(LoginActivity.this, RegisterActivity.class);
+				startActivityForResult(i,1);
 			}
 		});
 		forgotPasswordText.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
-				IntentHelper.openNewActivity(ForgotPasswordActivity.class, null, false,false);
+				IntentHelper.openNewActivity(ForgotPasswordActivity.class, null, false);
 			}
 		});
 		hideHeader(true);
 	}
 
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
 
 	@Override
 	public void onResume() {
@@ -106,6 +100,7 @@ public class LoginActivity extends BaseActivity {
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		AppTools.error("Autocompleating...");
 	    if (resultCode == Activity.RESULT_OK) {
 	    	String[] row_values = data.getExtras().getStringArray(Constants.PARAMNAME);
 	    	usernameField.setText(row_values[0]);
