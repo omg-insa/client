@@ -37,8 +37,8 @@
 	    android:id="@+id/abstractLinearLayout"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
-	    android:background="@drawable/background"
-	    android:gravity="center_vertical|center_horizontal|center"
+	    android:background="@drawable/content_bg"
+	    android:gravity="center"
 	    android:orientation="vertical" >
 
 	</LinearLayout>

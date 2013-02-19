@@ -2,72 +2,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_gravity="center_vertical|center_horizontal|center"
-    android:gravity="center_vertical|center_horizontal|center"
+    android:gravity="center"
     android:orientation="vertical" >
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/login_backgorund"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical|center_horizontal|center"
-    android:background="@drawable/roundbackground"
-    android:gravity="center_vertical|center_horizontal|center"
-    android:orientation="vertical"
-    android:padding="20dp" >
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_height="100dp"
+        android:src="@drawable/logo" 
+        android:layout_width="125dp"
+        android:layout_marginBottom="20dp" />
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:hint="@string/username"
-        android:paddingTop="@dimen/form_padding" >
+   <LinearLayout
+       xmlns:android="http://schemas.android.com/apk/res/android"
+       android:id="@+id/login_backgorund"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="@drawable/roundbackground"
+       android:orientation="vertical"
+       android:padding="20dp"
+       android:layout_marginBottom="20dp" >
 
-        <requestFocus android:layout_width="wrap_content" />
+       <EditText
+           android:id="@+id/username"
+           style="@style/text_edit"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:background="@drawable/text_edit"
+           android:ems="10"
+           android:hint="@string/username" />
 
-    </EditText>
+       <EditText
+           android:id="@+id/password"
+           style="@style/text_edit"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:background="@drawable/text_edit"
+           android:ems="10"
+           android:hint="@string/password"
+           android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:paddingTop="@dimen/form_padding" />
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" >
+           <Button
+               android:id="@+id/login"
+               style="@style/button_text"
+               android:layout_width="wrap_content"
+               android:background="@drawable/blue_button"
+               android:text="@string/loggin"
+               android:width="100dp" />
 
-        <Button
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:text="@string/loggin" />
+           <Button
+               android:id="@+id/register"
+               style="@style/button_text"
+               android:layout_width="wrap_content"
+               android:background="@drawable/red_button"
+               android:text="@string/register"
+               android:width="100dp" />
+       </LinearLayout>
 
-        <Button
-            android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/register" />
+       <TextView
+           android:id="@+id/forgotPassword"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:text="@string/forgotten_password"
+           android:textSize="10sp"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:textColor="#dddddd" />
+   </LinearLayout>
 
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/forgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/forgotten_password"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#dddddd" />
-</LinearLayout>
 </LinearLayout>

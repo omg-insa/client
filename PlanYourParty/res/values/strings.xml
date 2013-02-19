@@ -7,11 +7,16 @@
     <string name="title_activity_login">Login</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="password">Mot de passe</string>
-    <string name="loggin">Se conecter</string>
-    <string name="register">Creation de compt</string>
-    <string name="forgotten_password">Mot de passe oublie ?</string>
+    <string name="loggin">Connexion</string>
+    <string name="register">Inscription</string>
+    <string name="forgotten_password">Mot de passe oublié ?</string>
 	<string name="loading">Loading</string>
 	<string name="alert_dialog_ok">OK</string>
+	<string name="secret_question_answer">Votre reponse</string>
+	<string name="validate">Valider</string>
+	<string name="cancel">Annuler</string>
+	<string name="old_password">Ancien mot de passe</string>
+	<string name="new_password">Nouveau mot de passe</string>
 	<string name="email">Email</string>
     <string name="confirm">Confirm</string>
 	<!-- Popups -->
@@ -21,7 +26,7 @@
 	<string name="initIncompleatData_text">You haven\'t compleated all the filds</string>
 	<string name="InvalidEmail_title">Invalid email</string>
 	<string name="InvalidEmail_text">You haven\'t entered a valid email.</string>
-	<string name="EmailAlreadyUsed_title">Email aready used</string>
+	<string name="EmailAlreadyUsed_title">Email already used</string>
 	<string name="EmailAlreadyUsed_text">The email you have entered is already used</string>
 	<string name="UsernameAlreadyUsed_title">Username already used</string>
 	<string name="UsernameAlreadyUsed_text">The username you have entered is already used</string>
