@@ -7,8 +7,8 @@
     <string name="title_activity_login">Login</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="password">Mot de passe</string>
-    <string name="loggin">Se conecter</string>
-    <string name="register">Creation de compt</string>
-    <string name="forgotten_password">Mot de passe oublie ?</string>
-
+    <string name="loggin">Connexion</string>
+    <string name="register">Inscription</string>
+    <string name="forgotten_password">Mot de passe oublié ?</string>
+	<color name="white">#FFFFFF</color>
 </resources>

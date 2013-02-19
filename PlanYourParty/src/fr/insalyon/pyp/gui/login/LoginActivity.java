@@ -4,12 +4,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.*;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
-import fr.insalyon.pyp.tools.PYPContext;
 
 public class LoginActivity extends BaseActivity {
 	private LinearLayout abstractView;
