@@ -19,6 +19,11 @@ public class Popups {
 	private static void init() {
 		initWrongUsernameOrPassword();
 		initIncompleatData();
+		initEmailAlreadyUsed();
+		initInvalidEmail();
+		initpasswordsDontMatch();
+		initpasswordTooShort();
+		initUsernameAlreadyUsed();
 	}
 
 	/**
@@ -53,4 +58,51 @@ public class Popups {
 		popupList.put(Constants.IncompleatData, popup);
 
 	}
+	
+	private static void initEmailAlreadyUsed() {
+		PopupEntity popup = new PopupEntity(
+				R.string.EmailAlreadyUsed_title,
+				R.string.EmailAlreadyUsed_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.EmailAlreadyUsed, popup);
+
+	}
+	private static void initInvalidEmail() {
+		PopupEntity popup = new PopupEntity(
+				R.string.InvalidEmail_title,
+				R.string.InvalidEmail_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.InvalidEmail, popup);
+
+	}
+	private static void initpasswordsDontMatch() {
+		PopupEntity popup = new PopupEntity(
+				R.string.passwordsDontMatch_title,
+				R.string.passwordsDontMatch_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.passwordsDontMatch, popup);
+
+	}
+	
+	private static void initpasswordTooShort() {
+		PopupEntity popup = new PopupEntity(
+				R.string.passwordsDontMatch_title,
+				R.string.passwordTooShort_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.passwordTooShort, popup);
+	}
+	
+	private static void initUsernameAlreadyUsed() {
+		PopupEntity popup = new PopupEntity(
+				R.string.UsernameAlreadyUsed_title,
+				R.string.UsernameAlreadyUsed_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.UsernameAlreadyUsed, popup);
+	}
+	
 }

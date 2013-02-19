@@ -19,6 +19,7 @@ public class ServerConnection {
 
 	//services
 	public static final String LOGIN = "login/";
+	public static final String REGISTER = "register/";
 
 	private ServerConnection()
 	{
@@ -46,6 +47,13 @@ public class ServerConnection {
 				returnObj = request.executePost();
 				AppTools.debug(returnObj.toString());
 			}
+	
+		if(service.equals(REGISTER))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
 		return returnObj;
 		} catch (Exception e) {
 			throw e;
