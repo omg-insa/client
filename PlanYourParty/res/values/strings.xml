@@ -12,6 +12,11 @@
     <string name="forgotten_password">Mot de passe oublié ?</string>
 	<string name="loading">Loading</string>
 	<string name="alert_dialog_ok">OK</string>
+	<string name="secret_question_answer">Votre reponse</string>
+	<string name="validate">Valider</string>
+	<string name="cancel">Annuler</string>
+	<string name="old_password">Ancien mot de passe</string>
+	<string name="new_password">Nouveau mot de passe</string>
 	<string name="email">Email</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Annuler</string>
