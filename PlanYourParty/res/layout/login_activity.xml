@@ -7,9 +7,10 @@
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo" />
+        android:layout_height="100dp"
+        android:src="@drawable/logo" 
+        android:layout_width="125dp"
+        android:layout_marginBottom="20dp" />
 
    <LinearLayout
        xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,8 +19,8 @@
        android:layout_height="wrap_content"
        android:background="@drawable/roundbackground"
        android:orientation="vertical"
-       android:layout_gravity="center"
-       android:padding="20dp" >
+       android:padding="20dp"
+       android:layout_marginBottom="20dp" >
 
        <EditText
            android:id="@+id/username"
@@ -56,7 +57,7 @@
                android:width="100dp" />
 
            <Button
-               android:id="@+id/newUser"
+               android:id="@+id/register"
                style="@style/button_text"
                android:layout_width="wrap_content"
                android:background="@drawable/red_button"

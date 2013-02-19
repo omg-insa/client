@@ -10,6 +10,7 @@ import java.util.logging.Level;
  * 
  * 
  */
+
 public final class SimpleFormatter implements Formatter {
 
 	private static SimpleDateFormat dateFormat;

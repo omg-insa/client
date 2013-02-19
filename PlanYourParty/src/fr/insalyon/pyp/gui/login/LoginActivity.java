@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.widget.FrameLayout;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
