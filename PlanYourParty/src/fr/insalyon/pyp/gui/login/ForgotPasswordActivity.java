@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
+import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
@@ -57,9 +58,6 @@ public class ForgotPasswordActivity extends BaseActivity {
 		secretQuestionText = (EditText) findViewById(R.id.secretQuestion);
 		secretAnswerText = (EditText) findViewById(R.id.secretQuestionAnswer);
 		
-		// Birthday
-		
-		
 		usernameText.setOnFocusChangeListener(new OnFocusChangeListener() {
 			
 			@Override
@@ -77,7 +75,14 @@ public class ForgotPasswordActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO: Verify answer and birthday
+				if (usernameText.getText().toString().equals("")
+						&& secretAnswerText.getText().toString().equals("")){
+						//&& birthday){ TODO: check birthday
+					Popups.showPopup(Constants.IncompleatData);
+					return;
+				}
+				// Verify answer and birthday
+				new CheckAnswerTask().execute();
 			}
 		});
 		
@@ -111,6 +116,11 @@ public class ForgotPasswordActivity extends BaseActivity {
 		}
 	}
 	
+	/**
+	 * Class that get the secret question regarding the username
+	 * @author Daniel
+	 *
+	 */
 	private class ForgotPasswordTask extends AsyncTask<Void, Void, Void> {
 
 		ProgressDialog mProgressDialog;
@@ -157,6 +167,78 @@ public class ForgotPasswordActivity extends BaseActivity {
 					.getText().toString()));
 			try {
 				res = srvCon.connect(ServerConnection.GET_SECRET_QUESTION_FOR_RECOVERY, parameters);
+			} catch (Exception e) {
+				if (e.getMessage().equals("403")) {
+					SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
+				    settings.edit().remove("auth_token");
+				} else {
+					e.printStackTrace();
+				}
+			}
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * Class that check if the answer is correct regarding username, answer & birthday
+	 * @author Daniel
+	 *
+	 */
+	private class CheckAnswerTask extends AsyncTask<Void, Void, Void> {
+
+		ProgressDialog mProgressDialog;
+		JSONObject res;
+
+		@Override
+		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
+			if (res != null) {
+				try {
+					if (res.has("error")) {
+						// Error
+						String error;
+						error = res.getString("error");
+						ForgotPasswordActivity.this.networkError(error);
+					}
+
+					else {
+						// OK
+						String tmpToken = res.getString("tmp_token");
+						SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
+					    settings.edit().putString("tmp_token", tmpToken);
+					    // TODO: Save the username ??
+					    
+					    // Redirect to reset password after recovery
+					    IntentHelper.openNewActivity(ResetPasswordAfterRecoveryActivity.class, null, false,false);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+			mProgressDialog = ProgressDialog.show(ForgotPasswordActivity.this,
+					getString(R.string.app_name), getString(R.string.loading));
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// Send request to server for forgot password
+			ServerConnection srvCon = ServerConnection.GetServerConnection();
+			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+			parameters.add(new BasicNameValuePair("username", usernameText
+					.getText().toString()));
+			parameters.add(new BasicNameValuePair("answer", secretAnswerText
+					.getText().toString()));
+			//TODO: get the birthday with the right fields
+			String birthday = "01/01/1990";
+			parameters.add(new BasicNameValuePair("birthday", birthday));
+			
+			try {
+				res = srvCon.connect(ServerConnection.CHECK_SECRET_ANSWER, parameters);
 			} catch (Exception e) {
 				if (e.getMessage().equals("403")) {
 					SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
