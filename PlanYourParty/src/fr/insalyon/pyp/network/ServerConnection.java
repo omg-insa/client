@@ -20,6 +20,8 @@ public class ServerConnection {
 	//services
 	public static final String LOGIN = "login/";
 	public static final String REGISTER = "register/";
+	public static final String GET_SECRET_QUESTION_FOR_RECOVERY = "get_secret_question_for_recovery/";
+	public static final String CHECK_SECRET_ANSWER = "check_secret_answer/";
 
 	private ServerConnection()
 	{
