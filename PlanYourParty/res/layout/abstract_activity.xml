@@ -3,35 +3,39 @@
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:id="@+id/abstractLinearLayoutGlobal">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/abstract_header_layout_header"
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
-        android:weightSum="1" >
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@drawable/top_bar">
 
         <ImageView
-            android:id="@+id/abstract_header_picto_rigth"
-            android:layout_width="wrap_content"
+            android:id="@+id/abstract_header_picto_right"
+            android:layout_width="38dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:layout_marginLeft="2dp"
+            android:contentDescription="@string/logo"
             android:src="@drawable/logo"
             android:visibility="visible" />
 
         <LinearLayout
             android:id="@+id/linearLayout1"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true" >
+            android:layout_gravity="right"
+            android:gravity="right" >
 
             <ImageView
                 android:id="@+id/abstract_header_picto_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/home_icon"
+                android:contentDescription="@string/home_logo"
                 android:visibility="visible" />
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
 	<LinearLayout
 	    android:id="@+id/abstractLinearLayout"

@@ -98,7 +98,7 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	 * @param hide
 	 */
 	public void hideHeader(boolean hide) {
-		RelativeLayout headerView = (RelativeLayout) findViewById(R.id.abstract_header_layout_header);
+		LinearLayout headerView = (LinearLayout) findViewById(R.id.abstract_header_layout_header);
 		if (hide) {
 			headerView.setVisibility(View.GONE);
 		} else {

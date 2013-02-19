@@ -10,7 +10,8 @@
         android:layout_height="100dp"
         android:src="@drawable/logo" 
         android:layout_width="125dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp" 
+        android:contentDescription="@string/logo"/>
 
    <LinearLayout
        xmlns:android="http://schemas.android.com/apk/res/android"
@@ -46,7 +47,8 @@
        <LinearLayout
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_gravity="center_horizontal" >
+           android:layout_gravity="center_horizontal"
+           android:layout_marginBottom="5dp" >
 
            <Button
                android:id="@+id/login"
@@ -65,15 +67,26 @@
                android:width="100dp" />
        </LinearLayout>
 
-       <TextView
+       <Button
            android:id="@+id/forgotPassword"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_gravity="center_horizontal"
            android:text="@string/forgotten_password"
-           android:textSize="10sp"
+           android:textColor="#dddddd"
+           android:textSize="12sp" 
+           android:background="@drawable/transparent_button"/>
+       
+       <!--  <TextView
+           android:id="@+id/forgotPassword"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:text="@string/forgotten_password"
            android:textAppearance="?android:attr/textAppearanceMedium"
-           android:textColor="#dddddd" />
+           android:textColor="#dddddd"
+           android:textSize="12sp" />-->
+
    </LinearLayout>
 
 </LinearLayout>
