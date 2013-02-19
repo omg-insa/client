@@ -41,7 +41,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 				finish();
 			}
 		});
-		hideHeader(true);
+		hideHeader(false);
 	}
 
 	
