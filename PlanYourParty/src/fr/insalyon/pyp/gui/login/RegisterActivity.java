@@ -91,6 +91,12 @@ public class RegisterActivity extends BaseActivity {
 				new RegisterTask().execute();
 			}
 		});
+		
+		cancelButton.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	}
 
 	@Override
