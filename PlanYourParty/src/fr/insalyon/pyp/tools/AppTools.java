@@ -18,7 +18,7 @@ import fr.insalyon.pyp.tools.logger.FileLog;
  */
 public abstract class AppTools {
 
-	private static final String PREFS_NAME = "PYP";
+	public static final String PREFS_NAME = "PYP";
 	private static final String V1_FIRST_LAUNCH = "FistLaunchV1";
 	private static final String MAIL_ADDRESS = "mail_address";
 	private static final String PASSWORD = "password";

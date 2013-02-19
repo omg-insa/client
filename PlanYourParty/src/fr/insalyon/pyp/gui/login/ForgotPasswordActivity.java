@@ -238,7 +238,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 					    // TODO: Save the username ??
 					    
 					    // Redirect to reset password after recovery
-					    IntentHelper.openNewActivity(ResetPasswordAfterRecoveryActivity.class, null, false,false);
+					    IntentHelper.openNewActivity(ResetPasswordAfterRecoveryActivity.class, null, false);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -268,12 +268,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 			try {
 				res = srvCon.connect(ServerConnection.CHECK_SECRET_ANSWER, parameters);
 			} catch (Exception e) {
-				if (e.getMessage().equals("403")) {
-					SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
-				    settings.edit().remove("auth_token");
-				} else {
 					e.printStackTrace();
-				}
 			}
 			return null;
 		}

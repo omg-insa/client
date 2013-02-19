@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -129,8 +130,11 @@ public class LoginActivity extends BaseActivity {
 					else {
 						// OK
 						String token = res.getString("auth_token");
-						SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
-					    settings.edit().putString("auth_token", token);
+						SharedPreferences settings = getSharedPreferences(AppTools.PREFS_NAME, MODE_PRIVATE);
+					    Editor editor = settings.edit();
+					    editor.putString("auth_token", token);
+					    editor.commit();
+					    LoginActivity.this.finish();
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -166,12 +170,7 @@ public class LoginActivity extends BaseActivity {
 			try {
 				res = srvCon.connect(ServerConnection.LOGIN, parameters);
 			} catch (Exception e) {
-				if (e.getMessage()!= null && e.getMessage().equals("403")) {
-					SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
-				    settings.edit().remove("auth_token");
-				} else {
 					e.printStackTrace();
-				}
 			}
 			return null;
 		}

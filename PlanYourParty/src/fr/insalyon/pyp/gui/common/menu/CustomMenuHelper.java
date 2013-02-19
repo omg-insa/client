@@ -29,6 +29,16 @@ public class CustomMenuHelper {
 		Resources res = PYPContext.getContext().getResources();
 		ArrayList<CustomMenuItem> menuItems = new ArrayList<CustomMenuItem>();
 		CustomMenuItem cmi = new CustomMenuItem();
+		cmi.setCaption(res.getString(R.string.settings));
+		cmi.setImageResourceId(android.R.drawable.ic_menu_preferences);
+		cmi.setId(Constants.MENU_ITEM_1);
+		menuItems.add(cmi);
+
+		cmi = new CustomMenuItem();
+		cmi.setCaption(res.getString(R.string.logout));
+		cmi.setImageResourceId(android.R.drawable.ic_menu_rotate);
+		cmi.setId(Constants.MENU_ITEM_2);
+		menuItems.add(cmi);
 		
 		if (!mMenu.isShowing())
 			try {
@@ -44,7 +54,7 @@ public class CustomMenuHelper {
 		} else {
 			// Note it doesn't matter what widget you send the menu as long as
 			// it gets view.
-			mMenu.show(PYPContext.getActiveActivity().findViewById(R.id.abstract_header_layout_header));
+			mMenu.show(PYPContext.getActiveActivity().findViewById(R.id.abstract_header_layout));
 		}
 	}
 }

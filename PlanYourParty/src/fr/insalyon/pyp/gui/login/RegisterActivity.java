@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -176,13 +175,7 @@ public class RegisterActivity extends BaseActivity {
 			try {
 				res = srvCon.connect(ServerConnection.REGISTER, parameters);
 			} catch (Exception e) {
-				if (e.getMessage() != null && e.getMessage().equals("403")) {
-					SharedPreferences settings = getSharedPreferences(
-							Constants.TAG, 0);
-					settings.edit().remove("auth_token");
-				} else {
 					e.printStackTrace();
-				}
 			}
 			return null;
 		}

@@ -129,7 +129,7 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 						SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
 					    settings.edit().putString("tmp_token", tmpToken);
 					    // Redirect to reset password after recovery
-					    IntentHelper.openNewActivity(ResetPasswordAfterRecoveryActivity.class, null, false,false);
+					    IntentHelper.openNewActivity(ResetPasswordAfterRecoveryActivity.class, null, false);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -163,12 +163,7 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 			try {
 				res = srvCon.connect(ServerConnection.CHECK_SECRET_ANSWER, parameters);
 			} catch (Exception e) {
-				if (e.getMessage().equals("403")) {
-					settings = getSharedPreferences(Constants.TAG, 0);
-				    settings.edit().remove("auth_token");
-				} else {
 					e.printStackTrace();
-				}
 			}
 			return null;
 		}

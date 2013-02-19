@@ -8,6 +8,8 @@ import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.menu.CustomMenu.OnMenuItemSelectedListener;
 import fr.insalyon.pyp.gui.common.menu.CustomMenuHelper;
 import fr.insalyon.pyp.gui.common.menu.CustomMenuItem;
+import fr.insalyon.pyp.gui.login.LoginActivity;
+import fr.insalyon.pyp.gui.main.MainActivity;
 
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.PYPContext;
@@ -16,6 +18,8 @@ import fr.insalyon.pyp.tools.Constants;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -88,7 +92,7 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 
 		// set the active activity
 		PYPContext.setActiveActivity(this);
-		myMenu = new CustomMenuHelper(1, this);
+		myMenu = new CustomMenuHelper(2, this);
 
 	}
 
@@ -98,7 +102,7 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	 * @param hide
 	 */
 	public void hideHeader(boolean hide) {
-		LinearLayout headerView = (LinearLayout) findViewById(R.id.abstract_header_layout_header);
+		LinearLayout headerView = (LinearLayout) findViewById(R.id.abstract_header_layout);
 		if (hide) {
 			headerView.setVisibility(View.GONE);
 		} else {
@@ -126,8 +130,16 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 			headerView.setVisibility(View.VISIBLE);
 		}
 	}
-
-
+	
+	protected void checkLoggedIn(){
+		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0);
+		AppTools.debug("Token: " + settings.getAll());
+		if(settings.getString("auth_token", "").equals("")){
+			IntentHelper.openNewActivity(LoginActivity.class, null, false);
+		}
+	}
+	
+	
 	@Override
 	public void onRestart() {
 		super.onRestart();
@@ -255,7 +267,17 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	}
 
 	public void MenuItemSelectedEvent(CustomMenuItem selection) {
-	
+		switch (selection.getId()) {
+		case Constants.MENU_ITEM_1:
+			break;
+		case Constants.MENU_ITEM_2:
+			SharedPreferences settings = PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0);
+		    Editor editor = settings.edit();
+		    editor.remove("auth_token");
+		    editor.commit();
+			IntentHelper.openNewActivity(MainActivity.class, null, false);
+		    break;
+		}
 	}
 
 	protected void cancelAllRunningTasks() {

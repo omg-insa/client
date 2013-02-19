@@ -18,8 +18,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+
 import fr.insalyon.pyp.lib.JSONParser;
 import fr.insalyon.pyp.tools.AppTools;
+import fr.insalyon.pyp.tools.Constants;
+import fr.insalyon.pyp.tools.PYPContext;
 
 
 public class HttpRequest {
@@ -63,6 +68,10 @@ public class HttpRequest {
 			    }
 				return null;
 			case 403:
+				SharedPreferences settings = PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0);
+			    Editor editor = settings.edit();
+			    editor.remove("auth_token");
+			    editor.commit();
 				throw new Exception("403");
 			case 405:
 				throw new Exception("405");
