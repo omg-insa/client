@@ -28,7 +28,7 @@
 	<string name="passwordTooShort_title">The password is too short</string>
 	<string name="passwordTooShort_text">Please enter a min 4 chars password</string>
 	<string name="passwordsDontMatch_title">Passwords don\'t match</string>
-	<string name="passwordsDontMatch_text">The passwrods don't match.</string>
+	<string name="passwordsDontMatch_text">The passwrods don\'t match.</string>
 	
 	
 </resources>
