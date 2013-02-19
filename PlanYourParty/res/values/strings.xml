@@ -12,9 +12,23 @@
     <string name="forgotten_password">Mot de passe oublié ?</string>
 	<string name="loading">Loading</string>
 	<string name="alert_dialog_ok">OK</string>
+	<string name="email">Email</string>
+    <string name="confirm">Confirm</string>
 	<!-- Popups -->
 	<string name="initWrongUsernameOrPassword_title">Wrong credentials</string>
 	<string name="initWrongUsernameOrPassword_text">You have entered a wrong username or password</string>
 	<string name="initIncompleatData_title">Incompleat data</string>
 	<string name="initIncompleatData_text">You haven\'t compleated all the filds</string>
+	<string name="InvalidEmail_title">Invalid email</string>
+	<string name="InvalidEmail_text">You haven\'t entered a valid email.</string>
+	<string name="EmailAlreadyUsed_title">Email already used</string>
+	<string name="EmailAlreadyUsed_text">The email you have entered is already used</string>
+	<string name="UsernameAlreadyUsed_title">Username already used</string>
+	<string name="UsernameAlreadyUsed_text">The username you have entered is already used</string>
+	<string name="passwordTooShort_title">The password is too short</string>
+	<string name="passwordTooShort_text">Please enter a min 4 chars password</string>
+	<string name="passwordsDontMatch_title">Passwords don\'t match</string>
+	<string name="passwordsDontMatch_text">The passwrods don\'t match.</string>
+	
+	
 </resources>

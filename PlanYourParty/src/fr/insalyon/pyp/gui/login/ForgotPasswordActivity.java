@@ -29,7 +29,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 		abstractView.addView(mainView);
 		
 		
-		hideHeader(true);
+		hideHeader(false);
 	}
 
 	
