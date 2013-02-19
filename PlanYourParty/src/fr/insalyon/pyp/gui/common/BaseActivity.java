@@ -5,6 +5,7 @@ import java.util.logging.Level;
 
 import fr.insalyon.pyp.R;
 
+import fr.insalyon.pyp.gui.account.AcountActivity;
 import fr.insalyon.pyp.gui.common.menu.CustomMenu.OnMenuItemSelectedListener;
 import fr.insalyon.pyp.gui.common.menu.CustomMenuHelper;
 import fr.insalyon.pyp.gui.common.menu.CustomMenuItem;
@@ -269,6 +270,8 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	public void MenuItemSelectedEvent(CustomMenuItem selection) {
 		switch (selection.getId()) {
 		case Constants.MENU_ITEM_1:
+			IntentHelper.openNewActivity(AcountActivity.class, null, false);
+
 			break;
 		case Constants.MENU_ITEM_2:
 			SharedPreferences settings = PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0);

@@ -23,7 +23,6 @@ import android.content.SharedPreferences.Editor;
 
 import fr.insalyon.pyp.lib.JSONParser;
 import fr.insalyon.pyp.tools.AppTools;
-import fr.insalyon.pyp.tools.Constants;
 import fr.insalyon.pyp.tools.PYPContext;
 
 

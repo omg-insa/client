@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+<LinearLayout
+       xmlns:android="http://schemas.android.com/apk/res/android"
+       android:id="@+id/profile_backgorund"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="@drawable/roundbackground"
+       android:orientation="vertical"
+       android:padding="20dp"
+       android:layout_marginBottom="20dp" >
+       
+    <Button
+        android:id="@+id/profils_info_perso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:hint="@string/profils_activity_Informations_Perso"
+        android:minWidth="200dp"
+        android:text="@string/profils_activity_Informations_Perso"
+        android:textSize="20sp"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/profils_activity_interets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top|center_horizontal"
+        android:hint="@string/profils_activity_Interets"
+        android:minWidth="200dp"
+        android:text="@string/profils_activity_Interets"
+        android:textSize="20sp"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/profils_activity_securite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top|center_horizontal"
+        android:hint="@string/profils_activity_Securite"
+        android:minWidth="200dp"
+        android:text="@string/profils_activity_Securite"
+        android:textSize="20sp"
+        android:textStyle="normal" />
+</LinearLayout>
+</LinearLayout>

@@ -25,6 +25,20 @@
     
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
+    
+    <string name="profils_activity_Informations_Perso">Informations Perso</string>
+	<string name="profils_activity_Interets">Intérêts</string>
+	<string name="profils_activity_Securite">Sécurité</string>
+	<string name="security_activity_question">Entrer votre question</string>
+	<string name="security_activity_reponse">Entrer votre réponse</string>
+	<string name="security_activity_question_secrete">Question récupération mot de passe :</string>
+	<string name="security_activity_changement_mdp">Changement du mot de passe :</string>
+	<string name="security_activity_ancien_mdp">Ancien mdp</string>
+	<string name="security_activity_nouveau_mdp">Nouveau mdp</string>
+	<string name="security_activity_nouveau_mdp_confim">Confirmation mdp</string>
+	<string name="security_activity_button_changement_mdp">Modifier</string>
+	<string name="security_activity_button_changement_question">Enregistrer</string>
+	<string name="security_activity_mdp_question">Mot de passe</string>
 	<!-- Popups -->
 	<string name="initWrongUsernameOrPassword_title">Wrong credentials</string>
 	<string name="initWrongUsernameOrPassword_text">You have entered a wrong username or password</string>
@@ -40,6 +54,8 @@
 	<string name="passwordTooShort_text">Please enter a min 4 chars password</string>
 	<string name="passwordsDontMatch_title">Passwords don\'t match</string>
 	<string name="passwordsDontMatch_text">The passwrods don\'t match.</string>
+	<string name="curentPasswordWrong_title">Password don\'t match</string>
+	<string name="curentPasswordWrong_text">The current password is wrong.</string>
 	
 	
 </resources>
