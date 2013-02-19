@@ -36,6 +36,10 @@ public class ForgotPasswordActivity extends BaseActivity {
 	private EditText usernameText;
 	private EditText secretQuestionText;
 	private EditText secretAnswerText;
+	private EditText daysText;
+	private EditText monthsText;
+	private EditText yearsText;
+	private boolean usernameFilled = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,27 +60,32 @@ public class ForgotPasswordActivity extends BaseActivity {
 		usernameText = (EditText) findViewById(R.id.username);
 		secretQuestionText = (EditText) findViewById(R.id.secretQuestion);
 		secretAnswerText = (EditText) findViewById(R.id.secretQuestionAnswer);
+		daysText = (EditText) findViewById(R.id.days);
+		monthsText = (EditText) findViewById(R.id.months);
+		yearsText = (EditText) findViewById(R.id.years);
+		
+		hideSecretQuestion();
 		
 		// Birthday
-		
-		
-		usernameText.setOnFocusChangeListener(new OnFocusChangeListener() {
-			
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (usernameText.getText().toString().equals("")){
-					Popups.showPopup(Constants.IncompleatData);
-					return;
-				}
-				// Send request to get the secret question
-				new ForgotPasswordTask().execute();
-			}
-		});
 		
 		validateButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
+				if(usernameFilled)
+				{
+					if (usernameText.getText().toString().equals("")){
+						Popups.showPopup(Constants.IncompleatData);
+						return;
+					}
+					
+					
+					// Send request to get the secret question
+					new ForgotPasswordTask().execute();
+					usernameFilled = true;
+					showSecretQuestion();
+				}
+				else{}
 				// TODO: Verify answer and birthday
 			}
 		});
@@ -88,7 +97,24 @@ public class ForgotPasswordActivity extends BaseActivity {
 		});
 		hideHeader(false);
 	}
-
+	
+	private void hideSecretQuestion()
+	{
+		secretQuestionText.setVisibility(View.GONE);
+		secretAnswerText.setVisibility(View.GONE);
+		daysText.setVisibility(View.GONE);
+		monthsText.setVisibility(View.GONE);
+		yearsText.setVisibility(View.GONE);
+	}
+	
+	private void showSecretQuestion()
+	{
+		secretQuestionText.setVisibility(View.VISIBLE);
+		secretAnswerText.setVisibility(View.VISIBLE);
+		daysText.setVisibility(View.VISIBLE);
+		monthsText.setVisibility(View.VISIBLE);
+		yearsText.setVisibility(View.VISIBLE);
+	}
 	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
