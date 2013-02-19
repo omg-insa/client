@@ -63,6 +63,11 @@ public class RegisterActivity extends BaseActivity {
 				.getBackground();
 		background.setAlpha(95);
 		hideHeader(false);
+		//cancelButton.setOnClickListener(new OnClickListener() {
+		//	public void onClick(View v) {
+		//		RegisterActivity.this.finish();
+		//	}
+		//});
 		registerButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				if (usernameField.getText().toString().equals("")
@@ -108,8 +113,8 @@ public class RegisterActivity extends BaseActivity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			//mProgressDialog.dismiss();
-			
+			// mProgressDialog.dismiss();
+
 			if (res != null) {
 				try {
 					if (res.has("error")) {
@@ -139,8 +144,8 @@ public class RegisterActivity extends BaseActivity {
 						params[1] = passwordField.getText().toString();
 						Intent intent = new Intent(PYPContext.getContext(),
 								RegisterActivity.class);
-						intent.putExtra(Constants.PARAMNAME,params);
-						setResult(RESULT_OK,intent);
+						intent.putExtra(Constants.PARAMNAME, params);
+						setResult(RESULT_OK, intent);
 						RegisterActivity.this.finish();
 					}
 				} catch (JSONException e) {
@@ -151,8 +156,8 @@ public class RegisterActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
-			//mProgressDialog = ProgressDialog.show(RegisterActivity.this,
-			//		getString(R.string.app_name), getString(R.string.loading));
+			// mProgressDialog = ProgressDialog.show(RegisterActivity.this,
+			// getString(R.string.app_name), getString(R.string.loading));
 		}
 
 		@Override
@@ -169,7 +174,7 @@ public class RegisterActivity extends BaseActivity {
 			try {
 				res = srvCon.connect(ServerConnection.REGISTER, parameters);
 			} catch (Exception e) {
-				if (e.getMessage()!= null && e.getMessage().equals("403")) {
+				if (e.getMessage() != null && e.getMessage().equals("403")) {
 					SharedPreferences settings = getSharedPreferences(
 							Constants.TAG, 0);
 					settings.edit().remove("auth_token");
