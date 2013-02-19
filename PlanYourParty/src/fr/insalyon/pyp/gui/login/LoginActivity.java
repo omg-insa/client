@@ -8,7 +8,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -70,12 +72,12 @@ public class LoginActivity extends BaseActivity {
 		});
 		registerButton.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
-				IntentHelper.openNewActivity(RegisterActivity.class, null, false);
+				IntentHelper.openNewActivity(RegisterActivity.class, null, false,true);
 			}
 		});
 		forgotPasswordText.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
-				IntentHelper.openNewActivity(ForgotPasswordActivity.class, null, false);
+				IntentHelper.openNewActivity(ForgotPasswordActivity.class, null, false,false);
 			}
 		});
 		hideHeader(true);
@@ -100,6 +102,16 @@ public class LoginActivity extends BaseActivity {
 		if (error.equals("Incomplete data")) {
 			Popups.showPopup(Constants.IncompleatData);
 		}
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (resultCode == Activity.RESULT_OK) {
+	    	String[] row_values = data.getExtras().getStringArray(Constants.PARAMNAME);
+	    	usernameField.setText(row_values[0]);
+	    	passwordField.setText(row_values[1]);
+			new LoginTask().execute();
+	    }
 	}
 
 	private class LoginTask extends AsyncTask<Void, Void, Void> {
@@ -159,7 +171,7 @@ public class LoginActivity extends BaseActivity {
 			try {
 				res = srvCon.connect(ServerConnection.LOGIN, parameters);
 			} catch (Exception e) {
-				if (e.getMessage().equals("403")) {
+				if (e.getMessage()!= null && e.getMessage().equals("403")) {
 					SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
 				    settings.edit().remove("auth_token");
 				} else {
