@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
 
     <string name="app_name">PlanYourParty</string>
     <string name="hello_world">Hello world!</string>
@@ -23,7 +23,7 @@
     <string name="confirm">Valider</string>
     <string name="cancel">Annuler</string>
     <string name="settings">Paramètres</string>
-    <string name="logout">Deconnexion</string>
+    <string name="logout">Quitter</string>
     <string name="profils_activity_Informations_Perso">Informations Perso</string>
 
 	<string name="profils_activity_Interets">Intérêts</string>
@@ -60,8 +60,6 @@
     <string name="BirthdayDate">JJ/MM/AAAA</string>
     <!-- Popups -->
 
-   
-
 	
     <string name="initWrongUsernameOrPassword_title">Informations incorrectes</string>
     <string name="initWrongUsernameOrPassword_text">Vous avez entré un mot de passe ou un nom d\'utilisateur erroné</string>
@@ -83,12 +81,15 @@
     <string name="WrongUsername_text">L\'utilisateur que vous cherchez n\'existe pas.</string>
     <string name="NoSecretQuestion_title">Aucune question de securite</string>
     <string name="NoSecretQuestion_text">Vous n\'avez specifie aucune information de securite dans votre profil.</string>
-<<<<<<< HEAD
+	<string name="WrongAnswer_title">Reponse incorrecte</string>
+	<string name="WrongAnswer_text">Votre reponse ou votre date d\'anniversaire est incorrecte.</string>
+	<string name="dateFormatWrong_title">Date incorrecte </string>
+    <string name="dateFormatWrong_text">S\'il vous plait entrer une date valide (DD MM YYYY)</string>
+    <string name="WrongData_title">Donnees erronees</string>
+    <string name="WrongData_text">Les donnees envoyees au serveur sont erronees.</string>
+    <string name="DifferentPassword_title">Mot de passe differents</string>
+    <string name="DifferentPassword_text">Le mot de passe specifie  n\'est pas le meme.</string>
     
-</resources>
-=======
-    <string name="dateFormatWrong_title">Wrong date </string>
-    <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
 
 </resources>
->>>>>>> 046198caa338ba78f85648c8297b225dd7c0078d
+

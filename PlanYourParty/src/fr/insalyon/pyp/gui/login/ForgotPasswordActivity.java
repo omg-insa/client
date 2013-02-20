@@ -1,6 +1,7 @@
 package fr.insalyon.pyp.gui.login;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -43,7 +44,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState, Constants.REGISTER_CONST);
+		super.onCreate(savedInstanceState, Constants.FORGOT_PASSWORD_CONST);
 		AppTools.info("on create ForgotPasswordActivity");
 		initGraphicalInterface();
 	}
@@ -72,7 +73,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				if(usernameFilled)
+				if(!usernameFilled)
 				{
 					if (usernameText.getText().toString().equals("")){
 						Popups.showPopup(Constants.IncompleatData);
@@ -81,13 +82,11 @@ public class ForgotPasswordActivity extends BaseActivity {
 					
 					// Send request to get the secret question
 					new ForgotPasswordTask().execute();
-					usernameFilled = true;
-					showSecretQuestion();
 				}
 				else{
 					if (usernameText.getText().toString().equals("")
-							&& secretAnswerText.getText().toString().equals("")){
-							//&& birthday){ TODO: check birthday
+							 || secretAnswerText.getText().toString().equals("")
+							|| !checkDate()){
 						Popups.showPopup(Constants.IncompleatData);
 						return;
 					}
@@ -135,12 +134,41 @@ public class ForgotPasswordActivity extends BaseActivity {
 		super.onResume();
 	}
 	
+	
+	private boolean checkDate() {
+		try {
+			if (Integer.parseInt(daysText.getText().toString()) > 31
+					|| Integer.parseInt(daysText.getText().toString()) < 1
+					|| Integer.parseInt(monthsText.getText().toString()) > 12
+					|| Integer.parseInt(monthsText.getText().toString()) < 1
+					|| Integer.parseInt(yearsText.getText().toString()) > Calendar.getInstance().get(Calendar.YEAR)
+					|| Integer.parseInt(yearsText.getText().toString()) < 1900) {
+				Popups.showPopup(Constants.dateFormatWrong);
+				AppTools.debug("Wrong numbers in date" + daysText.getText() + monthsText.getText() + yearsText.getText());
+				return false;
+
+			}
+		} catch (NumberFormatException e) {
+			AppTools.debug("NumberFormatException numbers in date" + daysText.getText() + monthsText.getText() + yearsText.getText());
+			Popups.showPopup(Constants.dateFormatWrong);
+			return false;
+		}
+		return true;
+	}
+	
+	
 	public void networkError(String error) {
 		if (error.equals("User does not exists")) {
 			Popups.showPopup(Constants.WrongUsername);
 		}
 		if (error.equals("User does not have security questions")) {
 			Popups.showPopup(Constants.NoSecretQuestion);
+		}
+		if (error.equals("Incomplete data")) {
+			Popups.showPopup(Constants.IncompleatData);
+		}
+		if (error.equals("Wrong answer")) {
+			Popups.showPopup(Constants.WrongAnswer);
 		}
 	}
 	
@@ -170,6 +198,8 @@ public class ForgotPasswordActivity extends BaseActivity {
 						// OK
 						String secretQuestion = res.getString("secret_question");
 					    // Print the secret question
+						usernameFilled = true;
+						showSecretQuestion();
 					    secretQuestionText.setText(secretQuestion);
 					}
 				} catch (JSONException e) {
@@ -221,15 +251,14 @@ public class ForgotPasswordActivity extends BaseActivity {
 						String error;
 						error = res.getString("error");
 						ForgotPasswordActivity.this.networkError(error);
-					}
-
-					else {
+					}else {
 						// OK
 						String tmpToken = res.getString("tmp_token");
 						
 					    String[] params = new String[2];
 					    params[0] = usernameText.getText().toString();
 					    params[1] = tmpToken;
+					    
 					    // Redirect to reset password after recovery
 					    IntentHelper.openNewActivity(ResetPasswordAfterRecoveryActivity.class, params, false);
 					}
@@ -254,10 +283,10 @@ public class ForgotPasswordActivity extends BaseActivity {
 					.getText().toString()));
 			parameters.add(new BasicNameValuePair("answer", secretAnswerText
 					.getText().toString()));
-			//TODO: get the birthday with the right fields
-			String birthday = "19901202";
-			parameters.add(new BasicNameValuePair("birthday", birthday));
-			
+			parameters.add(new BasicNameValuePair("birthday", yearsText.getText()
+					.toString()
+					+ monthsText.getText().toString()
+					+ daysText.getText().toString()));
 			try {
 				res = srvCon.connect(ServerConnection.CHECK_SECRET_ANSWER, parameters);
 			} catch (Exception e) {

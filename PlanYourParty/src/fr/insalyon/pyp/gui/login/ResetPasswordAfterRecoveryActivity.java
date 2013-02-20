@@ -23,6 +23,7 @@ import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
+import fr.insalyon.pyp.gui.main.MainActivity;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
@@ -34,12 +35,12 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 	private Button cancelButton;
 	private Button validateButton;
 	
-	private EditText oldPassword;
 	private EditText newPassword;
+	private EditText renewPassword;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState, Constants.REGISTER_CONST);
+		super.onCreate(savedInstanceState, Constants.RESET_PASSWORD_AFTER_RECOVERY_CONST);
 		AppTools.info("on create ResetPasswordAfterRecovery");
 		initGraphicalInterface();
 	}
@@ -53,8 +54,8 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 		
 		validateButton = (Button) findViewById(R.id.validate);
 		cancelButton = (Button) findViewById(R.id.cancel);
-		oldPassword = (EditText) findViewById(R.id.oldPassword);
 		newPassword = (EditText) findViewById(R.id.newPassword);
+		renewPassword = (EditText) findViewById(R.id.renewPassword);
 		
 		cancelButton.setOnClickListener( new OnClickListener() {
 			
@@ -69,9 +70,13 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 			
 			@Override
 			public void onClick(View v) {
-				if (oldPassword.getText().toString().equals("")
-						&& newPassword.getText().toString().equals("")){
+				if (newPassword.getText().toString().equals("")
+						|| renewPassword.getText().toString().equals("")){
 					Popups.showPopup(Constants.IncompleatData);
+					return;
+				}
+				if(!newPassword.getText().toString().equals(renewPassword.getText().toString())){
+					Popups.showPopup(Constants.DifferentPassword);
 					return;
 				}
 				// Send request to change the password
@@ -97,8 +102,12 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 
 	
 	public void networkError(String error) {
-		// TODO Auto-generated method stub
-		
+		if (error.equals("Incomplete data")) {
+			Popups.showPopup(Constants.IncompleatData);
+		}
+		if (error.equals("Wrong data")) {
+			Popups.showPopup(Constants.WrongData);
+		}
 	}
 	
 	
@@ -122,12 +131,10 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 						String error;
 						error = res.getString("error");
 						ResetPasswordAfterRecoveryActivity.this.networkError(error);
-					}
-
-					else {
+					}else {
 						// OK
 						//TODO: Make pop up new password ok!
-						IntentHelper.openNewActivity(LoginActivity.class, null, false);
+						IntentHelper.openNewActivity(MainActivity.class, null, false);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -153,7 +160,7 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 		    if( tmpToken == null || username == null)
 		    	return null; // TODO: popup error
 			parameters.add(new BasicNameValuePair("tmp_token", tmpToken));
-			parameters.add(new BasicNameValuePair("username", username));
+			parameters.add(new BasicNameValuePair("user", username));
 			parameters.add(new BasicNameValuePair("new_password", newPassword
 					.getText().toString()));
 			try {
