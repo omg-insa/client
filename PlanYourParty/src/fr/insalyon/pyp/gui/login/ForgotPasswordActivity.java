@@ -1,6 +1,7 @@
 package fr.insalyon.pyp.gui.login;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -84,8 +85,8 @@ public class ForgotPasswordActivity extends BaseActivity {
 				}
 				else{
 					if (usernameText.getText().toString().equals("")
-							 || secretAnswerText.getText().toString().equals("")){
-							//&& birthday){ TODO: check birthday
+							 || secretAnswerText.getText().toString().equals("")
+							|| !checkDate()){
 						Popups.showPopup(Constants.IncompleatData);
 						return;
 					}
@@ -132,6 +133,29 @@ public class ForgotPasswordActivity extends BaseActivity {
 	public void onResume() {
 		super.onResume();
 	}
+	
+	
+	private boolean checkDate() {
+		try {
+			if (Integer.parseInt(daysText.getText().toString()) > 31
+					|| Integer.parseInt(daysText.getText().toString()) < 1
+					|| Integer.parseInt(monthsText.getText().toString()) > 12
+					|| Integer.parseInt(monthsText.getText().toString()) < 1
+					|| Integer.parseInt(yearsText.getText().toString()) > Calendar.getInstance().get(Calendar.YEAR)
+					|| Integer.parseInt(yearsText.getText().toString()) < 1900) {
+				Popups.showPopup(Constants.dateFormatWrong);
+				AppTools.debug("Wrong numbers in date" + daysText.getText() + monthsText.getText() + yearsText.getText());
+				return false;
+
+			}
+		} catch (NumberFormatException e) {
+			AppTools.debug("NumberFormatException numbers in date" + daysText.getText() + monthsText.getText() + yearsText.getText());
+			Popups.showPopup(Constants.dateFormatWrong);
+			return false;
+		}
+		return true;
+	}
+	
 	
 	public void networkError(String error) {
 		if (error.equals("User does not exists")) {
@@ -259,10 +283,10 @@ public class ForgotPasswordActivity extends BaseActivity {
 					.getText().toString()));
 			parameters.add(new BasicNameValuePair("answer", secretAnswerText
 					.getText().toString()));
-			//TODO: get the birthday with the right fields
-			String birthday = "19900503";
-			parameters.add(new BasicNameValuePair("birthday", birthday));
-			
+			parameters.add(new BasicNameValuePair("birthday", yearsText.getText()
+					.toString()
+					+ monthsText.getText().toString()
+					+ daysText.getText().toString()));
 			try {
 				res = srvCon.connect(ServerConnection.CHECK_SECRET_ANSWER, parameters);
 			} catch (Exception e) {

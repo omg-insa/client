@@ -29,6 +29,8 @@ public class Popups {
 		initWrongUsername();
 		initWrongAnswer();
 		initNoSecretQuestion();
+		initWrongData();
+		initDifferentPassword();
 	}
 
 	/**
@@ -156,6 +158,24 @@ public class Popups {
 				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
 				null, null, false);
 		popupList.put(Constants.WrongAnswer, popup);
+	}
+	
+	private static void initWrongData() {
+		PopupEntity popup = new PopupEntity(
+				R.string.WrongData_title,
+				R.string.WrongData_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.WrongData, popup);
+	}
+	
+	private static void initDifferentPassword() {
+		PopupEntity popup = new PopupEntity(
+				R.string.DifferentPassword_title,
+				R.string.DifferentPassword_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.DifferentPassword, popup);
 	}
 	
 }
