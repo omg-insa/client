@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -64,8 +63,6 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 				finish();
 			}
 		});
-		
-		// TODO: IntentHelper.getActiveIntentParam(String[].class);
 		
 		
 		validateButton.setOnClickListener( new OnClickListener() {
@@ -129,11 +126,8 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 
 					else {
 						// OK
-						String tmpToken = res.getString("tmp_token");
-						SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
-					    settings.edit().putString("tmp_token", tmpToken);
-					    // Redirect to reset password after recovery
-					    IntentHelper.openNewActivity(ResetPasswordAfterRecoveryActivity.class, null, false);
+						//TODO: Make pop up new password ok!
+						IntentHelper.openNewActivity(LoginActivity.class, null, false);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -152,20 +146,18 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 			// Send request to server for forgot password
 			ServerConnection srvCon = ServerConnection.GetServerConnection();
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-			// Get the token
-			SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
-		    String tmpToken = settings.getString("tmp_token", null);
-		    if( tmpToken == null)
+			// Get the token & the username
+			String[] paramsGet = IntentHelper.getActiveIntentParam(String[].class);
+			String username = paramsGet[0];
+			String tmpToken = paramsGet[1];
+		    if( tmpToken == null || username == null)
 		    	return null; // TODO: popup error
-			parameters.add(new BasicNameValuePair("username", tmpToken));
+			parameters.add(new BasicNameValuePair("tmp_token", tmpToken));
+			parameters.add(new BasicNameValuePair("username", username));
 			parameters.add(new BasicNameValuePair("new_password", newPassword
 					.getText().toString()));
-			//TODO: Get the username
-			String username = null;
-			parameters.add(new BasicNameValuePair("birthday", username));
-			
 			try {
-				res = srvCon.connect(ServerConnection.CHECK_SECRET_ANSWER, parameters);
+				res = srvCon.connect(ServerConnection.UPDATE_PASSWORD_AFTER_RECOVERY, parameters);
 			} catch (Exception e) {
 					e.printStackTrace();
 			}

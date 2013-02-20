@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -170,8 +169,6 @@ public class ForgotPasswordActivity extends BaseActivity {
 					else {
 						// OK
 						String secretQuestion = res.getString("secret_question");
-						SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
-					    settings.edit().putString("secret_question", secretQuestion);
 					    // Print the secret question
 					    secretQuestionText.setText(secretQuestion);
 					}
