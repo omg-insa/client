@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+    <LinearLayout
+       xmlns:android="http://schemas.android.com/apk/res/android"
+       android:id="@+id/personal_info_backgorund"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="@drawable/roundbackground"
+       android:orientation="vertical"
+       android:padding="20dp"
+       android:layout_marginBottom="20dp" >
+ <EditText
+        android:id="@+id/persoanl_fullname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/fullName"
+        style="@style/text_edit" 
+        android:layout_gravity="center"
+        android:background="@drawable/text_edit"/>
+    <EditText
+        android:id="@+id/perosal_Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        style="@style/text_edit" 
+        android:layout_gravity="center"
+        android:background="@drawable/text_edit"/>
+    
+   
+    <Spinner
+    android:id="@+id/sex_spinner"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+        android:layout_gravity="center"
+
+    />
+        
+  
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/form_margin" >
+        
+   	 <EditText
+   	    android:id="@+id/persoanl_days"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:ems="2"
+        android:hint="01"
+        android:inputType="number"
+        android:maxLength="2"
+        android:layout_marginRight="@dimen/form_margin"
+        android:background="@drawable/text_edit"/>
+   	 
+   	 <EditText
+   	    android:id="@+id/persoanl_months"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:ems="2"
+        android:hint="01"
+        android:inputType="number"
+        android:maxLength="2"
+        android:layout_marginRight="@dimen/form_margin"
+        android:background="@drawable/text_edit"/>
+   	 
+   	 <EditText
+   	    android:id="@+id/personal_years"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:ems="4"
+        android:hint="1990"
+        android:inputType="number"
+        android:maxLength="4"
+        android:background="@drawable/text_edit"/>
+   	 
+    </LinearLayout>
+
+  <Spinner
+    android:id="@+id/status_spinner"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+        android:layout_gravity="center"
+
+    />
+
+       
+</LinearLayout>
+</LinearLayout>
+</ScrollView>

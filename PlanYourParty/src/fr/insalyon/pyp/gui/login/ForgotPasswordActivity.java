@@ -19,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
@@ -29,7 +30,7 @@ import fr.insalyon.pyp.tools.Constants;
 
 public class ForgotPasswordActivity extends BaseActivity {
 	private LinearLayout abstractView;
-	private LinearLayout mainView;
+	private ScrollView mainView;
 	
 	private Button cancelButton;
 	private Button validateButton;
@@ -52,7 +53,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 		// set layouts
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-		mainView = (LinearLayout) mInflater.inflate(R.layout.forgot_password_activity, null);
+		mainView = (ScrollView) mInflater.inflate(R.layout.forgot_password_activity, null);
 		abstractView.addView(mainView);
 		
 		validateButton = (Button) findViewById(R.id.validate);
