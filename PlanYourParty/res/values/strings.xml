@@ -71,5 +71,6 @@
     <string name="passwordsDontMatch_text">The passwrods don\'t match.</string>
     <string name="curentPasswordWrong_title">Password don\'t match</string>
     <string name="curentPasswordWrong_text">The current password is wrong.</string>
-
+	<string name="dateFormatWrong_title">Wrong date </string>
+	<string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
 </resources>
