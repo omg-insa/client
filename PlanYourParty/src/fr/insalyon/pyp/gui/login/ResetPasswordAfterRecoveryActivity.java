@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -19,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
@@ -29,7 +29,7 @@ import fr.insalyon.pyp.tools.Constants;
 
 public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 	private LinearLayout abstractView;
-	private LinearLayout mainView;
+	private ScrollView mainView;
 	
 	private Button cancelButton;
 	private Button validateButton;
@@ -48,7 +48,7 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 		// set layouts
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-		mainView = (LinearLayout) mInflater.inflate(R.layout.reset_password_after_recovery_activity, null);
+		mainView = (ScrollView) mInflater.inflate(R.layout.reset_password_after_recovery_activity, null);
 		abstractView.addView(mainView);
 		
 		validateButton = (Button) findViewById(R.id.validate);
@@ -63,6 +63,7 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 				finish();
 			}
 		});
+		
 		
 		validateButton.setOnClickListener( new OnClickListener() {
 			
@@ -125,11 +126,8 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 
 					else {
 						// OK
-						String tmpToken = res.getString("tmp_token");
-						SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
-					    settings.edit().putString("tmp_token", tmpToken);
-					    // Redirect to reset password after recovery
-					    IntentHelper.openNewActivity(ResetPasswordAfterRecoveryActivity.class, null, false);
+						//TODO: Make pop up new password ok!
+						IntentHelper.openNewActivity(LoginActivity.class, null, false);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -148,20 +146,18 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 			// Send request to server for forgot password
 			ServerConnection srvCon = ServerConnection.GetServerConnection();
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-			// Get the token
-			SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
-		    String tmpToken = settings.getString("tmp_token", null);
-		    if( tmpToken == null)
+			// Get the token & the username
+			String[] paramsGet = IntentHelper.getActiveIntentParam(String[].class);
+			String username = paramsGet[0];
+			String tmpToken = paramsGet[1];
+		    if( tmpToken == null || username == null)
 		    	return null; // TODO: popup error
-			parameters.add(new BasicNameValuePair("username", tmpToken));
+			parameters.add(new BasicNameValuePair("tmp_token", tmpToken));
+			parameters.add(new BasicNameValuePair("username", username));
 			parameters.add(new BasicNameValuePair("new_password", newPassword
 					.getText().toString()));
-			//TODO: Get the username
-			String username = null;
-			parameters.add(new BasicNameValuePair("birthday", username));
-			
 			try {
-				res = srvCon.connect(ServerConnection.CHECK_SECRET_ANSWER, parameters);
+				res = srvCon.connect(ServerConnection.UPDATE_PASSWORD_AFTER_RECOVERY, parameters);
 			} catch (Exception e) {
 					e.printStackTrace();
 			}

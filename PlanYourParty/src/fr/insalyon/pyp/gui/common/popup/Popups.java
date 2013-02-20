@@ -25,6 +25,8 @@ public class Popups {
 		initpasswordTooShort();
 		initUsernameAlreadyUsed();
 		initcurentPasswordWrong();
+		initWrongUsername();
+		initNoSecretQuestion();
 	}
 
 	/**
@@ -116,5 +118,24 @@ public class Popups {
 				null, null, false);
 		popupList.put(Constants.UsernameAlreadyUsed, popup);
 	}
+	
+	private static void initWrongUsername() {
+		PopupEntity popup = new PopupEntity(
+				R.string.WrongUsername_title,
+				R.string.WrongUsername_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.WrongUsername, popup);
+	}
+	
+	private static void initNoSecretQuestion() {
+		PopupEntity popup = new PopupEntity(
+				R.string.NoSecretQuestion_title,
+				R.string.NoSecretQuestion_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.NoSecretQuestion, popup);
+	}
+	
 	
 }

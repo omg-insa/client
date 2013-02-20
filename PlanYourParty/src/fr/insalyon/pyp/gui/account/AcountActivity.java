@@ -40,6 +40,12 @@ public class AcountActivity extends BaseActivity {
 				IntentHelper.openNewActivity(SecurityActivity.class, null, false);
 			}
 		});
+		personalInfo = (Button) findViewById(R.id.profils_info_perso);
+		personalInfo.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				IntentHelper.openNewActivity(PersoanlInfoActivity.class, null, false);
+			}
+		});
 		Drawable background = ((LinearLayout) findViewById(R.id.profile_backgorund))
 				.getBackground();
 		background.setAlpha(95);

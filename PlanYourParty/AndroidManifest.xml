@@ -16,7 +16,8 @@
      <activity android:name=".gui.login.ForgotPasswordActivity"></activity>
      <activity android:name=".gui.account.AcountActivity"></activity>
      <activity android:name=".gui.account.SecurityActivity"></activity>
- 
+      <activity android:name=".gui.account.PersoanlInfoActivity"></activity>
+     
      <activity android:name=".gui.main.MainActivity" android:label="@string/app_name"
             android:launchMode="singleInstance" >
             <intent-filter>
