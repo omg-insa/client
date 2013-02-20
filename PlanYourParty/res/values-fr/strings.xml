@@ -23,7 +23,7 @@
     <string name="confirm">Valider</string>
     <string name="cancel">Annuler</string>
     <string name="settings">Paramètres</string>
-    <string name="logout">Deconnexion</string>
+    <string name="logout">Quitter</string>
     <string name="profils_activity_Informations_Perso">Informations Perso</string>
 
 	<string name="profils_activity_Interets">Intérêts</string>
