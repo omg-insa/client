@@ -21,11 +21,14 @@ public class ServerConnection {
 	public static final String LOGIN = "login/";
 	public static final String REGISTER = "register/";
 	public static final String GET_SECRET_QUESTION_FOR_RECOVERY = "get_secret_question_for_recovery/";
+	public static final String UPDATE_PASSWORD_AFTER_RECOVERY = "update_password_after_recovery/";
 	public static final String CHECK_SECRET_ANSWER = "check_secret_answer/";
 	public static final String UPDATE_PASSWORD = "update_password/";
 	public static final String UPDATE_QUESTION = "update_secret_question/";
 	public static final String GET_QUESTION_SECRET = "get_secret_question/";
 	public static final String GETEVT = "get_places/";
+    public static final String UPDATE_PERSONAL_INFO = "update_user_info/";
+    public static final String GET_PERSONAL_INFO = "get_full_user_info/";
 
 	private ServerConnection() {
 		if (LOCAL)
@@ -77,6 +80,18 @@ public class ServerConnection {
 			AppTools.debug(returnObj.toString());
 		}
 		if(service.equals(GET_QUESTION_SECRET))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(UPDATE_PERSONAL_INFO))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(GET_PERSONAL_INFO))
 		{
 			request = new HttpRequest(requestUrl, parameters);
 			returnObj = request.executePost();
