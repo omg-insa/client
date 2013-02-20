@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
 
     <string name="app_name">PlanYourParty</string>
     <string name="hello_world">Hello world!</string>
@@ -25,18 +25,22 @@
     <string name="settings">Paramètres</string>
     <string name="logout">Deconnexion</string>
     <string name="profils_activity_Informations_Perso">Informations Perso</string>
-    <string name="profils_activity_Interets">Intérêts</string>
-    <string name="profils_activity_Securite">Sécurité</string>
-    <string name="security_activity_question">Entrer votre question</string>
-    <string name="security_activity_reponse">Entrer votre réponse</string>
-    <string name="security_activity_question_secrete">Question récupération mot de passe :</string>
-    <string name="security_activity_changement_mdp">Changement du mot de passe :</string>
-    <string name="security_activity_ancien_mdp">Ancien mdp</string>
-    <string name="security_activity_nouveau_mdp">Nouveau mdp</string>
-    <string name="security_activity_nouveau_mdp_confim">Confirmation mdp</string>
-    <string name="security_activity_button_changement_mdp">Modifier</string>
-    <string name="security_activity_button_changement_question">Enregistrer</string>
-    <string name="security_activity_mdp_question">Mot de passe</string>
+
+	<string name="profils_activity_Interets">Intérêts</string>
+	<string name="profils_activity_Securite">Sécurité</string>
+	<string name="security_activity_question">Entrer votre question</string>
+	<string name="security_activity_reponse">Entrer votre réponse</string>
+	<string name="security_activity_question_secrete">Récupération du mot de passe :</string>
+	<string name="security_activity_changement_mdp">Changement du mot de passe :</string>
+	<string name="security_activity_ancien_mdp">Ancien mdp</string>
+	<string name="security_activity_nouveau_mdp">Nouveau mdp</string>
+	<string name="security_activity_nouveau_mdp_confim">Confirmation mdp</string>
+	<string name="security_activity_button_changement_mdp">Modifier</string>
+	<string name="security_activity_button_changement_question">Enregistrer</string>
+	<string name="security_activity_mdp_question">Mot de passe</string>
+	<!-- Popups -->
+
+	
     <string name="Sexe">Sexe </string>
     <string name="fullName">Nom et prénom </string>
     <string name="DateDeNaissance">Date De naissance </string>
@@ -55,8 +59,6 @@
     <string name="Statut">Statut :</string>
     <string name="BirthdayDate">JJ/MM/AAAA</string>
     <!-- Popups -->
-
-   
 
 	
     <string name="initWrongUsernameOrPassword_title">Informations incorrectes</string>
@@ -79,7 +81,10 @@
     <string name="WrongUsername_text">L\'utilisateur que vous cherchez n\'existe pas.</string>
     <string name="NoSecretQuestion_title">Aucune question de securite</string>
     <string name="NoSecretQuestion_text">Vous n\'avez specifie aucune information de securite dans votre profil.</string>
-    <string name="dateFormatWrong_title">Wrong date </string>
-    <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
+
+
+    <string name="dateFormatWrong_title">Date incorrecte </string>
+    <string name="dateFormatWrong_text">S\'il vous plait entrer une date valide (DD MM YYYY)</string>
 
 </resources>
+

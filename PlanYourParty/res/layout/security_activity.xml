@@ -8,7 +8,8 @@
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:orientation="vertical" >
+	    android:orientation="vertical"
+	    android:gravity="center" >
 	
 	    <TextView
 	        android:id="@+id/security_old_password_header"
@@ -17,46 +18,46 @@
 	        android:hint="@string/security_activity_question_secrete"
 	        android:text="@string/security_activity_changement_mdp"
 	        android:textAppearance="?android:attr/textAppearanceMedium"
-	        android:textStyle="bold" />
+	        android:textStyle="bold"
+	        style="@style/text_edit" />
 	
 	    <EditText
 	        android:id="@+id/security_old_password"
 	        android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:background="@drawable/text_edit"
-           android:ems="10"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_edit"
+            android:ems="10"
 	        android:hint="@string/security_activity_ancien_mdp"
-	        android:inputType="textPassword" />
+	        android:inputType="textPassword"
+	        style="@style/text_edit" />
 	
 	    <EditText
 	        android:id="@+id/security_new_password"
-	         android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:background="@drawable/text_edit"
-           android:ems="10"
+	        android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_edit"
+            android:ems="10"
 	        android:hint="@string/security_activity_nouveau_mdp"
-	        android:inputType="textPassword" />
+	        android:inputType="textPassword"
+	        style="@style/text_edit" />
 	
 	    <EditText
 	        android:id="@+id/security_re_new_password"
-	         android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:background="@drawable/text_edit"
-           android:ems="10"
+	        android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_edit"
+            android:ems="10"
 	        android:hint="@string/security_activity_nouveau_mdp_confim"
-	        android:inputType="textPassword" />
+	        android:inputType="textPassword"
+	        style="@style/text_edit" />
 	
 	    <Button
 	        android:id="@+id/security_password_button"
-	
-             style="@style/button_text"
-               android:layout_width="wrap_content"
-               android:background="@drawable/blue_button"
-               android:width="100dp" 
-	        android:text="@string/security_activity_button_changement_mdp" />
+            style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:width="100dp" 
+	        android:text="@string/security_activity_button_changement_mdp"
+	        android:background="@drawable/green_button" />
 	
 	    <TextView
 	        android:id="@+id/security_current_password_header"
@@ -65,46 +66,47 @@
 	        android:hint="@string/security_activity_question_secrete"
 	        android:text="@string/security_activity_question_secrete"
 	        android:textAppearance="?android:attr/textAppearanceMedium"
-	        android:textSize="17sp"
-	        android:textStyle="bold" />
+	        android:textStyle="bold"
+	        style="@style/text_edit" />
 	
 	    <EditText
 	        android:id="@+id/security_current_password"
-	         android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:background="@drawable/text_edit"
-           android:ems="10"
+	        android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/text_edit"
+            android:ems="10"
 	        android:hint="@string/security_activity_mdp_question"
-	        android:inputType="textPassword" />
+	        android:inputType="textPassword"
+	        style="@style/text_edit" />
 	
 	    <EditText
 	        android:id="@+id/security_secret_question"
-	       android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:background="@drawable/text_edit"
-           android:ems="10"
-	        android:hint="@string/security_activity_question"/>
+	        android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/text_edit"
+            android:ems="10"
+	        android:hint="@string/security_activity_question"
+	        style="@style/text_edit"/>
 	
 	    <EditText
 	        android:id="@+id/security_secret_answer"
-	         android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:background="@drawable/text_edit"
-           android:ems="10"
+	        android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/text_edit"
+            android:ems="10"
 	        android:hint="@string/security_activity_reponse"
-	        android:inputType="textVisiblePassword">
-	
-	    </EditText>
+	        android:inputType="textVisiblePassword"
+	        style="@style/text_edit"/>
 	
 	    <Button
 	        android:id="@+id/security_question_button"
-	       style="@style/button_text"
-               android:layout_width="wrap_content"
-               android:background="@drawable/blue_button"
-               android:width="100dp" 
+	        style="@style/button_text"
+            android:layout_width="wrap_content"
+            android:background="@drawable/green_button"
+            android:width="100dp" 
 	        android:text="@string/security_activity_button_changement_question" />
 	
 	</LinearLayout>
