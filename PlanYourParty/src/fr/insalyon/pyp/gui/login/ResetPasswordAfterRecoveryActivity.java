@@ -39,7 +39,7 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState, Constants.REGISTER_CONST);
+		super.onCreate(savedInstanceState, Constants.RESET_PASSWORD_AFTER_RECOVERY_CONST);
 		AppTools.info("on create ResetPasswordAfterRecovery");
 		initGraphicalInterface();
 	}

@@ -43,7 +43,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState, Constants.REGISTER_CONST);
+		super.onCreate(savedInstanceState, Constants.FORGOT_PASSWORD_CONST);
 		AppTools.info("on create ForgotPasswordActivity");
 		initGraphicalInterface();
 	}
@@ -72,7 +72,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				if(usernameFilled)
+				if(!usernameFilled)
 				{
 					if (usernameText.getText().toString().equals("")){
 						Popups.showPopup(Constants.IncompleatData);
@@ -81,12 +81,10 @@ public class ForgotPasswordActivity extends BaseActivity {
 					
 					// Send request to get the secret question
 					new ForgotPasswordTask().execute();
-					usernameFilled = true;
-					showSecretQuestion();
 				}
 				else{
 					if (usernameText.getText().toString().equals("")
-							&& secretAnswerText.getText().toString().equals("")){
+							 || secretAnswerText.getText().toString().equals("")){
 							//&& birthday){ TODO: check birthday
 						Popups.showPopup(Constants.IncompleatData);
 						return;
@@ -142,6 +140,12 @@ public class ForgotPasswordActivity extends BaseActivity {
 		if (error.equals("User does not have security questions")) {
 			Popups.showPopup(Constants.NoSecretQuestion);
 		}
+		if (error.equals("Incomplete data")) {
+			Popups.showPopup(Constants.IncompleatData);
+		}
+		if (error.equals("Wrong answer")) {
+			Popups.showPopup(Constants.WrongAnswer);
+		}
 	}
 	
 	/**
@@ -170,6 +174,8 @@ public class ForgotPasswordActivity extends BaseActivity {
 						// OK
 						String secretQuestion = res.getString("secret_question");
 					    // Print the secret question
+						usernameFilled = true;
+						showSecretQuestion();
 					    secretQuestionText.setText(secretQuestion);
 					}
 				} catch (JSONException e) {
@@ -221,15 +227,14 @@ public class ForgotPasswordActivity extends BaseActivity {
 						String error;
 						error = res.getString("error");
 						ForgotPasswordActivity.this.networkError(error);
-					}
-
-					else {
+					}else {
 						// OK
 						String tmpToken = res.getString("tmp_token");
 						
 					    String[] params = new String[2];
 					    params[0] = usernameText.getText().toString();
 					    params[1] = tmpToken;
+					    
 					    // Redirect to reset password after recovery
 					    IntentHelper.openNewActivity(ResetPasswordAfterRecoveryActivity.class, params, false);
 					}
@@ -255,7 +260,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 			parameters.add(new BasicNameValuePair("answer", secretAnswerText
 					.getText().toString()));
 			//TODO: get the birthday with the right fields
-			String birthday = "19901202";
+			String birthday = "19900503";
 			parameters.add(new BasicNameValuePair("birthday", birthday));
 			
 			try {

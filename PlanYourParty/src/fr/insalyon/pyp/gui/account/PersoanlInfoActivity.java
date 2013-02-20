@@ -238,9 +238,11 @@ public class PersoanlInfoActivity extends BaseActivity {
 								.getString("sex")));
 						statusSpinner.setSelection(Integer.parseInt(res
 								.getString("status")));
-						day.setText(res.getString("birthday").substring(6,2));
+						if(res.getString("birthday").length() == 8){
+						day.setText(res.getString("birthday").substring(6,8));
 						year.setText(res.getString("birthday").substring(0,4));
-						month.setText(res.getString("birthday").substring(4,2));
+						month.setText(res.getString("birthday").substring(4,6));
+						}
 
 					}
 				} catch (JSONException e) {
