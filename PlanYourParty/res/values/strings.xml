@@ -31,7 +31,7 @@
 	<string name="profils_activity_Securite">Sécurité</string>
 	<string name="security_activity_question">Entrer votre question</string>
 	<string name="security_activity_reponse">Entrer votre réponse</string>
-	<string name="security_activity_question_secrete">Question récupération mot de passe :</string>
+	<string name="security_activity_question_secrete">Récupération du mot de passe :</string>
 	<string name="security_activity_changement_mdp">Changement du mot de passe :</string>
 	<string name="security_activity_ancien_mdp">Ancien mdp</string>
 	<string name="security_activity_nouveau_mdp">Nouveau mdp</string>

@@ -24,7 +24,9 @@
         android:minWidth="200dp"
         android:text="@string/profils_activity_Informations_Perso"
         android:textSize="20sp"
-        android:textStyle="normal" />
+        android:textStyle="normal"
+        android:background="@drawable/green_button"
+        android:layout_marginBottom="@dimen/form_margin" />
 
     <Button
         android:id="@+id/profils_activity_interets"
@@ -35,7 +37,9 @@
         android:minWidth="200dp"
         android:text="@string/profils_activity_Interets"
         android:textSize="20sp"
-        android:textStyle="normal" />
+        android:textStyle="normal"
+        android:background="@drawable/green_button"
+        android:layout_marginBottom="@dimen/form_margin" />
 
     <Button
         android:id="@+id/profils_activity_securite"
@@ -46,6 +50,7 @@
         android:minWidth="200dp"
         android:text="@string/profils_activity_Securite"
         android:textSize="20sp"
-        android:textStyle="normal" />
+        android:textStyle="normal"
+        android:background="@drawable/green_button" />
 </LinearLayout>
 </LinearLayout>
