@@ -51,7 +51,7 @@ public class SecurityActivity extends BaseActivity {
 		// set layouts
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-		mainView = (ScrollView) mInflater.inflate(R.layout.,
+		mainView = (ScrollView) mInflater.inflate(R.layout.security_activity,
 				null);
 		abstractView.addView(mainView);
 		
