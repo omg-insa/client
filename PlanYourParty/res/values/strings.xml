@@ -59,6 +59,10 @@
     <string name="Statut">Statut :</string>
     <string name="BirthdayDate">JJ/MM/AAAA</string>
     <!-- Popups -->
+
+   
+
+	
     <string name="initWrongUsernameOrPassword_title">Informations incorrectes</string>
     <string name="initWrongUsernameOrPassword_text">Vous avez entré un mot de passe ou un nom d\'utilisateur erroné</string>
     <string name="initIncompleatData_title">Données incomplètes</string>
@@ -79,5 +83,12 @@
     <string name="WrongUsername_text">L\'utilisateur que vous cherchez n\'existe pas.</string>
     <string name="NoSecretQuestion_title">Aucune question de securite</string>
     <string name="NoSecretQuestion_text">Vous n\'avez specifie aucune information de securite dans votre profil.</string>
+<<<<<<< HEAD
     
 </resources>
+=======
+    <string name="dateFormatWrong_title">Wrong date </string>
+    <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
+
+</resources>
+>>>>>>> 046198caa338ba78f85648c8297b225dd7c0078d

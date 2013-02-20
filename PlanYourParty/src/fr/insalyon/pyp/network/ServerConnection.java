@@ -26,6 +26,8 @@ public class ServerConnection {
 	public static final String UPDATE_PASSWORD = "update_password/";
 	public static final String UPDATE_QUESTION = "update_secret_question/";
     public static final String GET_QUESTION_SECRET = "get_secret_question/";
+    public static final String UPDATE_PERSONAL_INFO = "update_user_info/";
+    public static final String GET_PERSONAL_INFO = "get_full_user_info/";
 
 	private ServerConnection()
 	{
@@ -73,6 +75,18 @@ public class ServerConnection {
 			AppTools.debug(returnObj.toString());
 		}
 		if(service.equals(GET_QUESTION_SECRET))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(UPDATE_PERSONAL_INFO))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(GET_PERSONAL_INFO))
 		{
 			request = new HttpRequest(requestUrl, parameters);
 			returnObj = request.executePost();
