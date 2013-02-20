@@ -64,6 +64,9 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 			}
 		});
 		
+		// TODO: IntentHelper.getActiveIntentParam(String[].class);
+		
+		
 		validateButton.setOnClickListener( new OnClickListener() {
 			
 			@Override
