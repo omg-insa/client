@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.*;
@@ -32,7 +33,7 @@ import fr.insalyon.pyp.tools.TerminalInfo;
 
 public class LoginActivity extends BaseActivity {
 	private LinearLayout abstractView;
-	private LinearLayout mainView;
+	private ScrollView mainView;
 	private Button loginButton;
 	private Button registerButton;
 	private TextView usernameField;
@@ -49,7 +50,7 @@ public class LoginActivity extends BaseActivity {
 		// set layouts
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-		mainView = (LinearLayout) mInflater.inflate(R.layout.login_activity,
+		mainView = (ScrollView) mInflater.inflate(R.layout.login_activity,
 				null);
 		abstractView.addView(mainView);
 		loginButton = (Button) findViewById(R.id.login);
