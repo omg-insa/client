@@ -71,5 +71,9 @@
     <string name="passwordsDontMatch_text">The passwrods don\'t match.</string>
     <string name="curentPasswordWrong_title">Password don\'t match</string>
     <string name="curentPasswordWrong_text">The current password is wrong.</string>
+    <string name="WrongUsername_title">Utilisateur inconnu</string>
+    <string name="WrongUsername_text">L\'utilisateur que vous cherchez n\'existe pas.</string>
+    <string name="NoSecretQuestion_title">Aucune question de securite</string>
+    <string name="NoSecretQuestion_text">Vous n\'avez specifie aucune information de securite dans votre profil.</string>
 
 </resources>

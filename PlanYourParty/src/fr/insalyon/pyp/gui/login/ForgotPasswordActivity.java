@@ -136,11 +136,11 @@ public class ForgotPasswordActivity extends BaseActivity {
 	}
 	
 	public void networkError(String error) {
-		if (error.equals("Username does not exist")) {
-			Popups.showPopup(Constants.usernameDoesNotExist);
+		if (error.equals("User does not exists")) {
+			Popups.showPopup(Constants.WrongUsername);
 		}
-		if (error.equals("Incomplete data")) {
-			Popups.showPopup(Constants.IncompleatData);
+		if (error.equals("User does not have security questions")) {
+			Popups.showPopup(Constants.NoSecretQuestion);
 		}
 	}
 	
