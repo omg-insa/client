@@ -28,6 +28,7 @@ import fr.insalyon.pyp.gui.common.popup.Popups;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
+import fr.insalyon.pyp.tools.PYPContext;
 
 public class MainActivity extends BaseActivity {
 			private LinearLayout abstractView;
@@ -54,7 +55,7 @@ public class MainActivity extends BaseActivity {
 
 				eventsBtn.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
-						new LoginTask().execute();
+						new EventTask().execute();
 					}
 				});
 			}
@@ -98,7 +99,7 @@ public class MainActivity extends BaseActivity {
 
 			}
 
-			private class LoginTask extends AsyncTask<Void, Void, Void> {
+			private class EventTask extends AsyncTask<Void, Void, Void> {
 
 				ProgressDialog mProgressDialog;
 				JSONObject res;
@@ -135,21 +136,17 @@ public class MainActivity extends BaseActivity {
 				@Override
 				protected Void doInBackground(Void... params) {
 					// Send request to server for login
+
 					ServerConnection srvCon = ServerConnection.GetServerConnection();
 					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 					parameters.add(new BasicNameValuePair("radius", "5000"));
 					parameters.add(new BasicNameValuePair("latitude", "45.771758"));
 					parameters.add(new BasicNameValuePair("longitude", "4.889826"));
+					parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
 					try {
 						res = srvCon.connect(ServerConnection.GETEVT, parameters);
 					} catch (Exception e) {
-						if (e.getMessage().equals("403")) {
-							SharedPreferences settings = getSharedPreferences(
-									Constants.TAG, 0);
-							settings.edit().remove("auth_token");
-						} else {
-							e.printStackTrace();
-						}
+						e.printStackTrace();
 					}
 					return null;
 				}
