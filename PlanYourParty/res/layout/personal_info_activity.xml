@@ -97,7 +97,13 @@
         android:layout_gravity="center"
 
     />
-
+	<Button
+               android:id="@+id/personal_info_send"
+               style="@style/button_text"
+               android:layout_width="wrap_content"
+               android:background="@drawable/blue_button"
+               android:text="@string/confirm"
+               android:width="100dp" />
        
 </LinearLayout>
 </LinearLayout>

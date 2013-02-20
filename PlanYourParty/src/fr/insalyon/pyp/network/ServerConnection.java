@@ -11,13 +11,13 @@ public class ServerConnection {
 
 	private String requestUrl;
 
-	//base
+	// base
 	private static final String LOCAL_URL = "http://10.0.2.2:8080/api/";
 	private static final String REMOTE_URL = "http://planyourpty.appspot.com/api/";
 
 	static final boolean LOCAL = false;
 
-	//services
+	// services
 	public static final String LOGIN = "login/";
 	public static final String REGISTER = "register/";
 	public static final String GET_SECRET_QUESTION_FOR_RECOVERY = "get_secret_question_for_recovery/";
@@ -25,21 +25,23 @@ public class ServerConnection {
 	public static final String CHECK_SECRET_ANSWER = "check_secret_answer/";
 	public static final String UPDATE_PASSWORD = "update_password/";
 	public static final String UPDATE_QUESTION = "update_secret_question/";
-    public static final String GET_QUESTION_SECRET = "get_secret_question/";
+	public static final String GET_QUESTION_SECRET = "get_secret_question/";
+	public static final String GETEVT = "get_places/";
+    public static final String UPDATE_PERSONAL_INFO = "update_user_info/";
+    public static final String GET_PERSONAL_INFO = "get_full_user_info/";
 
-	private ServerConnection()
-	{
-		if(LOCAL)
+	private ServerConnection() {
+		if (LOCAL)
 			setRequestUrl(LOCAL_URL);
 		else
 			setRequestUrl(REMOTE_URL);
 	}
 
-	public static ServerConnection GetServerConnection()
-	{
-		if(serverConnection == null)
+	public static ServerConnection GetServerConnection() {
+		if (serverConnection == null)
 			return new ServerConnection();
-		else return serverConnection;
+		else
+			return serverConnection;
 	}
 
 	public JSONObject connect(String service, List<NameValuePair> parameters) throws Exception {
@@ -48,12 +50,17 @@ public class ServerConnection {
 		setRequestUrl(getRequestUrl() + service);
 		try {
 		if(service.equals(LOGIN))
-			{
-				request = new HttpRequest(requestUrl, parameters);
-				returnObj = request.executePost();
-				AppTools.debug(returnObj.toString());
-			}
-	
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(GETEVT))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
 		if(service.equals(REGISTER))
 		{
 			request = new HttpRequest(requestUrl, parameters);
@@ -84,6 +91,12 @@ public class ServerConnection {
 			returnObj = request.executePost();
 			AppTools.debug(returnObj.toString());
 		}
+		if(service.equals(UPDATE_PERSONAL_INFO))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
 		if(service.equals(CHECK_SECRET_ANSWER))
 		{
 			request = new HttpRequest(requestUrl, parameters);
@@ -96,12 +109,18 @@ public class ServerConnection {
 			returnObj = request.executePost();
 			AppTools.debug(returnObj.toString());
 		}
+		if(service.equals(GET_PERSONAL_INFO))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
 		return returnObj;
 		} catch (Exception e) {
 			throw e;
 		}
 	}
-	
+
 	public String getRequestUrl() {
 		return requestUrl;
 	}
