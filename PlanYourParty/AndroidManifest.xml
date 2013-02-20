@@ -14,6 +14,7 @@
      <activity android:name=".gui.login.LoginActivity"></activity>
      <activity android:name=".gui.login.RegisterActivity"></activity>
      <activity android:name=".gui.login.ForgotPasswordActivity"></activity>
+     <activity android:name=".gui.login.ResetPasswordAfterRecoveryActivity"></activity>
      <activity android:name=".gui.account.AcountActivity"></activity>
      <activity android:name=".gui.account.SecurityActivity"></activity>
       <activity android:name=".gui.account.PersoanlInfoActivity"></activity>

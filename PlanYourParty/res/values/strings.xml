@@ -75,5 +75,8 @@
     <string name="WrongUsername_text">L\'utilisateur que vous cherchez n\'existe pas.</string>
     <string name="NoSecretQuestion_title">Aucune question de securite</string>
     <string name="NoSecretQuestion_text">Vous n\'avez specifie aucune information de securite dans votre profil.</string>
-
+	<string name="WrongAnswer_title">Reponse incorrecte</string>
+	<string name="WrongAnswer_text">Votre reponse ou votre date d\'anniversaire est incorrecte.</string>
+    
+    
 </resources>

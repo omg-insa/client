@@ -78,6 +78,24 @@ public class ServerConnection {
 			returnObj = request.executePost();
 			AppTools.debug(returnObj.toString());
 		}
+		if(service.equals(GET_SECRET_QUESTION_FOR_RECOVERY))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(CHECK_SECRET_ANSWER))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(UPDATE_PASSWORD_AFTER_RECOVERY))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
 		return returnObj;
 		} catch (Exception e) {
 			throw e;

@@ -27,6 +27,7 @@ public class Popups {
 		initcurentPasswordWrong();
 		initWrongUsername();
 		initNoSecretQuestion();
+		initWrongAnswer();
 	}
 
 	/**
@@ -136,6 +137,14 @@ public class Popups {
 				null, null, false);
 		popupList.put(Constants.NoSecretQuestion, popup);
 	}
-	
+
+	private static void initWrongAnswer() {
+		PopupEntity popup = new PopupEntity(
+				R.string.WrongAnswer_title,
+				R.string.WrongAnswer_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.WrongAnswer, popup);
+	}
 	
 }
