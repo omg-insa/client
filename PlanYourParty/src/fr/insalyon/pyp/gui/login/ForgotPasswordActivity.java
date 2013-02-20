@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -170,9 +169,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 					else {
 						// OK
 						String secretQuestion = res.getString("secret_question");
-						SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
-					    settings.edit().putString("secret_question", secretQuestion);
-					    // TODO: Print the secret question
+					    // Print the secret question
 					    secretQuestionText.setText(secretQuestion);
 					}
 				} catch (JSONException e) {
@@ -197,12 +194,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 			try {
 				res = srvCon.connect(ServerConnection.GET_SECRET_QUESTION_FOR_RECOVERY, parameters);
 			} catch (Exception e) {
-				if (e.getMessage().equals("403")) {
-					SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
-				    settings.edit().remove("auth_token");
-				} else {
-					e.printStackTrace();
-				}
+				e.printStackTrace();
 			}
 			return null;
 		}
@@ -234,12 +226,12 @@ public class ForgotPasswordActivity extends BaseActivity {
 					else {
 						// OK
 						String tmpToken = res.getString("tmp_token");
-						SharedPreferences settings = getSharedPreferences(Constants.TAG, 0);
-					    settings.edit().putString("tmp_token", tmpToken);
-					    // TODO: Save the username ??
-					    
+						
+					    String[] params = new String[2];
+					    params[0] = usernameText.getText().toString();
+					    params[1] = tmpToken;
 					    // Redirect to reset password after recovery
-					    IntentHelper.openNewActivity(ResetPasswordAfterRecoveryActivity.class, null, false);
+					    IntentHelper.openNewActivity(ResetPasswordAfterRecoveryActivity.class, params, false);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -263,7 +255,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 			parameters.add(new BasicNameValuePair("answer", secretAnswerText
 					.getText().toString()));
 			//TODO: get the birthday with the right fields
-			String birthday = "01/01/1990";
+			String birthday = "19901202";
 			parameters.add(new BasicNameValuePair("birthday", birthday));
 			
 			try {
@@ -274,5 +266,6 @@ public class ForgotPasswordActivity extends BaseActivity {
 			return null;
 		}
 	}
+	
 	
 }
