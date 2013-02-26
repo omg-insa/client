@@ -9,6 +9,18 @@
     android:layout_height="fill_parent"
     android:gravity="center"
     android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/personal_info_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="Informations"
+        android:textColor="#5BC0DE"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_gravity="center" />
+
     <LinearLayout
        xmlns:android="http://schemas.android.com/apk/res/android"
        android:id="@+id/personal_info_backgorund"
@@ -40,18 +52,18 @@
     
    
     <Spinner
-    android:id="@+id/sex_spinner"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" 
-        android:layout_gravity="center"
-
+    	android:id="@+id/sex_spinner"
+    	android:layout_width="210dp"
+    	android:layout_height="45dp" 
+    	android:layout_gravity="center"
+    	style="@style/text_edit"
+    	android:ems="10"
     />
         
   
     <LinearLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/form_margin" >
+        android:layout_gravity="center" >
         
    	 <EditText
    	    android:id="@+id/persoanl_days"
@@ -92,19 +104,21 @@
 
   <Spinner
     android:id="@+id/status_spinner"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" 
-        android:layout_gravity="center"
-
+    android:layout_width="210dp"
+    android:layout_height="45dp" 
+    style="@style/text_edit"
     />
+	
 	<Button
                android:id="@+id/personal_info_send"
                style="@style/button_text"
                android:layout_width="wrap_content"
                android:background="@drawable/blue_button"
                android:text="@string/confirm"
+               android:layout_gravity="center"
                android:width="100dp" />
        
 </LinearLayout>
+
 </LinearLayout>
 </ScrollView>

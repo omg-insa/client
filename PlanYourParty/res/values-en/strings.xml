@@ -71,6 +71,10 @@
     <string name="passwordsDontMatch_text">The passwrods don\'t match</string>
     <string name="curentPasswordWrong_title">Password don\'t match</string>
     <string name="curentPasswordWrong_text">The current password is wrong</string>
+    <string name="WrongData_title">Wrong Data</string>
+    <string name="WrongData_text">The specified data are wrong.</string>
+    <string name="DifferentPassword_title">Different password</string>
+    <string name="DifferentPassword_text">The two passwords are not the same.</string>
     
     <string name="dateFormatWrong_title">Wrong date </string>
     <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>

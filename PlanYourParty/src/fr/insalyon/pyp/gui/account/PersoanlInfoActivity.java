@@ -90,7 +90,8 @@ public class PersoanlInfoActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (day.getText().toString().equals("") || month.getText().toString().equals("")
+				if (day.getText().toString().equals("")
+						|| month.getText().toString().equals("")
 						|| year.getText().toString().equals("")
 						|| fullName.getText().toString().equals("")
 						|| email.getText().toString().equals("")
@@ -116,15 +117,18 @@ public class PersoanlInfoActivity extends BaseActivity {
 					|| Integer.parseInt(day.getText().toString()) < 1
 					|| Integer.parseInt(month.getText().toString()) > 12
 					|| Integer.parseInt(month.getText().toString()) < 1
-					|| Integer.parseInt(year.getText().toString()) > Calendar.getInstance().get(Calendar.YEAR)
+					|| Integer.parseInt(year.getText().toString()) > Calendar
+							.getInstance().get(Calendar.YEAR)
 					|| Integer.parseInt(year.getText().toString()) < 1900) {
 				Popups.showPopup(Constants.dateFormatWrong);
-				AppTools.debug("Wrong numbers in date" + day.getText() + month.getText() + year.getText());
+				AppTools.debug("Wrong numbers in date" + day.getText()
+						+ month.getText() + year.getText());
 				return false;
 
 			}
 		} catch (NumberFormatException e) {
-			AppTools.debug("NumberFormatException numbers in date" + day.getText() + month.getText() + year.getText());
+			AppTools.debug("NumberFormatException numbers in date"
+					+ day.getText() + month.getText() + year.getText());
 			Popups.showPopup(Constants.dateFormatWrong);
 			return false;
 		}
@@ -136,7 +140,7 @@ public class PersoanlInfoActivity extends BaseActivity {
 		super.onResume();
 		checkLoggedIn();
 		new GetPersoanlInfoTask().execute();
-		}
+	}
 
 	private class PersonalInfoChangeTask extends AsyncTask<Void, Void, Void> {
 
@@ -233,14 +237,21 @@ public class PersoanlInfoActivity extends BaseActivity {
 						AppTools.debug("Get persoanl info ok");
 						email.setText(res.getString("email"));
 						fullName.setText(res.getString("full_name"));
-						sexSpinner.setSelection(Integer.parseInt(res
-								.getString("sex")));
-						statusSpinner.setSelection(Integer.parseInt(res
-								.getString("status")));
-						if(res.getString("birthday").length() == 8){
-						day.setText(res.getString("birthday").substring(6,8));
-						year.setText(res.getString("birthday").substring(0,4));
-						month.setText(res.getString("birthday").substring(4,6));
+						try {
+							sexSpinner.setSelection(Integer.parseInt(res
+									.getString("sex")));
+							statusSpinner.setSelection(Integer.parseInt(res
+									.getString("status")));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						if (res.getString("birthday").length() == 8) {
+							day.setText(res.getString("birthday").substring(6,
+									8));
+							year.setText(res.getString("birthday").substring(0,
+									4));
+							month.setText(res.getString("birthday").substring(
+									4, 6));
 						}
 
 					}
