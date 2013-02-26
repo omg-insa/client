@@ -12,7 +12,7 @@ public class ServerConnection {
 	private String requestUrl;
 
 	// base
-	private static final String LOCAL_URL = "http://10.0.2.2:8080/api/";
+	private static final String LOCAL_URL = "http://localhost:8000/api/";
 	private static final String REMOTE_URL = "http://planyourpty.appspot.com/api/";
 
 	static final boolean LOCAL = false;
@@ -29,7 +29,8 @@ public class ServerConnection {
 	public static final String GETEVT = "get_places/";
     public static final String UPDATE_PERSONAL_INFO = "update_user_info/";
     public static final String GET_PERSONAL_INFO = "get_full_user_info/";
-
+    public static final String GET_INTRESTS_LIST = "get_intrests/";
+    public static final String UPDATE_USER_INTREST = "update_intrests/";
 	private ServerConnection() {
 		if (LOCAL)
 			setRequestUrl(LOCAL_URL);
@@ -51,6 +52,17 @@ public class ServerConnection {
 		try {
 		if(service.equals(LOGIN))
 		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(GET_INTRESTS_LIST))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(UPDATE_USER_INTREST)){
 			request = new HttpRequest(requestUrl, parameters);
 			returnObj = request.executePost();
 			AppTools.debug(returnObj.toString());

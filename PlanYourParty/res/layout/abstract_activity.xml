@@ -46,4 +46,14 @@
 	    android:orientation="vertical" >
 
 	</LinearLayout>
+
+		<LinearLayout
+		    android:id="@+id/abstractLinearLayoutTop"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:background="@drawable/content_bg"
+		    android:orientation="vertical"
+		    android:visibility="gone" >
+
+	</LinearLayout>
 </LinearLayout>

@@ -2,7 +2,6 @@ package fr.insalyon.pyp.gui.account;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
