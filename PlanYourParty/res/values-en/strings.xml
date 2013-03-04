@@ -78,5 +78,7 @@
     
     <string name="dateFormatWrong_title">Wrong date </string>
     <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
+    
+    <string name="ViewName">Name</string>
 
 </resources>

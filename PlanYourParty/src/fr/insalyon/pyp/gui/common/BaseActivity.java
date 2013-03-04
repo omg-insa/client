@@ -3,19 +3,6 @@ package fr.insalyon.pyp.gui.common;
 import java.util.List;
 import java.util.logging.Level;
 
-import fr.insalyon.pyp.R;
-
-import fr.insalyon.pyp.gui.account.AcountActivity;
-import fr.insalyon.pyp.gui.common.menu.CustomMenu.OnMenuItemSelectedListener;
-import fr.insalyon.pyp.gui.common.menu.CustomMenuHelper;
-import fr.insalyon.pyp.gui.common.menu.CustomMenuItem;
-import fr.insalyon.pyp.gui.login.LoginActivity;
-import fr.insalyon.pyp.gui.main.MainActivity;
-
-import fr.insalyon.pyp.tools.AppTools;
-import fr.insalyon.pyp.tools.PYPContext;
-import fr.insalyon.pyp.tools.Constants;
-
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
@@ -33,6 +20,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import fr.insalyon.pyp.R;
+import fr.insalyon.pyp.gui.account.AcountActivity;
+import fr.insalyon.pyp.gui.common.menu.CustomMenu.OnMenuItemSelectedListener;
+import fr.insalyon.pyp.gui.common.menu.CustomMenuHelper;
+import fr.insalyon.pyp.gui.common.menu.CustomMenuItem;
+import fr.insalyon.pyp.gui.login.LoginActivity;
+import fr.insalyon.pyp.gui.main.MainActivity;
+import fr.insalyon.pyp.tools.AppTools;
+import fr.insalyon.pyp.tools.Constants;
+import fr.insalyon.pyp.tools.PYPContext;
 
 /**
  * This class acts as a base class to all the activities in the PYP project
@@ -267,6 +264,7 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 		return super.onKeyDown(keyCode, event);
 	}
 
+	@Override
 	public void MenuItemSelectedEvent(CustomMenuItem selection) {
 		switch (selection.getId()) {
 		case Constants.MENU_ITEM_1:

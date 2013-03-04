@@ -1,6 +1,7 @@
 package fr.insalyon.pyp.gui.common.popup;
 
 import java.util.HashMap;
+
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.entities.PopupEntity;
 import fr.insalyon.pyp.tools.Constants;

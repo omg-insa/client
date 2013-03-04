@@ -1,10 +1,11 @@
 package fr.insalyon.pyp.gui.common;
 
+
 import java.io.Serializable;
 
 import android.content.Intent;
-import fr.insalyon.pyp.tools.PYPContext;
 import fr.insalyon.pyp.tools.Constants;
+import fr.insalyon.pyp.tools.PYPContext;
 
 /**
  * @author A510944

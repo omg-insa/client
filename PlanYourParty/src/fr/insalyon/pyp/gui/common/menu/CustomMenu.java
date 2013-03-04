@@ -1,20 +1,21 @@
 package fr.insalyon.pyp.gui.common.menu;
+
 import java.util.ArrayList;
 
-import fr.insalyon.pyp.R;
 import android.content.Context;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.view.WindowManager.LayoutParams;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import fr.insalyon.pyp.R;
 
 public class CustomMenu {
 

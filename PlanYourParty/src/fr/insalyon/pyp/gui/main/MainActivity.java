@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -59,7 +58,6 @@ public class MainActivity extends BaseActivity {
 					}
 				});
 			}
-
 
 			@Override
 			public void onResume() {
