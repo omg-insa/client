@@ -12,25 +12,28 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import fr.insalyon.pyp.R;
-import fr.insalyon.pyp.gui.account.SecurityActivity;
 import fr.insalyon.pyp.gui.common.BaseActivity;
-import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
 import fr.insalyon.pyp.tools.PYPContext;
-import fr.insalyon.pyp.tools.TerminalInfo;
 
 public class CreateEventActivity extends BaseActivity {
 			private LinearLayout abstractView;
 			private LinearLayout mainView;
-			private Button eventsBtn;
+			
+			private TextView EventName;
+			private TextView StartEvent;
+			private TextView EndEvent;
+			
+			private TextView PriceEvent;
+			private TextView DescriptionEvent;
+			private Button NextStepBtn;
 			
 			@Override
 			public void onCreate(Bundle savedInstanceState) {
@@ -49,14 +52,14 @@ public class CreateEventActivity extends BaseActivity {
 				hideHeader(false);
 				
 				
-				
-				
+				EventName = (TextView) findViewById(R.id.EventName);
+				StartEvent = (TextView) findViewById(R.id.StartEvent);
+				EndEvent = (TextView) findViewById(R.id.EndEvent);
+				PriceEvent = (TextView) findViewById(R.id.PriceEvent);
+				DescriptionEvent = (TextView) findViewById(R.id.DescriptionEvent);
+				NextStepBtn = (Button) findViewById(R.id.NextStepBtn);
 
-				eventsBtn.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						new EventTask().execute();
-					}
-				});
+				
 			}
 
 
@@ -113,17 +116,8 @@ public class CreateEventActivity extends BaseActivity {
 					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 					parameters.add(new BasicNameValuePair("name", EventName
 							.getText().toString()));
-					parameters.add(new BasicNameValuePair("description", eventDescripField
+					parameters.add(new BasicNameValuePair("description", DescriptionEvent
 							.getText().toString()));
-					parameters.add(new BasicNameValuePair("name", eventNameField
-							.getText().toString()));
-					parameters.add(new BasicNameValuePair("description", eventDescripField
-							.getText().toString()));
-					parameters.add(new BasicNameValuePair("device_type", TerminalInfo
-							.getTerminalName()));
-					parameters.add(new BasicNameValuePair("device_manufacture",
-							TerminalInfo.getTerminalManufacturer()));
-					
 					parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
 					try {
 						res = srvCon.connect(ServerConnection.GETEVT, parameters);
