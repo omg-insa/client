@@ -58,6 +58,20 @@
 
     <string name="Statut">Statut :</string>
     <string name="BirthdayDate">JJ/MM/AAAA</string>
+    
+    <string name="Events">Evenements</string>
+    <string name="Add_Event">Ajouter evenement</string>
+    
+    <string name="EventName">Nom</string>
+    <string name="StartEvent">Heure de debut</string>
+    <string name="EndEvent">Heure de fin</string>
+    <string name="PriceEvent">Prix</string>
+    <string name="DescriptionEvent">Description</string>
+    <string name="NextStep">Etape suivante</string>
+    
+    
+    
+    
     <!-- Popups -->
 
 	

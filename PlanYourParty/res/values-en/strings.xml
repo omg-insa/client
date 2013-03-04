@@ -54,6 +54,17 @@
 
     <string name="Statut">Statut :</string>
     <string name="BirthdayDate">JJ/MM/AAAA</string>
+    
+    <string name="Events">Events</string>
+    <string name="Add_Event">Add event</string>
+    
+    <string name="EventName">Name</string>
+    <string name="StartEvent">Start time</string>
+    <string name="EndEvent">End time</string>
+    <string name="PriceEvent">Price</string>
+    <string name="DescriptionEvent">Description</string>
+    <string name="NextStep">Next step</string>
+    
     <!-- Popups -->
     <string name="initWrongUsernameOrPassword_title">Wrong informations</string>
     <string name="initWrongUsernameOrPassword_text">You have entered a wrong username or password</string>
