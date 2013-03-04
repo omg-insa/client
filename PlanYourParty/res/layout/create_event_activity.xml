@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/EventName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/EventName"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/StartEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/StartEvent"
+        android:ems="10"
+        android:inputType="time" />
+
+    <EditText
+        android:id="@+id/EndEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/EndEvent"
+        android:ems="10"
+        android:inputType="time" />
+
+    <EditText
+        android:id="@+id/PriceEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/PriceEvent"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/DescriptionEvent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.38"
+        android:ems="10"
+        android:hint="@string/DescriptionEvent"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/NextStepBtn"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="@string/NextStep" />
+
+</LinearLayout>
