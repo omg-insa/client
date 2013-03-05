@@ -2,30 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="4dp" >
     
     
  <EditText
         android:id="@+id/LocalPlaceName"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:hint="@string/PlaceName"
-        android:ems="10" >
+        android:ems="10" 
+        android:background="@drawable/text_edit">
 
         <requestFocus />
     </EditText>
     
  	<EditText
         android:id="@+id/AddressLocalPlace"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:hint="@string/AddressLocalPlace"
         android:ems="10"
+        android:layout_gravity="center"
         android:inputType="none"
         android:clickable="false" 
         android:cursorVisible="false" 
         android:focusable="false" 
-        android:focusableInTouchMode="false" />
+        android:focusableInTouchMode="false"
+        style="@style/text_edit"
+        android:background="@drawable/text_edit_unable" />
  	
  	<Spinner
     	android:id="@+id/TypeLocalPlace"
@@ -38,18 +44,25 @@
     
  	<EditText
         android:id="@+id/DescriptionLocalPlace"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="0dp"
+        android:minLines="10"
+        android:layout_gravity="center"
+        android:gravity="top"
         android:layout_weight="0.38"
         android:ems="10"
         android:hint="@string/DescriptionLocalPlace"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        style="@style/text_edit" />
 
 
     <Button
         android:id="@+id/NextStepBtn"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:text="@string/NextStep" />
-
+        android:text="@string/NextStep"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="@drawable/blue_button"
+        style="@style/button_text" />
 </LinearLayout>
