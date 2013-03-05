@@ -31,6 +31,7 @@ import fr.insalyon.pyp.tools.PYPContext;
 public class CreateLocalPlaceActivity extends BaseActivity {
 			private LinearLayout abstractView;
 			private LinearLayout mainView;
+			private TextView windowTitle;
 			
 			private TextView LocalPlaceName;
 			private TextView AddressLocalPlace;
@@ -53,8 +54,11 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 				mainView = (LinearLayout) mInflater.inflate(R.layout.create_local_place_activity,
 						null);
 				abstractView.addView(mainView);
-				hideHeader(false);
 				
+				windowTitle = (TextView) findViewById(R.id.pageTitle);
+				windowTitle.setText(R.string.CreateLocalPlace);
+				
+				hideHeader(false);
 				
 				LocalPlaceName = (TextView) findViewById(R.id.LocalPlaceName);
 				AddressLocalPlace = (TextView) findViewById(R.id.AddressLocalPlace);
@@ -124,7 +128,7 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 							else {
 								// OK
 								String id = res.getString("id");
-								// TODO: stocker id
+								// TODO: transmettre id a fenetre suivante
 								
 							}
 						} catch (JSONException e) {
@@ -211,8 +215,7 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 					ServerConnection srvCon = ServerConnection.GetServerConnection();
 					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 					
-					// TODO: Longitude
-					// Latitude
+					// TODO: Longitude & Latitude
 					String latitude = "45.78";
 					String longitude = "4.87";
 					parameters.add(new BasicNameValuePair("latitude", latitude));
