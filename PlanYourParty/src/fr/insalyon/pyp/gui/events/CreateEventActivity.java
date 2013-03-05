@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
+import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
@@ -135,8 +136,9 @@ public class CreateEventActivity extends BaseActivity {
 
 							else {
 								// OK
-								// continue to next view : places
-
+								String[] params = new String[1];
+								params[0] = res.getString("id");
+								IntentHelper.openNewActivity(GetPlacesActivity.class, params, false);
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();

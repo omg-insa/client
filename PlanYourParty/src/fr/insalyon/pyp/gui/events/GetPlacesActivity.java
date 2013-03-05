@@ -63,6 +63,7 @@ public class GetPlacesActivity extends BaseActivity {
 				super.onResume();
 				//check if logged in
 				checkLoggedIn();
+				new GetPlacesTask().execute();
 			}
 			
 			
@@ -80,7 +81,7 @@ public class GetPlacesActivity extends BaseActivity {
 					@Override
 					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 							long arg3) {
-//						new SelectPlaceTask().execute(arg1.getTag().toString());
+						new SelectPlaceTask().execute(arg1.getTag().toString());
 					}
 				});
 			}
@@ -104,7 +105,7 @@ public class GetPlacesActivity extends BaseActivity {
 							ArrayList<String[]> data = new ArrayList<String[]>();
 							for (int i = 0; i < array.length(); i++) {
 								JSONObject obj = array.getJSONObject(i);
-								data.add(new String[] { obj.getString("name"),
+								data.add(new String[] {obj.getString("name"),
 										obj.getString("type"),
 										obj.getString("address"), obj.getString("id") });
 							}
@@ -189,12 +190,11 @@ public class GetPlacesActivity extends BaseActivity {
 					// Get the token & the username
 					String[] paramsGet = IntentHelper.getActiveIntentParam(String[].class);
 					String eventId = paramsGet[0];
-
+					
 					parameters.add(new BasicNameValuePair("event_id", eventId));
 					parameters.add(new BasicNameValuePair("place_id", (String) params[0]));
 					parameters.add(new BasicNameValuePair("is_local", "False"));
 					parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
-					
 					
 					
 					try {
