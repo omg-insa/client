@@ -101,5 +101,17 @@
     <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
     
     <string name="ViewName">Name</string>
+    
+    <!-- Page titles -->
+	<string name="ForgotPasswordTitle">Recovery pwd</string>
+	<string name="LoginTitle">Log in</string>
+	<string name="RegisterTitle">Register</string>
+	<string name="ResetPasswordTitle">Reset pwd</string>
+	<string name="CreateEventTitle">New event</string>
+	<string name="AccountTitle">Account</string>
+	<string name="InterestTitle">Interests</string>
+	<string name="PersonalInfoTitle">Personal Infos</string>
+	<string name="SecurityTitle">Security</string>
+	<string name="NoTitle"></string>
 
 </resources>

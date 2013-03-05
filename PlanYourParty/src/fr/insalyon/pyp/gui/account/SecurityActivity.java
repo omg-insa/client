@@ -39,6 +39,7 @@ public class SecurityActivity extends BaseActivity {
 	private TextView oldPasswordField;
 	private TextView newPasswordField;
 	private TextView renewPasswordField;
+	private TextView windowTitle;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,10 @@ public class SecurityActivity extends BaseActivity {
 		newPasswordField = (TextView) findViewById(id.security_new_password);
 		oldPasswordField = (TextView) findViewById(id.security_old_password);
 		renewPasswordField = (TextView) findViewById(id.security_re_new_password);
+		
+		windowTitle = (TextView) findViewById(R.id.pageTitle);
+		windowTitle.setText(R.string.SecurityTitle);
+		
 		changeSecretQuestion.setOnClickListener(new OnClickListener() {
 
 			@Override

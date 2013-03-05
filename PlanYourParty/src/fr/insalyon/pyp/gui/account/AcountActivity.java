@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
@@ -19,6 +20,7 @@ public class AcountActivity extends BaseActivity {
 	private Button personalInfo;
 	private Button intrestInfo;
 	private Button securityInfo;
+	private TextView windowTitle;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,10 @@ public class AcountActivity extends BaseActivity {
 				null);
 		abstractView.addView(mainView);
 		securityInfo = (Button) findViewById(R.id.profils_activity_securite);
+		
+		windowTitle = (TextView) findViewById(R.id.pageTitle);
+		windowTitle.setText(R.string.AccountTitle);
+		
 		securityInfo.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				IntentHelper.openNewActivity(SecurityActivity.class, null, false);
