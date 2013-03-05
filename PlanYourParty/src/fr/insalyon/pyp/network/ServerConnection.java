@@ -1,8 +1,10 @@
 package fr.insalyon.pyp.network;
 
 import java.util.List;
+
 import org.apache.http.NameValuePair;
 import org.json.JSONObject;
+
 import fr.insalyon.pyp.tools.AppTools;
 
 public class ServerConnection {

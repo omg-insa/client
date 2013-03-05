@@ -70,7 +70,6 @@ public class MainActivity extends BaseActivity {
 				});
 			}
 
-
 			@Override
 			public void onResume() {
 				super.onResume();

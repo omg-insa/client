@@ -2,13 +2,12 @@ package fr.insalyon.pyp.tools.logger;
 
 import java.util.logging.Level;
 
+import android.content.Context;
+import android.util.Log;
+
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.tools.PYPContext;
 import fr.insalyon.pyp.tools.Constants;
-
-
-import android.content.Context;
-import android.util.Log;
 
 /**
  * @author Stefan
