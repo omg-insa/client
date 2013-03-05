@@ -69,8 +69,15 @@
     <string name="DescriptionEvent">Description</string>
     <string name="NextStep">Etape suivante</string>
     
+    <string name="PlaceName">Nom de l\'emplacement</string>
+    <string name="AddressLocalPlace">Adresse</string>
+    <string name="DescriptionLocalPlace">Description</string>
     
-    
+    <string-array name="place_type_array">
+        <item>Bar</item>
+        <item>Boite de nuit</item>
+        <item>Restaurant</item>
+    </string-array>
     
     <!-- Popups -->
 
