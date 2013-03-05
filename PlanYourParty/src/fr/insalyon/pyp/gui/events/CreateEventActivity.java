@@ -48,7 +48,7 @@ public class CreateEventActivity extends BaseActivity {
 				// set layouts
 				LayoutInflater mInflater = LayoutInflater.from(this);
 				abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-				mainView = (LinearLayout) mInflater.inflate(R.layout.main_layout,
+				mainView = (LinearLayout) mInflater.inflate(R.layout.create_event_activity,
 						null);
 				abstractView.addView(mainView);
 				hideHeader(false);
