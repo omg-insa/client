@@ -18,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.network.ServerConnection;
@@ -30,6 +31,7 @@ public class IntrestActivity extends BaseActivity {
 	private LinearLayout mainView;
 	private ListView list;
 	private IntrestsAdapter adapter;
+	private TextView windowTitle;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,9 @@ public class IntrestActivity extends BaseActivity {
 		mainView = (LinearLayout) mInflater.inflate(R.layout.intersts_activity,
 				null);
 		abstractView.addView(mainView);
+		
+		windowTitle = (TextView) findViewById(R.id.pageTitle);
+		windowTitle.setText(R.string.InterestTitle);
 
 	}
 

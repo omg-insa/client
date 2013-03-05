@@ -20,7 +20,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import fr.insalyon.pyp.R;
+import fr.insalyon.pyp.R.string;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
@@ -40,6 +42,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 	private EditText daysText;
 	private EditText monthsText;
 	private EditText yearsText;
+	private TextView windowTitle;
 	private boolean usernameFilled = false;
 	
 	@Override
@@ -65,6 +68,8 @@ public class ForgotPasswordActivity extends BaseActivity {
 		monthsText = (EditText) findViewById(R.id.months);
 		yearsText = (EditText) findViewById(R.id.years);
 		
+		windowTitle = (TextView) findViewById(R.id.pageTitle);
+		windowTitle.setText(R.string.ForgotPasswordTitle);
 
 		hideSecretQuestion();
 		

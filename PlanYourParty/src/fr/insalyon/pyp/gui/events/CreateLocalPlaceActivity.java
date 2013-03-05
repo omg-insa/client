@@ -1,9 +1,8 @@
 package fr.insalyon.pyp.gui.events;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.logging.Level;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -11,8 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -61,26 +58,9 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 				
 				LocalPlaceName = (TextView) findViewById(R.id.LocalPlaceName);
 				AddressLocalPlace = (TextView) findViewById(R.id.AddressLocalPlace);
+
 				// Get the address from the current location
-				// TODO: get the real data from the phone
-				double latitude = 45.78;
-				double longitude = 4.8;
-				
 				new GetCurrentAddressTask().execute();
-				
-//				Geocoder geocoder;
-//				List<Address> addresses;
-//				geocoder = new Geocoder(this, Locale.getDefault());
-//				try {
-//					addresses = geocoder.getFromLocation(latitude, longitude, 1);
-//					String country = addresses.get(0).getAddressLine(2);
-//					String city = addresses.get(0).getAddressLine(1);
-//					String address = addresses.get(0).getAddressLine(0);
-//					
-//					AddressLocalPlace.setText(address);
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
 
 				DescriptionLocalPlace = (TextView) findViewById(R.id.DescriptionLocalPlace);
 				TypeLocalPlace = (Spinner) findViewById(R.id.TypeLocalPlace);
@@ -99,7 +79,8 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 					
 					@Override
 					public void onClick(View v) {
-						// TODO: Check if fields are ok
+						if( !"".equals(LocalPlaceName.getText().toString()) &&
+							!"".equals(DescriptionLocalPlace.getText().toString())	)
 						new CreateLocalPlaceTask().execute();
 					}
 				});
@@ -115,7 +96,12 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 			}
 			
 			public void networkError(String error) {
-				Popups.showPopup("broken");
+				if (error.equals("Incomplete data")) {
+					Popups.showPopup(Constants.IncompleatData);
+				}
+				if (error.equals("Object does not exists")) {
+					AppTools.log("You should never see this!", Level.WARNING);
+				}
 			}
 
 			private class CreateLocalPlaceTask extends AsyncTask<Void, Void, Void> {
@@ -139,6 +125,7 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 								// OK
 								String id = res.getString("id");
 								// TODO: stocker id
+								
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
