@@ -52,66 +52,68 @@
     <item>Single</item>
   </string-array>
 
-  <string name="Statut">Status</string>
-  <string name="BirthdayDate">JJ/MM/AAAA</string>
-  
-  <string name="Events">Events</string>
-  <string name="Add_Event">Add event</string>
-  
-  <string name="EventName">Name</string>
-  <string name="StartEvent">Start time</string>
-  <string name="EndEvent">End time</string>
-  <string name="PriceEvent">Price</string>
-  <string name="DescriptionEvent">Description</string>
-  <string name="NextStep">Next step</string>
-  
-  <string name="PlaceName">Place name</string>
-  <string name="AddressLocalPlace">Address</string>
-  <string name="DescriptionLocalPlace">Description</string>
-  
-  <string-array name="place_type_array">
-      <item>Bar</item>
-      <item>Night Club</item>
-      <item>Restaurant</item>
-  </string-array>
-  
-  <!-- Popups -->
-  <string name="initWrongUsernameOrPassword_title">Bad information</string>
-  <string name="initWrongUsernameOrPassword_text">You have entered a bad username or password</string>
-  <string name="initIncompleatData_title">Incomplete data</string>
-  <string name="initIncompleatData_text">You haven\'t completed all the fields</string>
-  <string name="InvalidEmail_title">Invalid email</string>
-  <string name="InvalidEmail_text">You haven\'t entered a valid email address</string>
-  <string name="EmailAlreadyUsed_title">Email already in use</string>
-  <string name="EmailAlreadyUsed_text">The email you entered is already in use</string>
-  <string name="UsernameAlreadyUsed_title">Username already in use</string>
-  <string name="UsernameAlreadyUsed_text">The username you entered is already in use</string>
-  <string name="passwordTooShort_title">Password too short</string>
-  <string name="passwordTooShort_text">Please enter at least 4 characters</string>
-  <string name="passwordsDontMatch_title">Passwords don\'t match</string>
-  <string name="passwordsDontMatch_text">The passwords don\'t match</string>
-  <string name="curentPasswordWrong_title">Bad password</string>
-  <string name="curentPasswordWrong_text">The current password is wrong</string>
-  <string name="WrongData_title">Bad data</string>
-  <string name="WrongData_text">The specified data is wrong</string>
-  <string name="DifferentPassword_title">Passwords mismatch</string>
-  <string name="DifferentPassword_text">The two passwords don\'t match</string>
-  
-  <string name="dateFormatWrong_title">Bad date format</string>
-  <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
-  
-  <string name="ViewName">Name</string>
-  
-  <!-- Page titles -->
-  <string name="ForgotPasswordTitle">Recover pwd</string>
-  <string name="LoginTitle">Login</string>
-  <string name="RegisterTitle">Register</string>
-  <string name="ResetPasswordTitle">Reset pwd</string>
-  <string name="CreateEventTitle">New event</string>
-  <string name="AccountTitle">Account</string>
-  <string name="InterestTitle">Interests</string>
-  <string name="PersonalInfoTitle">Personal Info</string>
-  <string name="SecurityTitle">Security</string>
-  <string name="NoTitle"></string>
-
+    <string name="Statut">Statut :</string>
+    <string name="BirthdayDate">JJ/MM/AAAA</string>
+    
+    <string name="Events">Events</string>
+    <string name="Add_Event">Add event</string>
+    
+    <string name="EventName">Name</string>
+    <string name="StartEvent">Start time</string>
+    <string name="EndEvent">End time</string>
+    <string name="PriceEvent">Price</string>
+    <string name="DescriptionEvent">Description</string>
+    <string name="NextStep">Next step</string>
+    
+    <string name="PlaceName">Place name</string>
+    <string name="AddressLocalPlace">Address</string>
+    <string name="DescriptionLocalPlace">Description</string>
+    
+    <string-array name="place_type_array">
+        <item>Bar</item>
+        <item>NightClub</item>
+        <item>Restaurant</item>
+    </string-array>
+    
+    <!-- Popups -->
+    <string name="initWrongUsernameOrPassword_title">Wrong informations</string>
+    <string name="initWrongUsernameOrPassword_text">You have entered a wrong username or password</string>
+    <string name="initIncompleatData_title">Incomplete data</string>
+    <string name="initIncompleatData_text">You haven\'t compleated all the fields</string>
+    <string name="InvalidEmail_title">Invalid email</string>
+    <string name="InvalidEmail_text">You haven\'t entered a valid email</string>
+    <string name="EmailAlreadyUsed_title">E-mail already used</string>
+    <string name="EmailAlreadyUsed_text">The email you have entered is already used</string>
+    <string name="UsernameAlreadyUsed_title">Username already used</string>
+    <string name="UsernameAlreadyUsed_text">The username you have entered is already used</string>
+    <string name="passwordTooShort_title">The password is too short</string>
+    <string name="passwordTooShort_text">Please enter a min 4 chars password</string>
+    <string name="passwordsDontMatch_title">Passwords don\'t match</string>
+    <string name="passwordsDontMatch_text">The passwrods don\'t match</string>
+    <string name="curentPasswordWrong_title">Password don\'t match</string>
+    <string name="curentPasswordWrong_text">The current password is wrong</string>
+    <string name="WrongData_title">Wrong Data</string>
+    <string name="WrongData_text">The specified data are wrong.</string>
+    <string name="DifferentPassword_title">Different password</string>
+    <string name="DifferentPassword_text">The two passwords are not the same.</string>
+    
+    <string name="dateFormatWrong_title">Wrong date </string>
+    <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
+    
+    <string name="ViewName">Name</string>
+    
+    <!-- Page titles -->
+	<string name="ForgotPasswordTitle">Recovery pwd</string>
+	<string name="LoginTitle">Log in</string>
+	<string name="RegisterTitle">Register</string>
+	<string name="ResetPasswordTitle">Reset pwd</string>
+	<string name="CreateEventTitle">New event</string>
+	<string name="AccountTitle">Account</string>
+	<string name="InterestTitle">Interests</string>
+	<string name="PersonalInfoTitle">Personal Infos</string>
+	<string name="SecurityTitle">Security</string>
+	<string name="NoTitle"></string>
+	<string name="CreateLocalPlace">Current Location</string>
+	<string name="GetPlaces">Location</string>
+	
 </resources>

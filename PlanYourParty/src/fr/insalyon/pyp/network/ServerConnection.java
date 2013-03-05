@@ -36,6 +36,10 @@ public class ServerConnection {
     public static final String UPDATE_USER_INTREST = "update_intrests/";
     public static final String ADD_LOCAL_PLACE = "add_local_place/";
     public static final String GET_CURRENT_ADDRESS = "get_current_address/";
+    public static final String GET_PERSONAL_EVENTS = "get_personal_events/";
+    public static final String GET_PLACES = "get_places/";
+    public static final String SAVE_EVENT_PLACE = "save_event_place/";
+
 	private ServerConnection() {
 		if (LOCAL)
 			setRequestUrl(LOCAL_URL);
@@ -63,6 +67,11 @@ public class ServerConnection {
 		}
 		if(service.equals(GET_INTRESTS_LIST))
 		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(GET_PERSONAL_EVENTS)){
 			request = new HttpRequest(requestUrl, parameters);
 			returnObj = request.executePost();
 			AppTools.debug(returnObj.toString());
@@ -145,6 +154,18 @@ public class ServerConnection {
 			AppTools.debug(returnObj.toString());
 		}
 		if(service.equals(GET_CURRENT_ADDRESS))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(GET_PLACES))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(SAVE_EVENT_PLACE))
 		{
 			request = new HttpRequest(requestUrl, parameters);
 			returnObj = request.executePost();

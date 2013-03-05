@@ -52,71 +52,75 @@
     <item>Célibataire</item>
   </string-array>
 
-  <string name="Statut">Statut :</string>
-  <string name="BirthdayDate">JJ/MM/AAAA</string>
-  
-  <string name="Events">Evènements</string>
-  <string name="Add_Event">Ajouter évènement</string>
-  
-  <string name="EventName">Nom</string>
-  <string name="StartEvent">Heure de début</string>
-  <string name="EndEvent">Heure de fin</string>
-  <string name="PriceEvent">Prix</string>
-  <string name="DescriptionEvent">Description</string>
-  <string name="NextStep">Etape suivante</string>
-  
-  <string name="PlaceName">Nom de l\'endroit</string>
-  <string name="AddressLocalPlace">Adresse</string>
-  <string name="DescriptionLocalPlace">Description</string>
-  
-  <string-array name="place_type_array">
-      <item>Bar</item>
-      <item>Boîte de nuit</item>
-      <item>Restaurant</item>
-  </string-array>
-  
-  <!-- Popups -->
-  <string name="initWrongUsernameOrPassword_title">Informations incorrectes</string>
-  <string name="initWrongUsernameOrPassword_text">Nom d\'utilisateur ou mot de passe erroné</string>
-  <string name="initIncompleatData_title">Données incomplètes</string>
-  <string name="initIncompleatData_text">Vous n\'avez pas complété tous les champs</string>
-  <string name="InvalidEmail_title">Email invalide</string>
-  <string name="InvalidEmail_text">Vous n\'avez pas entré d\'adresse email valide</string>
-  <string name="EmailAlreadyUsed_title">Adresse email déjà utilisée</string>
-  <string name="EmailAlreadyUsed_text">L\'adresse email que vous avez entré est déjà utilisée</string>
-  <string name="UsernameAlreadyUsed_title">Nom d\'utilisateur déjà utilisé</string>
-  <string name="UsernameAlreadyUsed_text">Le nom d\'utilisateur que vous avez entré est déjà utilisé</string>
-  <string name="passwordTooShort_title">Mot de passe trop court</string>
-  <string name="passwordTooShort_text">Entrez un minimum de 4 caractères pour le mot de passe</string>
-  <string name="passwordsDontMatch_title">Mot de passe incorrect</string>
-  <string name="passwordsDontMatch_text">Les mots de passe saisis ne correspondent pas</string>
-  <string name="curentPasswordWrong_title">Mot de passe incorrect</string>
-  <string name="curentPasswordWrong_text">Le mot de passe actuel est incorrect</string>
-  <string name="WrongUsername_title">Utilisateur inconnu</string>
-  <string name="WrongUsername_text">L\'utilisateur que vous cherchez n\'existe pas</string>
-  <string name="NoSecretQuestion_title">Aucune question de sécurité</string>
-  <string name="NoSecretQuestion_text">Vous n\'avez specifié aucune information de sécurité dans votre profil</string>
-  <string name="WrongAnswer_title">Réponse incorrecte</string>
-  <string name="WrongAnswer_text">Votre réponse ou votre date d\'anniversaire est incorrecte</string>
-  <string name="dateFormatWrong_title">Date incorrecte</string>
-  <string name="dateFormatWrong_text">Entrez une date valide (DD MM YYYY)</string>
-  <string name="WrongData_title">Données erronées</string>
-  <string name="WrongData_text">Les données envoyées au serveur sont erronées</string>
-  <string name="DifferentPassword_title">Mots de passe différents</string>
-  <string name="DifferentPassword_text">Les mots de passe specifiés ne correspondent pas</string>
-  <string name="ViewName">Name</string>
-  
-  <!-- Pages title -->
-  <string name="ForgotPasswordTitle">Récuperation mdp</string>
-  <string name="LoginTitle">Connexion</string>
-  <string name="RegisterTitle">Inscription</string>
-  <string name="ResetPasswordTitle">Changer mdp</string>
-  <string name="CreateEventTitle">Nouvel évènement</string>
-  <string name="AccountTitle">Compte</string>
-  <string name="InterestTitle">Intérêts</string>
-  <string name="PersonalInfoTitle">Infos personelles</string>
-  <string name="SecurityTitle">Sécurité</string>
-  <string name="NoTitle"></string>
-  
+    <string name="Statut">Statut :</string>
+    <string name="BirthdayDate">JJ/MM/AAAA</string>
+    
+    <string name="Events">Evenements</string>
+    <string name="Add_Event">Ajouter evenement</string>
+    
+    <string name="EventName">Nom</string>
+    <string name="StartEvent">Heure de debut</string>
+    <string name="EndEvent">Heure de fin</string>
+    <string name="PriceEvent">Prix</string>
+    <string name="DescriptionEvent">Description</string>
+    <string name="NextStep">Etape suivante</string>
+    
+    <string name="PlaceName">Nom de l\'emplacement</string>
+    <string name="AddressLocalPlace">Adresse</string>
+    <string name="DescriptionLocalPlace">Description</string>
+    
+    <string-array name="place_type_array">
+        <item>Bar</item>
+        <item>Boite de nuit</item>
+        <item>Restaurant</item>
+    </string-array>
+    
+    <!-- Popups -->
+
+	
+    <string name="initWrongUsernameOrPassword_title">Informations incorrectes</string>
+    <string name="initWrongUsernameOrPassword_text">Vous avez entré un mot de passe ou un nom d\'utilisateur erroné</string>
+    <string name="initIncompleatData_title">Données incomplètes</string>
+    <string name="initIncompleatData_text">Vous n\'avez pas complété tous les champs</string>
+    <string name="InvalidEmail_title">E-mail invalide</string>
+    <string name="InvalidEmail_text">Vous n\'avez pas rentré un e-mail valide</string>
+    <string name="EmailAlreadyUsed_title">Adresse e-mail déjà utilisée</string>
+    <string name="EmailAlreadyUsed_text">L\'adresse e-mail que vous avez entré est déjà utilisée</string>
+    <string name="UsernameAlreadyUsed_title">Nom d\'utilisateur déjà utilisé</string>
+    <string name="UsernameAlreadyUsed_text">Le nom d\'utilisateur que vous avez entré est déjà utilisé</string>
+    <string name="passwordTooShort_title">Le mot de passe est trop court</string>
+    <string name="passwordTooShort_text">S\'il vous plait entrer un minimum de 4 caractères pour le mot de passe</string>
+    <string name="passwordsDontMatch_title">Mot de passe incorrect</string>
+    <string name="passwordsDontMatch_text">Le mot de passe est incorrect</string>
+    <string name="curentPasswordWrong_title">Mot de passe incorrect</string>
+    <string name="curentPasswordWrong_text">Le mot de passe actuel est incorrect</string>
+    <string name="WrongUsername_title">Utilisateur inconnu</string>
+    <string name="WrongUsername_text">L\'utilisateur que vous cherchez n\'existe pas.</string>
+    <string name="NoSecretQuestion_title">Aucune question de securite</string>
+    <string name="NoSecretQuestion_text">Vous n\'avez specifie aucune information de securite dans votre profil.</string>
+	<string name="WrongAnswer_title">Reponse incorrecte</string>
+	<string name="WrongAnswer_text">Votre reponse ou votre date d\'anniversaire est incorrecte.</string>
+	<string name="dateFormatWrong_title">Date incorrecte </string>
+    <string name="dateFormatWrong_text">S\'il vous plait entrer une date valide (DD MM YYYY)</string>
+    <string name="WrongData_title">Donnees erronees</string>
+    <string name="WrongData_text">Les donnees envoyees au serveur sont erronees.</string>
+    <string name="DifferentPassword_title">Mot de passe differents</string>
+    <string name="DifferentPassword_text">Le mot de passe specifie  n\'est pas le meme.</string>
+    <string name="ViewName">Name</string>
+    
+    <!-- Pages title -->
+	<string name="ForgotPasswordTitle">Recuperation mdp</string>
+	<string name="LoginTitle">Connexion</string>
+	<string name="RegisterTitle">Inscription</string>
+	<string name="ResetPasswordTitle">Changer mdp</string>
+	<string name="CreateEventTitle">Nouvel evenement</string>
+	<string name="AccountTitle">Compte</string>
+	<string name="InterestTitle">Interets</string>
+	<string name="PersonalInfoTitle">Infos personelles</string>
+	<string name="SecurityTitle">Securite</string>
+	<string name="NoTitle"></string>
+	<string name="CreateLocalPlace">Location courante</string>
+	<string name="GetPlaces">Location</string>
+
 </resources>
 

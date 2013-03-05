@@ -10,18 +10,29 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
+import android.widget.AdapterView.OnItemClickListener;
 import fr.insalyon.pyp.R;
+import fr.insalyon.pyp.gui.account.IntrestActivity;
+import fr.insalyon.pyp.gui.account.IntrestsAdapter;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
@@ -32,138 +43,151 @@ import fr.insalyon.pyp.tools.Constants;
 import fr.insalyon.pyp.tools.PYPContext;
 
 public class MainActivity extends BaseActivity {
-			private LinearLayout abstractView;
-			private LinearLayout mainView;
-			private Button buttonGetEvent;
-			private Button buttonAddEvent;
-			private TextView windowTitle;
-			
+	private LinearLayout abstractView;
+	private LinearLayout mainView;
+	private TextView windowTitle;
+	private ListView list;
+	private PersonalEventsAdapter adapter;
+
+	private ViewFlipper vf;
+	private float lastX;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState, Constants.MAIN_CONST);
+		new GetPersonalEvents().execute();
+		AppTools.info("on create MainActivity");
+		initGraphicalInterface();
+	}
+
+	private void initGraphicalInterface() {
+		// set layouts
+		LayoutInflater mInflater = LayoutInflater.from(this);
+		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
+		abstractView.setVisibility(LinearLayout.GONE);
+		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayoutTop);
+		abstractView.setVisibility(LinearLayout.VISIBLE);
+		mainView = (LinearLayout) mInflater.inflate(R.layout.main_layout, null);
+		abstractView.addView(mainView);
+		vf = (ViewFlipper) findViewById(R.id.view_flipper);
+		windowTitle = (TextView) findViewById(R.id.pageTitle);
+		windowTitle.setText(R.string.NoTitle);
+		ArrayList<String[]> data = new ArrayList<String[]>();
+		data.add(new String[] {getString(R.string.Add_Event)});
+		buildList(data);
+		hideHeader(false);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		// check if logged in
+		checkLoggedIn();
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent touchevent) {
+		switch (touchevent.getAction()) {
+		case MotionEvent.ACTION_DOWN: {
+			lastX = touchevent.getX();
+			break;
+		}
+
+		case MotionEvent.ACTION_UP: {
+
+			float currentX = touchevent.getX();
+			AppTools.debug("Old:" + lastX + "New:" + currentX);
+
+			if (lastX < currentX && lastX != 0 && currentX - lastX > 100) {
+				if (vf.getDisplayedChild() == 0)
+					break;
+				vf.setInAnimation(this, R.anim.in_from_left);
+				vf.setOutAnimation(this, R.anim.out_to_right);
+				new GetPersonalEvents().execute();
+				vf.showNext();
+			}
+
+			if (lastX > currentX && lastX != 0 && lastX - currentX > 100) {
+				if (vf.getDisplayedChild() == 1)
+					break;
+				vf.setInAnimation(this, R.anim.in_from_right);
+				vf.setOutAnimation(this, R.anim.out_to_left);
+				vf.showPrevious();
+			}
+			lastX = 0;
+			break;
+		}
+		}
+		return false;
+	}
+
+	private void buildList(ArrayList<String[]> data) {
+
+		list = (ListView) findViewById(R.id.personal_events_list);
+
+		// Getting adapter by passing xml data ArrayList
+		adapter = new PersonalEventsAdapter(this, data);
+		if(adapter == null){
+			AppTools.info("Adapter is null");
+			return;
+		}
+		list.setAdapter(adapter);
+
+		// Click event for single list row
+		list.setOnItemClickListener(new OnItemClickListener() {
+
 			@Override
-			public void onCreate(Bundle savedInstanceState) {
-				super.onCreate(savedInstanceState, Constants.MAIN_CONST);
-				AppTools.info("on create MainActivity");
-				initGraphicalInterface();
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO
 			}
+		});
+	}
 
-			private void initGraphicalInterface() {
-				// set layouts
-				LayoutInflater mInflater = LayoutInflater.from(this);
-				abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-				mainView = (LinearLayout) mInflater.inflate(R.layout.main_layout,
-						null);
-				abstractView.addView(mainView);
-				
-				windowTitle = (TextView) findViewById(R.id.pageTitle);
-				windowTitle.setText(R.string.NoTitle);
-				
-				hideHeader(false);
-				
-				buttonGetEvent = (Button) findViewById(R.id.buttonGetEvent);
+	private class GetPersonalEvents extends AsyncTask<Void, Void, Void> {
 
-				buttonGetEvent.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						new EventTask().execute();
+		JSONObject res;
+
+		@Override
+		protected void onPostExecute(Void result) {
+			if (res != null) {
+				try {
+					JSONArray array = res.getJSONArray("list");
+					ArrayList<String[]> data = new ArrayList<String[]>();
+					for (int i = 0; i < array.length(); i++) {
+						JSONObject obj = array.getJSONObject(i);
+						data.add(new String[] { obj.getString("name"),
+								obj.getString("start_time")+" - "+obj.getString("end_time"),
+								"true", obj.getString("id") });
 					}
-				});
-				
-				buttonAddEvent = (Button) findViewById(R.id.buttonAddEvent);
-				
-				buttonAddEvent.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						IntentHelper.openNewActivity(CreateEventActivity.class, null, false);
-					}
-				});
-			}
-
-			@Override
-			public void onResume() {
-				super.onResume();
-				//check if logged in
-				checkLoggedIn();
-			}
-			
-			public void networkError(String error) {
-				Popups.showPopup("broken");
-			}
-
-			public void populateEvents(JSONArray events) {
-
-				TableLayout table = (TableLayout) findViewById(R.id.eventsTable);
-
-				for (int i = 0; i < events.length(); i++) {
-
-					TableRow row = new TableRow(this);
-
-					TextView tv = new TextView(this);
-
-					try {
-						tv.setText(events.getJSONObject(i).getString("name"));
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-					tv.setGravity(Gravity.LEFT);
-
-					row.addView(tv);
-
-					table.addView(row);
-
-				}
-
-			}
-
-			private class EventTask extends AsyncTask<Void, Void, Void> {
-
-				ProgressDialog mProgressDialog;
-				JSONObject res;
-
-				@Override
-				protected void onPostExecute(Void result) {
-					mProgressDialog.dismiss();
-					if (res != null) {
-						try {
-							if (res.has("error")) {
-								// Error
-								String error;
-								error = res.getString("error");
-								MainActivity.this.networkError(error);
-							}
-
-							else {
-								// OK
-								populateEvents(res.getJSONArray("results"));
-
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-
-				@Override
-				protected void onPreExecute() {
-					mProgressDialog = ProgressDialog.show(MainActivity.this,
-							getString(R.string.app_name), getString(R.string.loading));
-				}
-
-				@Override
-				protected Void doInBackground(Void... params) {
-					// Send request to server for login
-
-					ServerConnection srvCon = ServerConnection.GetServerConnection();
-					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-					parameters.add(new BasicNameValuePair("radius", "5000"));
-					parameters.add(new BasicNameValuePair("latitude", "45.771758"));
-					parameters.add(new BasicNameValuePair("longitude", "4.889826"));
-					parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
-					try {
-						res = srvCon.connect(ServerConnection.GETEVT, parameters);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					return null;
+					data.add(new String[] {getString(R.string.Add_Event)});
+					AppTools.debug("Number of personal events:" + data.size());
+					MainActivity.this.buildList(data);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
-	
+		}
+
+		@Override
+		protected void onPreExecute() {
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// Send request to server for login
+			ServerConnection srvCon = ServerConnection.GetServerConnection();
+			try {
+				List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+				SharedPreferences settings = PYPContext.getContext()
+						.getSharedPreferences(AppTools.PREFS_NAME, 0);
+				parameters.add(new BasicNameValuePair("auth_token", settings
+						.getString("auth_token", "")));
+				res = srvCon.connect(ServerConnection.GET_PERSONAL_EVENTS, parameters);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	}
 }
