@@ -81,7 +81,11 @@ public class GetPlacesActivity extends BaseActivity {
 					@Override
 					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 							long arg3) {
-						new SelectPlaceTask().execute(arg1.getTag().toString());
+						if( arg1.getTag().toString() != "last")
+							new SelectPlaceTask().execute(arg1.getTag().toString());
+						else
+							//TODO: params to send
+							IntentHelper.openNewActivity(CreateLocalPlaceActivity.class, null, false);
 					}
 				});
 			}
@@ -109,6 +113,7 @@ public class GetPlacesActivity extends BaseActivity {
 										obj.getString("type"),
 										obj.getString("address"), obj.getString("id") });
 							}
+							data.add(new String[] {"Add location"});
 							AppTools.debug("Number of places:" + array.length());
 							GetPlacesActivity.this.buildList(data);
 						} catch (Exception e) {
