@@ -123,6 +123,8 @@
 	<string name="PersonalInfoTitle">Infos personelles</string>
 	<string name="SecurityTitle">Securite</string>
 	<string name="NoTitle"></string>
+	<string name="CreateLocalPlace">Location courante</string>
+	<string name="GetPlaces">Location</string>
 	
 </resources>
 

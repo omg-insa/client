@@ -113,5 +113,7 @@
 	<string name="PersonalInfoTitle">Personal Infos</string>
 	<string name="SecurityTitle">Security</string>
 	<string name="NoTitle"></string>
+	<string name="CreateLocalPlace">Current Location</string>
+	<string name="GetPlaces">Location</string>
 
 </resources>
