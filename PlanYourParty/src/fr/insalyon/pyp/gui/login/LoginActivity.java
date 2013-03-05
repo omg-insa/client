@@ -40,6 +40,7 @@ public class LoginActivity extends BaseActivity {
 	private TextView usernameField;
 	private TextView passwordField;
 	private TextView forgotPasswordText;
+	private TextView windowTitle;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, Constants.LOGIN_CONST);
@@ -62,6 +63,9 @@ public class LoginActivity extends BaseActivity {
 		Drawable background = ((LinearLayout) findViewById(R.id.login_backgorund))
 				.getBackground();
 		background.setAlpha(95);
+		
+		windowTitle = (TextView) findViewById(R.id.pageTitle);
+		windowTitle.setText(R.string.LoginTitle);
 
 		loginButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {

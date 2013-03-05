@@ -36,6 +36,7 @@ public class MainActivity extends BaseActivity {
 			private LinearLayout mainView;
 			private Button buttonGetEvent;
 			private Button buttonAddEvent;
+			private TextView windowTitle;
 			
 			@Override
 			public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,10 @@ public class MainActivity extends BaseActivity {
 				mainView = (LinearLayout) mInflater.inflate(R.layout.main_layout,
 						null);
 				abstractView.addView(mainView);
+				
+				windowTitle = (TextView) findViewById(R.id.pageTitle);
+				windowTitle.setText(R.string.NoTitle);
+				
 				hideHeader(false);
 				
 				buttonGetEvent = (Button) findViewById(R.id.buttonGetEvent);

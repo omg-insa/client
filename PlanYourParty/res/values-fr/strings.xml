@@ -105,6 +105,17 @@
     <string name="DifferentPassword_text">Le mot de passe specifie  n\'est pas le meme.</string>
     <string name="ViewName">Name</string>
     
-
+    <!-- Pages title -->
+	<string name="ForgotPasswordTitle">Recuperation mdp</string>
+	<string name="LoginTitle">Connexion</string>
+	<string name="RegisterTitle">Inscription</string>
+	<string name="ResetPasswordTitle">Changer mdp</string>
+	<string name="CreateEventTitle">Nouvel evenement</string>
+	<string name="AccountTitle">Compte</string>
+	<string name="InterestTitle">Interets</string>
+	<string name="PersonalInfoTitle">Infos personelles</string>
+	<string name="SecurityTitle">Securite</string>
+	<string name="NoTitle"></string>
+	
 </resources>
 

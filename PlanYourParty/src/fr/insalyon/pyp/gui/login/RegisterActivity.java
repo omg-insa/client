@@ -37,6 +37,7 @@ public class RegisterActivity extends BaseActivity {
 	private TextView passwordField;
 	private TextView repasswrodField;
 	private TextView emailField;
+	private TextView windowTitle;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,10 @@ public class RegisterActivity extends BaseActivity {
 		Drawable background = ((LinearLayout) findViewById(R.id.register_backgorund))
 				.getBackground();
 		background.setAlpha(95);
+		
+		windowTitle = (TextView) findViewById(R.id.pageTitle);
+		windowTitle.setText(R.string.RegisterTitle);
+		
 		hideHeader(false);
 		cancelButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {

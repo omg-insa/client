@@ -42,6 +42,7 @@ public class PersoanlInfoActivity extends BaseActivity {
 	private TextView month;
 	private TextView year;
 	private Button sendButton;
+	private TextView windowTitle;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,10 @@ public class PersoanlInfoActivity extends BaseActivity {
 		Drawable background = ((LinearLayout) findViewById(R.id.personal_info_backgorund))
 				.getBackground();
 		background.setAlpha(95);
+		
+		windowTitle = (TextView) findViewById(R.id.pageTitle);
+		windowTitle.setText(R.string.PersonalInfoTitle);
+		
 		sendButton.setOnClickListener(new OnClickListener() {
 
 			@Override

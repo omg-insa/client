@@ -34,6 +34,7 @@ public class CreateEventActivity extends BaseActivity {
 			private TextView PriceEvent;
 			private TextView DescriptionEvent;
 			private Button NextStepBtn;
+			private TextView windowTitle;
 			
 			@Override
 			public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,10 @@ public class CreateEventActivity extends BaseActivity {
 				mainView = (LinearLayout) mInflater.inflate(R.layout.main_layout,
 						null);
 				abstractView.addView(mainView);
+				
+				windowTitle = (TextView) findViewById(R.id.pageTitle);
+				windowTitle.setText(R.string.CreateEventTitle);
+				
 				hideHeader(false);
 				
 				
