@@ -111,7 +111,7 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 			public void onResume() {
 				super.onResume();
 				//check if logged in
-//				checkLoggedIn();
+				checkLoggedIn();
 			}
 			
 			public void networkError(String error) {
