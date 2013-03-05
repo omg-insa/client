@@ -55,7 +55,6 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, Constants.MAIN_CONST);
-		new GetPersonalEvents().execute();
 		AppTools.info("on create MainActivity");
 		initGraphicalInterface();
 	}
@@ -75,6 +74,7 @@ public class MainActivity extends BaseActivity {
 		ArrayList<String[]> data = new ArrayList<String[]>();
 		data.add(new String[] {getString(R.string.Add_Event)});
 		buildList(data);
+		new GetPersonalEvents().execute();
 		hideHeader(false);
 	}
 
@@ -103,7 +103,6 @@ public class MainActivity extends BaseActivity {
 					break;
 				vf.setInAnimation(this, R.anim.in_from_left);
 				vf.setOutAnimation(this, R.anim.out_to_right);
-				new GetPersonalEvents().execute();
 				vf.showNext();
 			}
 
@@ -112,6 +111,7 @@ public class MainActivity extends BaseActivity {
 					break;
 				vf.setInAnimation(this, R.anim.in_from_right);
 				vf.setOutAnimation(this, R.anim.out_to_left);
+				new GetPersonalEvents().execute();
 				vf.showPrevious();
 			}
 			lastX = 0;
@@ -139,7 +139,18 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO
+				if(arg2 == 0){
+					IntentHelper.openNewActivity(CreateEventActivity.class,null,false);
+				}
+				else {
+					String[] tagData = (String[])arg1.getTag();
+					if(tagData[1].equals("false")){
+						//TODO pop-up
+					}
+					else {
+						//TODO edit
+					}
+				}
 			}
 		});
 	}
@@ -154,13 +165,15 @@ public class MainActivity extends BaseActivity {
 				try {
 					JSONArray array = res.getJSONArray("list");
 					ArrayList<String[]> data = new ArrayList<String[]>();
+					data.add(new String[] {getString(R.string.Add_Event)});
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
+						double lon = Double.parseDouble(obj.getString("lon"));
+						double lat = Double.parseDouble(obj.getString("lat"));
 						data.add(new String[] { obj.getString("name"),
 								obj.getString("start_time")+" - "+obj.getString("end_time"),
-								"true", obj.getString("id") });
+								AppTools.checkInArea(lon, lat, Constants.AREA_RADIUS).toString(), obj.getString("id") });
 					}
-					data.add(new String[] {getString(R.string.Add_Event)});
 					AppTools.debug("Number of personal events:" + data.size());
 					MainActivity.this.buildList(data);
 				} catch (Exception e) {
@@ -171,6 +184,7 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
+			AppTools.debug("Loading persoanl events");
 		}
 
 		@Override

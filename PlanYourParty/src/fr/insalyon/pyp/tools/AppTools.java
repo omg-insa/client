@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.tools.logger.AbstractLogger;
 import fr.insalyon.pyp.tools.logger.ConsolLog;
@@ -31,30 +32,32 @@ public abstract class AppTools {
 	 *            true to exit the aplication
 	 */
 	public static void setToExit(Boolean state) {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putBoolean("exit", state);
 		editor.commit();
 	}
 
 	public static boolean isEmailValid(String email) {
-	    boolean isValid = false;
+		boolean isValid = false;
 
-	    String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-	    CharSequence inputStr = email;
-	    Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-	    Matcher matcher = pattern.matcher(inputStr);
-	    if (matcher.matches()) {
-	        isValid = true;
-	    }
-	    return isValid;
+		String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+		CharSequence inputStr = email;
+		Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(inputStr);
+		if (matcher.matches()) {
+			isValid = true;
+		}
+		return isValid;
 	}
-	
+
 	/**
 	 * @return the stat of the appilcation: true for exiting
 	 */
 	public static boolean isToExit() {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		return settings.getBoolean("exit", true);
 	}
 
@@ -102,7 +105,9 @@ public abstract class AppTools {
 		}
 		String messageLog = message;
 		if (PYPContext.getActiveActivity() != null) {
-			messageLog = "[" + PYPContext.getActiveActivity().getClass().getSimpleName() + "]" + message;
+			messageLog = "["
+					+ PYPContext.getActiveActivity().getClass().getSimpleName()
+					+ "]" + message;
 		}
 		myLog.write(messageLog, level);
 	}
@@ -111,7 +116,8 @@ public abstract class AppTools {
 	 * @return the email adress of the account using the application
 	 */
 	public static String getEmailAddress() {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		return settings.getString(MAIL_ADDRESS, null);
 
 	}
@@ -121,7 +127,8 @@ public abstract class AppTools {
 	 *            set the adress of the account using the application
 	 */
 	public static void setEmailAddress(String email) {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putString(MAIL_ADDRESS, email);
 		editor.commit();
@@ -131,7 +138,8 @@ public abstract class AppTools {
 	 * @return the password of the account(saved temporaly)
 	 */
 	public static String getPassword() {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		return settings.getString(PASSWORD, null);
 
 	}
@@ -141,7 +149,8 @@ public abstract class AppTools {
 	 *            the password to store temporaly
 	 */
 	public static void setPassword(String password) {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putString(PASSWORD, password);
 		editor.commit();
@@ -151,7 +160,8 @@ public abstract class AppTools {
 	 * @return the status of the device: true if bugged false otherwhise
 	 */
 	public static boolean getBugged() {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		return settings.getBoolean(IS_BUGED, false);
 
 	}
@@ -161,7 +171,8 @@ public abstract class AppTools {
 	 *            sets the status of the device( bugged or not)
 	 */
 	public static void setBugged(boolean bug) {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putBoolean(IS_BUGED, bug);
 		editor.commit();
@@ -173,7 +184,8 @@ public abstract class AppTools {
 	 *         has been started for the first time.
 	 */
 	public static boolean isFirstLaunch() {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		boolean firstLaunch = settings.getBoolean(V1_FIRST_LAUNCH, true);
 		return firstLaunch;
 
@@ -184,7 +196,8 @@ public abstract class AppTools {
 	 *            sets the flag of the first launch
 	 */
 	public static void setFirstLaunch(boolean firstLaunch) {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putBoolean(V1_FIRST_LAUNCH, firstLaunch);
 		editor.commit();
@@ -195,7 +208,8 @@ public abstract class AppTools {
 	 *         views
 	 */
 	public static boolean isError() {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		if (settings.getBoolean(IS_ERROR, false)) {
 			setError(false);
 			return true;
@@ -208,7 +222,8 @@ public abstract class AppTools {
 	 *            sets a flag to notify certain views that there was an error
 	 */
 	public static void setError(boolean error) {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putBoolean(IS_ERROR, error);
 		editor.commit();
@@ -219,11 +234,11 @@ public abstract class AppTools {
 	 *         ceratin views
 	 */
 	public static int getErrorCode() {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		return Integer.parseInt(settings.getString(ERROR_CODE, "0"));
 
 	}
-
 
 	/**
 	 * @param code
@@ -231,10 +246,26 @@ public abstract class AppTools {
 	 *            was an error
 	 */
 	public static void setErrorCode(int code) {
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putString(ERROR_CODE, String.valueOf(code));
 		editor.commit();
 	}
 
+	public static Boolean checkInArea(double lon, double lat, int radius) {
+		Location myLocation = TerminalInfo.getPosition();
+		double radius_degree = ((double)radius) / 111322;
+		double lon_min = lon-radius_degree;
+		AppTools.debug("Radious: "+ radius_degree+ "Lon: "+myLocation.getLongitude()+" min "+lon_min+" max "+ (lon+radius_degree));
+		if (myLocation.getLongitude() >= lon - radius_degree
+				&& myLocation.getLongitude() <= lon + radius_degree
+				&& myLocation.getLatitude() >= lat - radius_degree 
+				&& myLocation.getLatitude() <= lat + radius_degree) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 }

@@ -6,11 +6,12 @@ import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.logging.Level;
-
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
@@ -203,5 +204,11 @@ public class TerminalInfo {
 	public static String getDeviceLang() {
 		return Locale.getDefault().toString();
 	}
+	
+	public static Location getPosition(){
+		LocationManager mlocManager = (LocationManager) PYPContext.getContext().getSystemService(Context.LOCATION_SERVICE);
+		return mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);	
+	}
+	
 
 }

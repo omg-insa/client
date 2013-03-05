@@ -49,13 +49,14 @@ public class PersonalEventsAdapter extends BaseAdapter {
 		ImageView next = (ImageView) vi
 				.findViewById(R.id.personal_events_next_button);
 		String[] row_data = data.get(position);
-		if (position == data.size() - 1) {
+		if (position == 0) {
 			title.setText(row_data[0]);
 			hours.setText("");
 			next.setImageDrawable(PYPContext.getContext().getResources().getDrawable(android.R.drawable.ic_menu_edit));
 			next.setVisibility(View.VISIBLE);
 		} else {
-			vi.setTag(row_data[3]);
+			vi.setTag(new String[]{row_data[3],row_data[2]});
+
 			// Setting all values in listview
 			title.setText(row_data[0]);
 			hours.setText(row_data[1]);
