@@ -1,7 +1,6 @@
 package fr.insalyon.pyp.gui.common;
 
 import fr.insalyon.pyp.R;
-
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;

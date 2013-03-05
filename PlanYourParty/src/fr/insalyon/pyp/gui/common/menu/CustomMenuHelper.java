@@ -6,8 +6,8 @@ import android.content.res.Resources;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.menu.CustomMenu.OnMenuItemSelectedListener;
 import fr.insalyon.pyp.tools.AppTools;
-import fr.insalyon.pyp.tools.PYPContext;
 import fr.insalyon.pyp.tools.Constants;
+import fr.insalyon.pyp.tools.PYPContext;
 
 public class CustomMenuHelper {
 

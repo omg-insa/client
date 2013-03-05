@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    
+ <EditText
+        android:id="@+id/LocalPlaceName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/PlaceName"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+    
+ 	<EditText
+        android:id="@+id/AddressLocalPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/AddressLocalPlace"
+        android:ems="10"
+        android:inputType="none"
+        android:clickable="false" 
+        android:cursorVisible="false" 
+        android:focusable="false" 
+        android:focusableInTouchMode="false" />
+ 	
+ 	<Spinner
+    	android:id="@+id/TypeLocalPlace"
+    	android:layout_width="210dp"
+    	android:layout_height="45dp" 
+    	android:layout_gravity="center"
+    	style="@style/text_edit"
+    	android:ems="10"
+    />
+    
+ 	<EditText
+        android:id="@+id/DescriptionLocalPlace"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.38"
+        android:ems="10"
+        android:hint="@string/DescriptionLocalPlace"
+        android:inputType="textMultiLine" />
+
+
+    <Button
+        android:id="@+id/NextStepBtn"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="@string/NextStep" />
+
+</LinearLayout>

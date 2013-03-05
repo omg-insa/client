@@ -65,6 +65,16 @@
     <string name="DescriptionEvent">Description</string>
     <string name="NextStep">Next step</string>
     
+    <string name="PlaceName">Place name</string>
+    <string name="AddressLocalPlace">Address</string>
+    <string name="DescriptionLocalPlace">Description</string>
+    
+    <string-array name="place_type_array">
+        <item>Bar</item>
+        <item>NightClub</item>
+        <item>Restaurant</item>
+    </string-array>
+    
     <!-- Popups -->
     <string name="initWrongUsernameOrPassword_title">Wrong informations</string>
     <string name="initWrongUsernameOrPassword_text">You have entered a wrong username or password</string>
@@ -89,5 +99,7 @@
     
     <string name="dateFormatWrong_title">Wrong date </string>
     <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
+    
+    <string name="ViewName">Name</string>
 
 </resources>

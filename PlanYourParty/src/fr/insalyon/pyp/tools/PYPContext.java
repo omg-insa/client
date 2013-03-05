@@ -2,10 +2,8 @@ package fr.insalyon.pyp.tools;
 
 import java.util.logging.Level;
 
-import fr.insalyon.pyp.gui.common.BaseActivity;
-
 import android.content.Context;
-import android.content.res.Resources;
+import fr.insalyon.pyp.gui.common.BaseActivity;
 
 public abstract class PYPContext {
 

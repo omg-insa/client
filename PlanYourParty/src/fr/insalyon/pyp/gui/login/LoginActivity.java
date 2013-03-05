@@ -24,7 +24,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
-import fr.insalyon.pyp.gui.common.*;
+import fr.insalyon.pyp.gui.common.BaseActivity;
+import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
@@ -84,7 +85,6 @@ public class LoginActivity extends BaseActivity {
 		});
 		hideHeader(true);
 	}
-
 
 	@Override
 	public void onResume() {

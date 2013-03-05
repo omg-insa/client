@@ -1,6 +1,6 @@
 package fr.insalyon.pyp.tools.logger;
 
-	import java.util.logging.Level;
+import java.util.logging.Level;
 
 
 /**

@@ -82,7 +82,6 @@ public class SecurityActivity extends BaseActivity {
 		
 		changePassword.setOnClickListener(new OnClickListener() {
 
-			@Override
 			public void onClick(View v) {
 				if (newPasswordField.getText().toString()
 						.equals(renewPasswordField.getText().toString()) == false) {

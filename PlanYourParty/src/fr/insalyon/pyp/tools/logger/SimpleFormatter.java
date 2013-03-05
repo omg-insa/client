@@ -61,6 +61,7 @@ public final class SimpleFormatter implements Formatter {
 
 	private StringBuffer buffer;
 	private String delimiter;
+	
 
 }
 

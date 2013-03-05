@@ -1,9 +1,12 @@
 package fr.insalyon.pyp.gui.common;
 
-
 import android.view.ViewGroup;
-import android.view.animation.*;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationSet;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 
 /**
