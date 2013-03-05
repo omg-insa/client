@@ -25,8 +25,8 @@
      <activity android:name=".gui.account.SecurityActivity"></activity>
       <activity android:name=".gui.account.PersoanlInfoActivity"></activity>
       <activity android:name=".gui.account.IntrestActivity" ></activity>
-       <activity android:name=".gui.events.CreateLocalPlaceActivity"></activity>
-     <activity android:name=".gui.events.GetPlacesActivity"
+       <activity android:name=".gui.events.IntrestActivity"></activity>
+     <activity android:name=".gui.events.CreateEventActivity"
          	   android:label="@string/app_name"
                android:launchMode="singleInstance" >
             <intent-filter>
@@ -44,7 +44,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> -->
-     <activity android:name=".gui.events.CreateEventActivity"></activity>
+     <activity android:name=".gui.events.GetPlacesActivity"></activity>
+     <activity android:name=".gui.events.CreateLocalPlaceActivity"></activity>
     </application>
 
 </manifest>

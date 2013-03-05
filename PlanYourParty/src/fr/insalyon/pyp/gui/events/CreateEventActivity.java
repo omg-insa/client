@@ -95,16 +95,16 @@ public class CreateEventActivity extends BaseActivity {
 			private boolean checkTime() {
 				try {
 					String[] parts = StartEvent.getText().toString().trim().split("[h.:]");
-					if (parts.length > 2) 
-						return false;
-					
-					if (Integer.parseInt(parts[0]) < 0 || Integer.parseInt(parts[0]) > 23
-							|| Integer.parseInt(parts[1]) < 0 || Integer.parseInt(parts[1]) > 59) {
-						Popups.showPopup(Constants.dateFormatWrong);
-						AppTools.debug("Wrong numbers in date" + parts[0] + " " + parts[1]);
-						return false;
-
-					}
+//					if (parts.length > 2) 
+//						return false;
+//					
+//					if (Integer.parseInt(parts[0]) < 0 || Integer.parseInt(parts[0]) > 23
+//							|| Integer.parseInt(parts[1]) < 0 || Integer.parseInt(parts[1]) > 59) {
+//						Popups.showPopup(Constants.dateFormatWrong);
+//						AppTools.debug("Wrong numbers in date" + parts[0] + " " + parts[1]);
+//						return false;
+//
+//					}
 				} catch (NumberFormatException e) {
 					AppTools.debug("NumberFormatException numbers in date" + StartEvent.getText().toString());
 					Popups.showPopup(Constants.dateFormatWrong);
@@ -162,8 +162,12 @@ public class CreateEventActivity extends BaseActivity {
 							.getText().toString()));
 					parameters.add(new BasicNameValuePair("description", DescriptionEvent
 							.getText().toString()));
-					parameters.add(new BasicNameValuePair("start_time", extractTime(StartEvent.getText().toString())[0] + ":" + extractTime(StartEvent.getText().toString())[1]));
-					parameters.add(new BasicNameValuePair("end_time", extractTime(EndEvent.getText().toString())[0] + ":" + extractTime(EndEvent.getText().toString())[1]));
+					parameters.add(new BasicNameValuePair("start_time", StartEvent
+							.getText().toString()));
+					parameters.add(new BasicNameValuePair("end_time", EndEvent
+							.getText().toString()));
+//					parameters.add(new BasicNameValuePair("start_time", extractTime(StartEvent.getText().toString())[0] + ":" + extractTime(StartEvent.getText().toString())[1]));
+//					parameters.add(new BasicNameValuePair("end_time", extractTime(EndEvent.getText().toString())[0] + ":" + extractTime(EndEvent.getText().toString())[1]));
 					parameters.add(new BasicNameValuePair("price", PriceEvent
 							.getText().toString()));
 					

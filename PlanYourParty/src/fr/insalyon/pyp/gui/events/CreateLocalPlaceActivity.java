@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
+import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
@@ -128,8 +129,10 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 							else {
 								// OK
 								String id = res.getString("id");
+								String[] params = new String[2];
+								params[0] = id;
 								// TODO: transmettre id a fenetre suivante
-								
+								IntentHelper.openNewActivity(IntrestActivity.class, params, false);
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();

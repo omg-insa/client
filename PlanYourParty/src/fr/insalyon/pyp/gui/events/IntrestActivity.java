@@ -15,8 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +33,7 @@ public class IntrestActivity extends BaseActivity {
 	private ListView list;
 	private IntrestsAdapter adapter;
 	private TextView windowTitle;
+	private Button validateCreateEvent;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,8 @@ public class IntrestActivity extends BaseActivity {
 		
 		windowTitle = (TextView) findViewById(R.id.pageTitle);
 		windowTitle.setText(R.string.InterestTitle);
+		
+		validateCreateEvent = (Button) findViewById(R.id.validate_create_event);
 
 	}
 
@@ -66,7 +69,7 @@ public class IntrestActivity extends BaseActivity {
 
 	private void buildList(ArrayList<String[]> data) {
 
-		list = (ListView) findViewById(R.id.intrests_list);
+		list = (ListView) findViewById(R.id.create_intrests_list);
 
 		// Getting adapter by passing xml data ArrayList
 		adapter = new IntrestsAdapter(this, data);

@@ -171,8 +171,7 @@ public class GetPlacesActivity extends BaseActivity {
 								// Get id of the object
 								String[] params = new String[1];
 								params[0] = res.getString("id");
-								//TODO: link to the new activity
-//								IntentHelper.openNewActivity(ChooseInterestActivity.class, params, false);
+								IntentHelper.openNewActivity(IntrestActivity.class, params, false);
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();

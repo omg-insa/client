@@ -5,9 +5,9 @@
     android:orientation="vertical" >
     
 <ListView
-        android:id="@+id/intrests_list"
+        android:id="@+id/create_intrests_list"
         android:layout_width="fill_parent"
-        android:layout_height="530dp"
+        android:layout_height="wrap_content"
         android:divider="#b5b5b5"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/list_selector"
@@ -15,7 +15,7 @@
          />
 
 <Button
-        android:id="@+id/login"
+        android:id="@+id/validate_create_event"
         style="@style/button_text"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
