@@ -37,7 +37,7 @@ public class GetPlacesActivity extends BaseActivity {
 			
 			@Override
 			public void onCreate(Bundle savedInstanceState) {
-				super.onCreate(savedInstanceState, Constants.EVENTS_CONST);
+				super.onCreate(savedInstanceState, Constants.GET_PLACES_CONST);
 				AppTools.info("on create GetPlacesActivity");
 				initGraphicalInterface();
 			}

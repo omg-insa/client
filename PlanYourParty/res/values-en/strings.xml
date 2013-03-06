@@ -69,6 +69,11 @@
     <string name="AddressLocalPlace">Address</string>
     <string name="DescriptionLocalPlace">Description</string>
     
+    <string name="ManagePersonalEventActivity_Edit">Edit</string>
+	<string name="ManagePersonalEventActivity_Delete">Delete</string>
+	<string name="ManagePersonalEventActivity_Close">Close</string>
+	<string name="ManagePersonalEventActivity_Open">Open</string>
+    
     <string-array name="place_type_array">
         <item>Bar</item>
         <item>NightClub</item>
@@ -99,6 +104,8 @@
     
     <string name="dateFormatWrong_title">Wrong date </string>
     <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
+    <string name="canteditArea_title">You can\'t edit this event </string>
+    <string name="canteditArea_text">You are not close enough to the event location to edit this event</string>
     
     <string name="ViewName">Name</string>
     
@@ -113,6 +120,7 @@
 	<string name="PersonalInfoTitle">Personal Infos</string>
 	<string name="SecurityTitle">Security</string>
 	<string name="NoTitle"></string>
+	<string name="ManagePersonalEvent">Manage event</string>
 	<string name="CreateLocalPlace">Current Location</string>
 	<string name="GetPlaces">Location</string>
 	

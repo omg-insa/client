@@ -60,11 +60,7 @@ public class PersonalEventsAdapter extends BaseAdapter {
 			// Setting all values in listview
 			title.setText(row_data[0]);
 			hours.setText(row_data[1]);
-			if (row_data[2].equals("false")) {
-				next.setVisibility(View.GONE);
-			} else {
-				next.setVisibility(View.VISIBLE);
-			}
+			next.setVisibility(View.VISIBLE);
 		}
 		return vi;
 	}

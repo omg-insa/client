@@ -37,6 +37,7 @@ import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
 import fr.insalyon.pyp.gui.events.CreateEventActivity;
+import fr.insalyon.pyp.gui.events.ManagePersonalEvents;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
@@ -144,12 +145,8 @@ public class MainActivity extends BaseActivity {
 				}
 				else {
 					String[] tagData = (String[])arg1.getTag();
-					if(tagData[1].equals("false")){
-						//TODO pop-up
-					}
-					else {
-						//TODO edit
-					}
+					IntentHelper.openNewActivity(ManagePersonalEvents.class,tagData,false);
+
 				}
 			}
 		});
