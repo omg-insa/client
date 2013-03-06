@@ -13,15 +13,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
+import fr.insalyon.pyp.gui.common.IntentHelper;
+import fr.insalyon.pyp.gui.main.MainActivity;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
@@ -35,7 +39,7 @@ public class IntrestActivity extends BaseActivity {
 	private TextView windowTitle;
 	private Button validateCreateEvent;
 	private ArrayList<Long> interestsChecked = new ArrayList<Long>();
-	private Long event_id = 49003L;
+	private String event_id;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,17 @@ public class IntrestActivity extends BaseActivity {
 		windowTitle.setText(R.string.InterestTitle);
 		
 		validateCreateEvent = (Button) findViewById(R.id.validate_create_event);
+		validateCreateEvent.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				IntentHelper.openNewActivity(MainActivity.class, null, false);
+				
+			}
+		});
+		
+		String[] params = IntentHelper.getActiveIntentParam(String[].class);
+		event_id = params[0];
 
 	}
 
@@ -83,30 +98,24 @@ public class IntrestActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				long interestId =  new Long(null);
+				String interestId = null;
 				if (arg1 != null) {
 					
 					AppTools.debug("On Item Click");
 					
-					CheckBox interest_checkBox = (CheckBox) arg1.findViewById(R.id.interest_checkBox);
-					//TODO: add business logic
-					
-					interestId = adapter.getItemId(arg2);
-					
-					if(interest_checkBox.isChecked())
-					{
-						interestsChecked.add(interestId);
-						//TODO: check with the API if multiple interests are allowed
-						//list.setEnabled(false);
+					ImageView full = (ImageView) arg1.findViewById(R.id.item_full);
+					ImageView empty = (ImageView) arg1.findViewById(R.id.item_empty);
+					if (full.getVisibility() == View.VISIBLE) {
+						full.setVisibility(View.GONE);
+						empty.setVisibility(View.VISIBLE);
+					} else {
+						empty.setVisibility(View.GONE);
+						full.setVisibility(View.VISIBLE);
 					}
-					else
-					{
-						interestsChecked.remove(interestId);
-						//TODO: check with the API if multiple interests are allowed
-						//list.setEnabled(true);
-					}
+					
+					interestId = arg1.getTag().toString();
 				}
-				if(interestId != new Long(null))
+				if(interestId != null)
 					new UpdateUserIntrest().execute(interestId);
 			}
 		});
@@ -155,7 +164,7 @@ public class IntrestActivity extends BaseActivity {
 						.getSharedPreferences(AppTools.PREFS_NAME, 0);
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
-				parameters.add(new BasicNameValuePair("event_id", event_id.toString()));
+				parameters.add(new BasicNameValuePair("event_id", event_id));
 				res = srvCon.connect(ServerConnection.GET_EVENT_INTREST,
 						parameters);
 			} catch (Exception e) {
@@ -188,8 +197,8 @@ public class IntrestActivity extends BaseActivity {
 						.getSharedPreferences(AppTools.PREFS_NAME, 0);
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
-				parameters.add(new BasicNameValuePair("event_id", event_id.toString()));
-				parameters.add(new BasicNameValuePair("intrest_id", params[0].toString()));
+				parameters.add(new BasicNameValuePair("event_id", event_id));
+				parameters.add(new BasicNameValuePair("intrest_id", (String )params[0]));
 				srvCon.connect(ServerConnection.SAVE_EVENT_INTREST,
 						parameters);
 			} catch (Exception e) {

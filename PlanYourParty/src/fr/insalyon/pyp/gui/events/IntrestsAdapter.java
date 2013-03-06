@@ -23,7 +23,6 @@ public class IntrestsAdapter extends BaseAdapter {
         activity = a;
         data=d;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        AppTools.debug("Adapter");
     }
  
     public int getCount() {
@@ -45,14 +44,22 @@ public class IntrestsAdapter extends BaseAdapter {
         
         TextView title = (TextView)vi.findViewById(R.id.item_title);
         TextView description = (TextView)vi.findViewById(R.id.item_description);
-        //CheckBox interest_checkBox = (CheckBox) vi.findViewById(R.id.interest_checkBox);
+        ImageView full = (ImageView) vi.findViewById(R.id.item_full);
+        ImageView empty = (ImageView) vi.findViewById(R.id.item_empty);
         String[] row_data = data.get(position);
 
         vi.setTag(row_data[3]);
         // Setting all values in listview
         title.setText(row_data[0]);
         description.setText(row_data[1]);
-        //interest_checkBox.setChecked(row_data[2].equals("true"));
+        if(row_data[2].equals("false")){
+        	full.setVisibility(View.GONE);
+        	empty.setVisibility(View.VISIBLE);
+        }
+        else {
+        	empty.setVisibility(View.GONE);
+        	full.setVisibility(View.VISIBLE);
+        }
 
         return vi;
     }

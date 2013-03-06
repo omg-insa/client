@@ -19,7 +19,7 @@
 	        android:text="@string/security_activity_changement_mdp"
 	        android:textAppearance="?android:attr/textAppearanceMedium"
 	        android:textStyle="bold"
-	        style="@style/text_edit" />
+	        android:textColor="#fff" />
 	
 	    <EditText
 	        android:id="@+id/security_old_password"
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:width="100dp" 
 	        android:text="@string/security_activity_button_changement_mdp"
-	        android:background="@drawable/green_button" />
+	        android:background="@drawable/blue_button" />
 	
 	    <TextView
 	        android:id="@+id/security_current_password_header"
@@ -67,7 +67,7 @@
 	        android:text="@string/security_activity_question_secrete"
 	        android:textAppearance="?android:attr/textAppearanceMedium"
 	        android:textStyle="bold"
-	        style="@style/text_edit" />
+	        android:textColor="#fff" />
 	
 	    <EditText
 	        android:id="@+id/security_current_password"
@@ -105,7 +105,7 @@
 	        android:id="@+id/security_question_button"
 	        style="@style/button_text"
             android:layout_width="wrap_content"
-            android:background="@drawable/green_button"
+            android:background="@drawable/blue_button"
             android:width="100dp" 
 	        android:text="@string/security_activity_button_changement_question" />
 	
