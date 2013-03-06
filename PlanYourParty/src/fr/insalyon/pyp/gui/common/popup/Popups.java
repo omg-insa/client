@@ -2,6 +2,8 @@ package fr.insalyon.pyp.gui.common.popup;
 
 import java.util.HashMap;
 
+import android.content.DialogInterface;
+
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.entities.PopupEntity;
 import fr.insalyon.pyp.tools.Constants;
@@ -33,6 +35,7 @@ public class Popups {
 		initWrongData();
 		initDifferentPassword();
 		intCantEditEvent();
+		initDeleteEvent();
 	}
 
 	/**
@@ -45,9 +48,21 @@ public class Popups {
 		if (popupList.size() == 0) {
 			init();
 		}
-		AbstractPopup.showPopup(popupList.get(id));
+		AbstractPopup.showPopup(popupList.get(id),null,null);
 	}
-
+	
+	public static void showPopup(String id,DialogInterface.OnClickListener positive ) {
+		if (popupList.size() == 0) {
+			init();
+		}
+		AbstractPopup.showPopup(popupList.get(id),positive,null);
+	}
+	public static void showPopup(String id,DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative ) {
+		if (popupList.size() == 0) {
+			init();
+		}
+		AbstractPopup.showPopup(popupList.get(id),positive,negative);
+	}
 	private static void initWrongUsernameOrPassword() {
 		PopupEntity popup = new PopupEntity(
 				R.string.initWrongUsernameOrPassword_title,
@@ -55,6 +70,16 @@ public class Popups {
 				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
 				null, null, false);
 		popupList.put(Constants.WrongUsernameOrPassword, popup);
+
+	}
+	
+	private static void initDeleteEvent() {
+		PopupEntity popup = new PopupEntity(
+				R.string.delete_event_title,
+				R.string.delete_event_text,
+				R.string.alert_dialog_yes, R.string.alert_dialog_no, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.deleteQuestion, popup);
 
 	}
 	

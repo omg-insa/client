@@ -173,7 +173,8 @@ public class MainActivity extends BaseActivity {
 						double lat = Double.parseDouble(obj.getString("lat"));
 						data.add(new String[] { obj.getString("name"),
 								obj.getString("start_time")+" - "+obj.getString("end_time"),
-								AppTools.checkInArea(lon, lat, Constants.AREA_RADIUS).toString(), obj.getString("id") });
+								AppTools.checkInArea(lon, lat, Constants.AREA_RADIUS).toString(), obj.getString("id"),
+								obj.getString("description")});
 					}
 					AppTools.debug("Number of personal events:" + data.size());
 					MainActivity.this.buildList(data);

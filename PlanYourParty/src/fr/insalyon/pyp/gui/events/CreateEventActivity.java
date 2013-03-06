@@ -28,95 +28,94 @@ import fr.insalyon.pyp.tools.Constants;
 import fr.insalyon.pyp.tools.PYPContext;
 
 public class CreateEventActivity extends BaseActivity {
-			private LinearLayout abstractView;
-			private LinearLayout mainView;
-			
-			private TextView EventName;
-			private TextView StartEventHour;
-			private TextView StartEventMinute;
-			private TextView EndEventHour;
-			private TextView EndEventMinute;
-			
-			private TextView PriceEvent;
-			private TextView DescriptionEvent;
-			private Button NextStepBtn;
-			private TextView windowTitle;
-			
-			private String event_id;
-			
-			@Override
-			public void onCreate(Bundle savedInstanceState) {
-				super.onCreate(savedInstanceState, Constants.CREATE_EVENTS_CONST);
-				AppTools.info("on create CreateEvent");
-				initGraphicalInterface();
-			}
+	private LinearLayout abstractView;
+	private LinearLayout mainView;
 
-			private void initGraphicalInterface() {
-				// set layouts
-				LayoutInflater mInflater = LayoutInflater.from(this);
-				abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-				mainView = (LinearLayout) mInflater.inflate(R.layout.create_event_activity,
-						null);
-				abstractView.addView(mainView);
-				
-				windowTitle = (TextView) findViewById(R.id.pageTitle);
-				windowTitle.setText(R.string.CreateEventTitle);
-				
-				hideHeader(false);
-				
-				
-				EventName = (TextView) findViewById(R.id.EventName);
-				StartEventHour = (TextView) findViewById(R.id.StartEventHour);
-				StartEventMinute = (TextView) findViewById(R.id.StartEventMinute);
-				EndEventHour = (TextView) findViewById(R.id.EndEventHour);
-				EndEventMinute = (TextView) findViewById(R.id.EndEventMinute);
-				PriceEvent = (TextView) findViewById(R.id.PriceEvent);
-				DescriptionEvent = (TextView) findViewById(R.id.DescriptionEvent);
-				NextStepBtn = (Button) findViewById(R.id.NextStepBtn);
-				String[] data = IntentHelper.getActiveIntentParam(String[].class);
-				if (data != null) {
-					event_id = data[0];
-					new GetEventInfo().execute(event_id);
+	private TextView EventName;
+	private TextView StartEventHour;
+	private TextView StartEventMinute;
+	private TextView EndEventHour;
+	private TextView EndEventMinute;
+
+	private TextView PriceEvent;
+	private TextView DescriptionEvent;
+	private Button NextStepBtn;
+	private TextView windowTitle;
+
+	private String event_id;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState, Constants.CREATE_EVENTS_CONST);
+		AppTools.info("on create CreateEvent");
+		initGraphicalInterface();
+	}
+
+	private void initGraphicalInterface() {
+		// set layouts
+		LayoutInflater mInflater = LayoutInflater.from(this);
+		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
+		mainView = (LinearLayout) mInflater.inflate(
+				R.layout.create_event_activity, null);
+		abstractView.addView(mainView);
+
+		windowTitle = (TextView) findViewById(R.id.pageTitle);
+		windowTitle.setText(R.string.CreateEventTitle);
+
+		hideHeader(false);
+
+		EventName = (TextView) findViewById(R.id.EventName);
+		StartEventHour = (TextView) findViewById(R.id.StartEventHour);
+		StartEventMinute = (TextView) findViewById(R.id.StartEventMinute);
+		EndEventHour = (TextView) findViewById(R.id.EndEventHour);
+		EndEventMinute = (TextView) findViewById(R.id.EndEventMinute);
+		PriceEvent = (TextView) findViewById(R.id.PriceEvent);
+		DescriptionEvent = (TextView) findViewById(R.id.DescriptionEvent);
+		NextStepBtn = (Button) findViewById(R.id.NextStepBtn);
+		String[] data = IntentHelper.getActiveIntentParam(String[].class);
+		if (data != null) {
+			event_id = data[0];
+			new GetEventInfo().execute(event_id);
+		}
+
+		NextStepBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				if (!checkTime()) {
+					Popups.showPopup(Constants.dateFormatWrong);
+					return;
 				}
-
-				NextStepBtn.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						if (!checkTime()){
-							Popups.showPopup(Constants.dateFormatWrong);
-							return;
-						}
-						new CreateEventTask().execute();
-					}
-				});
+				new CreateEventTask().execute();
 			}
+		});
+	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		// check if logged in
+		checkLoggedIn();
+	}
 
-			@Override
-			public void onResume() {
-				super.onResume();
-				//check if logged in
-				checkLoggedIn();
-			}
-			
-			public void networkError(String error) {
-				Popups.showPopup("broken : " + error);
-			}
-			
-			private boolean checkTime() {
-					int StartHour = Integer.parseInt(StartEventHour.getText().toString());
-					int StartMinute = Integer.parseInt(StartEventMinute.getText().toString());
-					int EndHour = Integer.parseInt(EndEventHour.getText().toString());
-					int EndMinute = Integer.parseInt(EndEventMinute.getText().toString());
-					
-					if( StartHour <= 23 && StartMinute <= 59 && 
-							EndHour <= 23 && EndMinute <= 59){
-						return true;
-					}
-						
-					return false;
-			}
+	public void networkError(String error) {
+		Popups.showPopup("broken : " + error);
+	}
+
+	private boolean checkTime() {
+		int StartHour = Integer.parseInt(StartEventHour.getText().toString());
+		int StartMinute = Integer.parseInt(StartEventMinute.getText()
+				.toString());
+		int EndHour = Integer.parseInt(EndEventHour.getText().toString());
+		int EndMinute = Integer.parseInt(EndEventMinute.getText().toString());
+
+		if (StartHour <= 23 && StartMinute <= 59 && EndHour <= 23
+				&& EndMinute <= 59) {
+			return true;
+		}
+
+		return false;
+	}
 
 	private class CreateEventTask extends AsyncTask<Void, Void, Void> {
 
@@ -164,13 +163,14 @@ public class CreateEventActivity extends BaseActivity {
 					.toString()));
 			parameters.add(new BasicNameValuePair("description",
 					DescriptionEvent.getText().toString()));
-			parameters.add(new BasicNameValuePair("start_time", StartEventHour+":"+StartEventMinute
-					.getText().toString()));
-			parameters.add(new BasicNameValuePair("end_time", EndEventHour+":"+EndEventMinute
-					.getText().toString()));
+			parameters.add(new BasicNameValuePair("start_time", StartEventHour
+					+ ":" + StartEventMinute.getText().toString()));
+			parameters.add(new BasicNameValuePair("end_time", EndEventHour
+					+ ":" + EndEventMinute.getText().toString()));
 			parameters.add(new BasicNameValuePair("price", PriceEvent.getText()
 					.toString()));
-
+			if (event_id != null)
+				parameters.add(new BasicNameValuePair("id", event_id));
 			parameters.add(new BasicNameValuePair("auth_token", PYPContext
 					.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0)
 					.getString("auth_token", "")));
@@ -185,7 +185,6 @@ public class CreateEventActivity extends BaseActivity {
 
 	}
 
-
 	private class GetEventInfo extends AsyncTask<String, Void, Void> {
 
 		JSONObject res;
@@ -196,9 +195,9 @@ public class CreateEventActivity extends BaseActivity {
 				try {
 
 					EventName.setText(res.getString("name"));
-					//TODO:  Start Event hour minute
-//					StartEvent.setText(res.getString("start_time"));
-//					EndEvent.setText(res.getString("end_time"));
+					// TODO: Start Event hour minute
+					// StartEvent.setText(res.getString("start_time"));
+					// EndEvent.setText(res.getString("end_time"));
 					PriceEvent.setText(res.getString("price"));
 					DescriptionEvent.setText(res.getString("description"));
 
