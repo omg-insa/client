@@ -331,10 +331,11 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 
 							else {
 								// OK
-								// Get id of the object
-								String[] params = new String[4];
 								LocalPlaceName.setText(res.getString("name"));
-//								TypeLocalPlace.setSelection(res.getString("type"));
+								// TODO: verify this
+								ArrayAdapter myAdap = (ArrayAdapter) TypeLocalPlace.getAdapter();
+								int spinnerPosition = myAdap.getPosition(res.getString("type"));
+								TypeLocalPlace.setSelection(spinnerPosition);
 								DescriptionLocalPlace.setText(res.getString("description"));
 								AddressLocalPlace.setText(res.getString("address"));
 							}
@@ -357,9 +358,6 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 					ServerConnection srvCon = ServerConnection.GetServerConnection();
 					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 					// Get the token & the id
-					String[] paramsGet = IntentHelper.getActiveIntentParam(String[].class);
-					String eventId = paramsGet[0];
-					
 					parameters.add(new BasicNameValuePair("id", (String) params[0]));
 					parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
 					

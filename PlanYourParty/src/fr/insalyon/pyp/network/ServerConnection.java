@@ -37,6 +37,7 @@ public class ServerConnection {
     public static final String ADD_LOCAL_PLACE = "add_local_place/";
     public static final String GET_CURRENT_ADDRESS = "get_current_address/";
     public static final String GET_PERSONAL_EVENTS = "get_personal_events/";
+    public static final String GET_EVENTS = "get_events/";
     public static final String GET_PLACES = "get_places/";
     public static final String SAVE_EVENT_PLACE = "save_event_place/";
     public static final String GET_EVENT_STATUS = "get_event_status/";
@@ -206,6 +207,12 @@ public class ServerConnection {
 			AppTools.debug(returnObj.toString());
 		}
 		if(service.equals(GET_EVENT_INTREST))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(GET_EVENTS))
 		{
 			request = new HttpRequest(requestUrl, parameters);
 			returnObj = request.executePost();
