@@ -27,6 +27,7 @@ public class Popups {
 		initUsernameAlreadyUsed();
 		initcurentPasswordWrong();
 		initWrongDate();
+		initWrongTime();
 		initWrongUsername();
 		initWrongAnswer();
 		initNoSecretQuestion();
@@ -75,6 +76,16 @@ public class Popups {
 				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
 				null, null, false);
 		popupList.put(Constants.dateFormatWrong, popup);
+
+	}
+	
+	private static void initWrongTime() {
+		PopupEntity popup = new PopupEntity(
+				R.string.timeFormatWrong_title,
+				R.string.timeFormatWrong_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.timeFormatWrong, popup);
 
 	}
 	

@@ -109,6 +109,8 @@
 	<string name="WrongAnswer_text">Votre reponse ou votre date d\'anniversaire est incorrecte.</string>
 	<string name="dateFormatWrong_title">Date incorrecte </string>
     <string name="dateFormatWrong_text">S\'il vous plait entrer une date valide (DD MM YYYY)</string>
+    <string name="timeFormatWrong_title">Horaires incorrectes </string>
+    <string name="timeFormatWrong_text">S\'il vous plait entrer une heure valide.</string>
     <string name="WrongData_title">Donnees erronees</string>
     <string name="WrongData_text">Les donnees envoyees au serveur sont erronees.</string>
     <string name="DifferentPassword_title">Mot de passe differents</string>

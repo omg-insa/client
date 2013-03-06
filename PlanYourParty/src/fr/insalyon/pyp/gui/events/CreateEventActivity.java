@@ -83,8 +83,18 @@ public class CreateEventActivity extends BaseActivity {
 
 					@Override
 					public void onClick(View arg0) {
+						if( "".equals(EventName.getText().toString()) ||
+								"".equals(StartEventHour.getText().toString()) ||
+								"".equals(StartEventMinute.getText().toString()) ||
+								"".equals(EndEventHour.getText().toString()) ||
+								"".equals(EndEventMinute.getText().toString()) ||
+								"".equals(PriceEvent.getText().toString()) ||
+								"".equals(DescriptionEvent.getText().toString()) ){
+							Popups.showPopup(Constants.IncompleatData);
+							return;
+						}
 						if (!checkTime()){
-							Popups.showPopup(Constants.dateFormatWrong);
+							Popups.showPopup(Constants.timeFormatWrong);
 							return;
 						}
 						new CreateEventTask().execute();
@@ -197,8 +207,14 @@ public class CreateEventActivity extends BaseActivity {
 
 					EventName.setText(res.getString("name"));
 					//TODO:  Start Event hour minute
-//					StartEvent.setText(res.getString("start_time"));
-//					EndEvent.setText(res.getString("end_time"));
+					String startTimeTmp = res.getString("start_time");
+					String[] parts = startTimeTmp.trim().split(":");
+					StartEventHour.setText(parts[0]);
+					StartEventMinute.setText(parts[1]);
+					String endTimeTmp = res.getString("end_time");
+					parts = endTimeTmp.trim().split(":");
+					EndEventHour.setText(parts[0]);
+					EndEventMinute.setText(parts[1]);
 					PriceEvent.setText(res.getString("price"));
 					DescriptionEvent.setText(res.getString("description"));
 
