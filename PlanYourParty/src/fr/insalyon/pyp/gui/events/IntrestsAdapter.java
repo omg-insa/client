@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
+import fr.insalyon.pyp.tools.AppTools;
 
 public class IntrestsAdapter extends BaseAdapter {
  
@@ -22,6 +23,7 @@ public class IntrestsAdapter extends BaseAdapter {
         activity = a;
         data=d;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        AppTools.debug("Adapter");
     }
  
     public int getCount() {
