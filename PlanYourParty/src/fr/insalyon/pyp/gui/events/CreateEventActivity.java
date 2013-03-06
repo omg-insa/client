@@ -31,8 +31,10 @@ public class CreateEventActivity extends BaseActivity {
 			private LinearLayout mainView;
 			
 			private TextView EventName;
-			private TextView StartEvent;
-			private TextView EndEvent;
+			private TextView StartEventHour;
+			private TextView StartEventMinute;
+			private TextView EndEventHour;
+			private TextView EndEventMinute;
 			
 			private TextView PriceEvent;
 			private TextView DescriptionEvent;
@@ -61,8 +63,10 @@ public class CreateEventActivity extends BaseActivity {
 				
 				
 				EventName = (TextView) findViewById(R.id.EventName);
-				StartEvent = (TextView) findViewById(R.id.StartEvent);
-				EndEvent = (TextView) findViewById(R.id.EndEvent);
+				StartEventHour = (TextView) findViewById(R.id.StartEventHour);
+				StartEventMinute = (TextView) findViewById(R.id.StartEventMinute);
+				EndEventHour = (TextView) findViewById(R.id.EndEventHour);
+				EndEventMinute = (TextView) findViewById(R.id.EndEventMinute);
 				PriceEvent = (TextView) findViewById(R.id.PriceEvent);
 				DescriptionEvent = (TextView) findViewById(R.id.DescriptionEvent);
 				NextStepBtn = (Button) findViewById(R.id.NextStepBtn);
@@ -94,7 +98,7 @@ public class CreateEventActivity extends BaseActivity {
 			
 			private boolean checkTime() {
 				try {
-					String[] parts = StartEvent.getText().toString().trim().split("[h.:]");
+//					String[] parts = StartEvent.getText().toString().trim().split("[h.:]");
 //					if (parts.length > 2) 
 //						return false;
 //					
@@ -106,7 +110,7 @@ public class CreateEventActivity extends BaseActivity {
 //
 //					}
 				} catch (NumberFormatException e) {
-					AppTools.debug("NumberFormatException numbers in date" + StartEvent.getText().toString());
+					AppTools.debug("NumberFormatException numbers in date" + StartEventHour.getText().toString());
 					Popups.showPopup(Constants.dateFormatWrong);
 					return false;
 				}
@@ -162,9 +166,9 @@ public class CreateEventActivity extends BaseActivity {
 							.getText().toString()));
 					parameters.add(new BasicNameValuePair("description", DescriptionEvent
 							.getText().toString()));
-					parameters.add(new BasicNameValuePair("start_time", StartEvent
+					parameters.add(new BasicNameValuePair("start_time", StartEventHour+":"+StartEventMinute
 							.getText().toString()));
-					parameters.add(new BasicNameValuePair("end_time", EndEvent
+					parameters.add(new BasicNameValuePair("end_time", EndEventHour+":"+EndEventMinute
 							.getText().toString()));
 //					parameters.add(new BasicNameValuePair("start_time", extractTime(StartEvent.getText().toString())[0] + ":" + extractTime(StartEvent.getText().toString())[1]));
 //					parameters.add(new BasicNameValuePair("end_time", extractTime(EndEvent.getText().toString())[0] + ":" + extractTime(EndEvent.getText().toString())[1]));

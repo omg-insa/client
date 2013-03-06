@@ -83,9 +83,11 @@ public class GetPlacesActivity extends BaseActivity {
 							long arg3) {
 						if( arg1.getTag().toString() != "last")
 							new SelectPlaceTask().execute(arg1.getTag().toString());
-						else
+						else{
 							//TODO: params to send
-							IntentHelper.openNewActivity(CreateLocalPlaceActivity.class, null, false);
+							String[] params = IntentHelper.getActiveIntentParam(String[].class);
+							IntentHelper.openNewActivity(CreateLocalPlaceActivity.class, params, false);
+						}
 					}
 				});
 			}

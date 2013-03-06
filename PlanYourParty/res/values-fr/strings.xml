@@ -59,8 +59,10 @@
     <string name="Add_Event">Ajouter evenement</string>
     
     <string name="EventName">Nom</string>
-    <string name="StartEvent">Heure de debut</string>
-    <string name="EndEvent">Heure de fin</string>
+    <string name="StartEventHour">14</string>
+    <string name="StartEventMinute">00</string>
+    <string name="EndEventHour">15</string>
+    <string name="EndEventMinute">00</string>
     <string name="PriceEvent">Prix</string>
     <string name="DescriptionEvent">Description</string>
     <string name="NextStep">Etape suivante</string>
