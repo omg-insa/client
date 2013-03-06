@@ -83,6 +83,7 @@ public class IntrestActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				long interestId =  new Long(null);
 				if (arg1 != null) {
 					
 					AppTools.debug("On Item Click");
@@ -90,7 +91,7 @@ public class IntrestActivity extends BaseActivity {
 					CheckBox interest_checkBox = (CheckBox) arg1.findViewById(R.id.interest_checkBox);
 					//TODO: add business logic
 					
-					long interestId = adapter.getItemId(arg2);
+					interestId = adapter.getItemId(arg2);
 					
 					if(interest_checkBox.isChecked())
 					{
@@ -105,7 +106,8 @@ public class IntrestActivity extends BaseActivity {
 						//list.setEnabled(true);
 					}
 				}
-				new UpdateUserIntrest().execute(interestsChecked.get(0));
+				if(interestId != new Long(null))
+					new UpdateUserIntrest().execute(interestId);
 			}
 		});
 	}
