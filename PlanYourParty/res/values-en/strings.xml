@@ -108,6 +108,8 @@
     
     <string name="dateFormatWrong_title">Wrong date </string>
     <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
+    <string name="timeFormatWrong_title">Wrong time</string>
+    <string name="timeFormatWrong_text">Please enter a valid time.</string>
     <string name="canteditArea_title">You can\'t edit this event </string>
     <string name="canteditArea_text">You are not close enough to the event location to edit this event</string>
      <string name="delete_event_title">Delete event</string>
