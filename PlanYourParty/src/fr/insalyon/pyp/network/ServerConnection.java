@@ -39,6 +39,7 @@ public class ServerConnection {
     public static final String GET_PERSONAL_EVENTS = "get_personal_events/";
     public static final String GET_PLACES = "get_places/";
     public static final String SAVE_EVENT_PLACE = "save_event_place/";
+    public static final String GET_LOCAL_PLACE = "get_local_place/";
 
 	private ServerConnection() {
 		if (LOCAL)
