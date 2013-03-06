@@ -41,6 +41,7 @@ public class ServerConnection {
     public static final String SAVE_EVENT_PLACE = "save_event_place/";
     public static final String SAVE_EVENT_INTREST = "save_event_intrest/";
     public static final String GET_EVENT_INTREST = "get_event_intrest/";
+    public static final String GET_LOCAL_PLACE = "get_local_place/";
 
 	private ServerConnection() {
 		if (LOCAL)
