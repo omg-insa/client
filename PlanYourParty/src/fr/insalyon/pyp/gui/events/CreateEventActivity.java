@@ -105,27 +105,18 @@ public class CreateEventActivity extends BaseActivity {
 			}
 			
 			private boolean checkTime() {
-				try {
-//					String[] parts = StartEvent.getText().toString().trim().split("[h.:]");
-//					if (parts.length > 2) 
-//						return false;
-//					
-//					if (Integer.parseInt(parts[0]) < 0 || Integer.parseInt(parts[0]) > 23
-//							|| Integer.parseInt(parts[1]) < 0 || Integer.parseInt(parts[1]) > 59) {
-//						Popups.showPopup(Constants.dateFormatWrong);
-//						AppTools.debug("Wrong numbers in date" + parts[0] + " " + parts[1]);
-//						return false;
-//
-//					}
-				} catch (NumberFormatException e) {
-					AppTools.debug("NumberFormatException numbers in date" + StartEventHour.getText().toString());
-				}
-				return false;
+					int StartHour = Integer.parseInt(StartEventHour.getText().toString());
+					int StartMinute = Integer.parseInt(StartEventMinute.getText().toString());
+					int EndHour = Integer.parseInt(EndEventHour.getText().toString());
+					int EndMinute = Integer.parseInt(EndEventMinute.getText().toString());
+					
+					if( StartHour <= 23 && StartMinute <= 59 && 
+							EndHour <= 23 && EndMinute <= 59){
+						return true;
+					}
+						
+					return false;
 			}
-
-	private String[] extractTime(String timeStr) {
-		return timeStr.trim().split("[h.:]");
-	}
 
 	private class CreateEventTask extends AsyncTask<Void, Void, Void> {
 
@@ -177,12 +168,6 @@ public class CreateEventActivity extends BaseActivity {
 					.getText().toString()));
 			parameters.add(new BasicNameValuePair("end_time", EndEventHour+":"+EndEventMinute
 					.getText().toString()));
-			// parameters.add(new BasicNameValuePair("start_time",
-			// extractTime(StartEvent.getText().toString())[0] + ":" +
-			// extractTime(StartEvent.getText().toString())[1]));
-			// parameters.add(new BasicNameValuePair("end_time",
-			// extractTime(EndEvent.getText().toString())[0] + ":" +
-			// extractTime(EndEvent.getText().toString())[1]));
 			parameters.add(new BasicNameValuePair("price", PriceEvent.getText()
 					.toString()));
 
