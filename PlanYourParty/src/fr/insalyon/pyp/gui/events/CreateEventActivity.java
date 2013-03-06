@@ -82,8 +82,18 @@ public class CreateEventActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				if (!checkTime()) {
-					Popups.showPopup(Constants.dateFormatWrong);
+				if( "".equals(EventName.getText().toString()) ||
+						"".equals(StartEventHour.getText().toString()) ||
+						"".equals(StartEventMinute.getText().toString()) ||
+						"".equals(EndEventHour.getText().toString()) ||
+						"".equals(EndEventMinute.getText().toString()) ||
+						"".equals(PriceEvent.getText().toString()) ||
+						"".equals(DescriptionEvent.getText().toString()) ){
+					Popups.showPopup(Constants.IncompleatData);
+					return;
+				}
+				if (!checkTime()){
+					Popups.showPopup(Constants.timeFormatWrong);
 					return;
 				}
 				new CreateEventTask().execute();
@@ -108,29 +118,6 @@ public class CreateEventActivity extends BaseActivity {
 				.toString());
 		int EndHour = Integer.parseInt(EndEventHour.getText().toString());
 		int EndMinute = Integer.parseInt(EndEventMinute.getText().toString());
-
-					@Override
-					public void onClick(View arg0) {
-						if( "".equals(EventName.getText().toString()) ||
-								"".equals(StartEventHour.getText().toString()) ||
-								"".equals(StartEventMinute.getText().toString()) ||
-								"".equals(EndEventHour.getText().toString()) ||
-								"".equals(EndEventMinute.getText().toString()) ||
-								"".equals(PriceEvent.getText().toString()) ||
-								"".equals(DescriptionEvent.getText().toString()) ){
-							Popups.showPopup(Constants.IncompleatData);
-							return;
-						}
-						if (!checkTime()){
-							Popups.showPopup(Constants.timeFormatWrong);
-							return;
-						}
-						new CreateEventTask().execute();
-					}
-				});
-			}
-
-
 		if (StartHour <= 23 && StartMinute <= 59 && EndHour <= 23
 				&& EndMinute <= 59) {
 			return true;
