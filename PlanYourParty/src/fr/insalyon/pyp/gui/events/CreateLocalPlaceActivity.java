@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
 import fr.insalyon.pyp.tools.PYPContext;
+import fr.insalyon.pyp.tools.TerminalInfo;
 
 public class CreateLocalPlaceActivity extends BaseActivity {
 			private LinearLayout abstractView;
@@ -42,6 +44,7 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 			private Spinner TypeLocalPlace;
 			
 			private Button NextStepBtn;
+			private String event_id;
 			
 			@Override
 			public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 
 			private void initGraphicalInterface() {
 				// set layouts
+				event_id = IntentHelper.getActiveIntentParam(String[].class)[0];
 				LayoutInflater mInflater = LayoutInflater.from(this);
 				abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
 				mainView = (LinearLayout) mInflater.inflate(R.layout.create_local_place_activity,
@@ -227,10 +231,9 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 					// Send request to server for login
 					ServerConnection srvCon = ServerConnection.GetServerConnection();
 					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-					
-					// TODO: Longitude & Latitude
-					String latitude = "45.78";
-					String longitude = "4.87";
+					Location l = TerminalInfo.getPosition();
+					String latitude = String.valueOf(l.getLatitude());
+					String longitude =  String.valueOf(l.getLongitude());
 					parameters.add(new BasicNameValuePair("latitude", latitude));
 					parameters.add(new BasicNameValuePair("longitude", longitude));
 					

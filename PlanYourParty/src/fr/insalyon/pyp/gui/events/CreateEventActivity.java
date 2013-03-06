@@ -8,7 +8,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -111,6 +113,16 @@ public class CreateEventActivity extends BaseActivity {
 	public void networkError(String error) {
 		Popups.showPopup("broken : " + error);
 	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		AppTools.error("Autocompleating...");
+	    if (resultCode == Activity.RESULT_OK) {
+	    	String[] row_values = data.getExtras().getStringArray(Constants.PARAMNAME);
+	    	event_id = row_values[0];
+			new GetEventInfo().execute(event_id);
+	    }
+	}
 
 	private boolean checkTime() {
 		int StartHour = Integer.parseInt(StartEventHour.getText().toString());
@@ -147,8 +159,9 @@ public class CreateEventActivity extends BaseActivity {
 						// OK
 						String[] params = new String[1];
 						params[0] = res.getString("id");
-						IntentHelper.openNewActivity(GetPlacesActivity.class,
-								params, false);
+						Intent i =  new Intent(CreateEventActivity.this, GetPlacesActivity.class);
+						i.putExtra(Constants.PARAMNAME,params);
+						startActivityForResult(i,1);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -172,9 +185,9 @@ public class CreateEventActivity extends BaseActivity {
 					.toString()));
 			parameters.add(new BasicNameValuePair("description",
 					DescriptionEvent.getText().toString()));
-			parameters.add(new BasicNameValuePair("start_time", StartEventHour
+			parameters.add(new BasicNameValuePair("start_time", StartEventHour.getText()
 					+ ":" + StartEventMinute.getText().toString()));
-			parameters.add(new BasicNameValuePair("end_time", EndEventHour
+			parameters.add(new BasicNameValuePair("end_time", EndEventHour.getText()
 					+ ":" + EndEventMinute.getText().toString()));
 			parameters.add(new BasicNameValuePair("price", PriceEvent.getText()
 					.toString()));
