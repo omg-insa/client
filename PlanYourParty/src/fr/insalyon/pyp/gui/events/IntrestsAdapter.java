@@ -45,14 +45,14 @@ public class IntrestsAdapter extends BaseAdapter {
         
         TextView title = (TextView)vi.findViewById(R.id.item_title);
         TextView description = (TextView)vi.findViewById(R.id.item_description);
-        CheckBox interest_checkBox = (CheckBox) vi.findViewById(R.id.interest_checkBox);
+        //CheckBox interest_checkBox = (CheckBox) vi.findViewById(R.id.interest_checkBox);
         String[] row_data = data.get(position);
 
         vi.setTag(row_data[3]);
         // Setting all values in listview
         title.setText(row_data[0]);
         description.setText(row_data[1]);
-        interest_checkBox.setChecked(row_data[2].equals("true"));
+        //interest_checkBox.setChecked(row_data[2].equals("true"));
 
         return vi;
     }
