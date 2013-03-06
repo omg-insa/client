@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -41,9 +42,11 @@ public class CreateEventActivity extends BaseActivity {
 			private Button NextStepBtn;
 			private TextView windowTitle;
 			
+			private String event_id;
+			
 			@Override
 			public void onCreate(Bundle savedInstanceState) {
-				super.onCreate(savedInstanceState, Constants.EVENTS_CONST);
+				super.onCreate(savedInstanceState, Constants.CREATE_EVENTS_CONST);
 				AppTools.info("on create CreateEvent");
 				initGraphicalInterface();
 			}
@@ -70,6 +73,11 @@ public class CreateEventActivity extends BaseActivity {
 				PriceEvent = (TextView) findViewById(R.id.PriceEvent);
 				DescriptionEvent = (TextView) findViewById(R.id.DescriptionEvent);
 				NextStepBtn = (Button) findViewById(R.id.NextStepBtn);
+				String[] data = IntentHelper.getActiveIntentParam(String[].class);
+				if (data != null) {
+					event_id = data[0];
+					new GetEventInfo().execute(event_id);
+				}
 
 				NextStepBtn.setOnClickListener(new OnClickListener() {
 
@@ -111,78 +119,132 @@ public class CreateEventActivity extends BaseActivity {
 //					}
 				} catch (NumberFormatException e) {
 					AppTools.debug("NumberFormatException numbers in date" + StartEventHour.getText().toString());
-					Popups.showPopup(Constants.dateFormatWrong);
-					return false;
 				}
-				return true;
-			}
-			
-			private String[] extractTime(String timeStr) {
-					return timeStr.trim().split("[h.:]");
+				return false;
 			}
 
-			private class CreateEventTask extends AsyncTask<Void, Void, Void> {
+	private String[] extractTime(String timeStr) {
+		return timeStr.trim().split("[h.:]");
+	}
 
-				ProgressDialog mProgressDialog;
-				JSONObject res;
+	private class CreateEventTask extends AsyncTask<Void, Void, Void> {
 
-				@Override
-				protected void onPostExecute(Void result) {
-					mProgressDialog.dismiss();
-					if (res != null) {
-						try {
-							if (res.has("error")) {
-								// Error
-								String error;
-								error = res.getString("error");
-								CreateEventActivity.this.networkError(error);
-							}
+		ProgressDialog mProgressDialog;
+		JSONObject res;
 
-							else {
-								// OK
-								String[] params = new String[1];
-								params[0] = res.getString("id");
-								IntentHelper.openNewActivity(GetPlacesActivity.class, params, false);
-							}
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
+		@Override
+		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
+			if (res != null) {
+				try {
+					if (res.has("error")) {
+						// Error
+						String error;
+						error = res.getString("error");
+						CreateEventActivity.this.networkError(error);
 					}
-				}
 
-				@Override
-				protected void onPreExecute() {
-					mProgressDialog = ProgressDialog.show(CreateEventActivity.this,
-							getString(R.string.app_name), getString(R.string.loading));
-				}
-
-				@Override
-				protected Void doInBackground(Void... params) {
-					// Send request to server for login
-
-					ServerConnection srvCon = ServerConnection.GetServerConnection();
-					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-					parameters.add(new BasicNameValuePair("name", EventName
-							.getText().toString()));
-					parameters.add(new BasicNameValuePair("description", DescriptionEvent
-							.getText().toString()));
-					parameters.add(new BasicNameValuePair("start_time", StartEventHour+":"+StartEventMinute
-							.getText().toString()));
-					parameters.add(new BasicNameValuePair("end_time", EndEventHour+":"+EndEventMinute
-							.getText().toString()));
-//					parameters.add(new BasicNameValuePair("start_time", extractTime(StartEvent.getText().toString())[0] + ":" + extractTime(StartEvent.getText().toString())[1]));
-//					parameters.add(new BasicNameValuePair("end_time", extractTime(EndEvent.getText().toString())[0] + ":" + extractTime(EndEvent.getText().toString())[1]));
-					parameters.add(new BasicNameValuePair("price", PriceEvent
-							.getText().toString()));
-					
-					parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
-					try {
-						res = srvCon.connect(ServerConnection.ADD_EVENT_INFO, parameters);
-					} catch (Exception e) {
-						e.printStackTrace();
+					else {
+						// OK
+						String[] params = new String[1];
+						params[0] = res.getString("id");
+						IntentHelper.openNewActivity(GetPlacesActivity.class,
+								params, false);
 					}
-					return null;
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
 			}
-	
+		}
+
+		@Override
+		protected void onPreExecute() {
+			mProgressDialog = ProgressDialog.show(CreateEventActivity.this,
+					getString(R.string.app_name), getString(R.string.loading));
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// Send request to server for login
+
+			ServerConnection srvCon = ServerConnection.GetServerConnection();
+			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+			parameters.add(new BasicNameValuePair("name", EventName.getText()
+					.toString()));
+			parameters.add(new BasicNameValuePair("description",
+					DescriptionEvent.getText().toString()));
+			parameters.add(new BasicNameValuePair("start_time", StartEventHour+":"+StartEventMinute
+					.getText().toString()));
+			parameters.add(new BasicNameValuePair("end_time", EndEventHour+":"+EndEventMinute
+					.getText().toString()));
+			// parameters.add(new BasicNameValuePair("start_time",
+			// extractTime(StartEvent.getText().toString())[0] + ":" +
+			// extractTime(StartEvent.getText().toString())[1]));
+			// parameters.add(new BasicNameValuePair("end_time",
+			// extractTime(EndEvent.getText().toString())[0] + ":" +
+			// extractTime(EndEvent.getText().toString())[1]));
+			parameters.add(new BasicNameValuePair("price", PriceEvent.getText()
+					.toString()));
+
+			parameters.add(new BasicNameValuePair("auth_token", PYPContext
+					.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0)
+					.getString("auth_token", "")));
+			try {
+				res = srvCon.connect(ServerConnection.ADD_EVENT_INFO,
+						parameters);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+	}
+
+
+	private class GetEventInfo extends AsyncTask<String, Void, Void> {
+
+		JSONObject res;
+
+		@Override
+		protected void onPostExecute(Void result) {
+			if (res != null) {
+				try {
+
+					EventName.setText(res.getString("name"));
+					//TODO:  Start Event hour minute
+//					StartEvent.setText(res.getString("start_time"));
+//					EndEvent.setText(res.getString("end_time"));
+					PriceEvent.setText(res.getString("price"));
+					DescriptionEvent.setText(res.getString("description"));
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+		}
+
+		@Override
+		protected Void doInBackground(String... params) {
+			// Send request to server for login
+			ServerConnection srvCon = ServerConnection.GetServerConnection();
+			try {
+				List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+				SharedPreferences settings = PYPContext.getContext()
+						.getSharedPreferences(AppTools.PREFS_NAME, 0);
+				parameters.add(new BasicNameValuePair("auth_token", settings
+						.getString("auth_token", "")));
+				parameters.add(new BasicNameValuePair("id", params[0]));
+				AppTools.debug("ID of the event: " + params[0]);
+				res = srvCon.connect(ServerConnection.GET_EVENT_INFO,
+						parameters);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	}
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+<LinearLayout
+       xmlns:android="http://schemas.android.com/apk/res/android"
+       android:id="@+id/profile_event_personal_backgorund"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="@drawable/roundbackground"
+       android:orientation="vertical"
+       android:padding="20dp"
+       android:layout_marginBottom="20dp" >
+       
+    <Button
+        android:id="@+id/ManagePersonalEventActivity_Edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:hint="@string/ManagePersonalEventActivity_Edit"
+        android:minWidth="200dp"
+        android:text="@string/ManagePersonalEventActivity_Edit"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:background="@drawable/green_button"
+        android:layout_marginBottom="@dimen/form_margin"
+        style="@style/button_text" />
+
+    <Button
+        android:id="@+id/ManagePersonalEventActivity_Delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top|center_horizontal"
+        android:hint="@string/ManagePersonalEventActivity_Delete"
+        android:minWidth="200dp"
+        android:text="@string/ManagePersonalEventActivity_Delete"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:background="@drawable/green_button"
+        android:layout_marginBottom="@dimen/form_margin"
+        style="@style/button_text" />
+
+    <Button
+        android:id="@+id/ManagePersonalEventActivity_Close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top|center_horizontal"
+        android:hint="@string/ManagePersonalEventActivity_Close"
+        android:minWidth="200dp"
+        android:text="@string/ManagePersonalEventActivity_Close"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:background="@drawable/red_button"
+        style="@style/button_text" />
+    
+    <Button
+        android:id="@+id/ManagePersonalEventActivity_Open_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top|center_horizontal"
+        android:hint="@string/ManagePersonalEventActivity_Open"
+        android:minWidth="200dp"
+        android:text="@string/ManagePersonalEventActivity_Open"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:background="@drawable/blue_button"
+        style="@style/button_text" />
+    
+</LinearLayout>
+</LinearLayout>

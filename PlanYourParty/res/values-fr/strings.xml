@@ -52,6 +52,11 @@
     <item>Célibataire</item>
   </string-array>
 
+  	<string name="ManagePersonalEventActivity_Edit">Editer</string>
+	<string name="ManagePersonalEventActivity_Delete">Supprimer</string>
+	<string name="ManagePersonalEventActivity_Close">Fermer</string>
+	<string name="ManagePersonalEventActivity_Open">Ouvrir</string>
+  
     <string name="Statut">Statut :</string>
     <string name="BirthdayDate">JJ/MM/AAAA</string>
     
@@ -109,6 +114,9 @@
     <string name="DifferentPassword_title">Mot de passe differents</string>
     <string name="DifferentPassword_text">Le mot de passe specifie  n\'est pas le meme.</string>
     <string name="ViewName">Name</string>
+     <string name="canteditArea_title">Vous ne pouvez pas editer cet evement </string>
+    <string name="canteditArea_text">Vous n\'etes pas proche de la location d\'evement</string>
+    
     
     <!-- Pages title -->
 	<string name="ForgotPasswordTitle">Recuperation mdp</string>
@@ -121,6 +129,7 @@
 	<string name="PersonalInfoTitle">Infos personelles</string>
 	<string name="SecurityTitle">Securite</string>
 	<string name="NoTitle"></string>
+	<string name="ManagePersonalEvent">Gestion d\'evenement</string>
 	<string name="CreateLocalPlace">Location courante</string>
 	<string name="GetPlaces">Location</string>
 
