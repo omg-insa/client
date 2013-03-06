@@ -43,7 +43,7 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 			
 			@Override
 			public void onCreate(Bundle savedInstanceState) {
-				super.onCreate(savedInstanceState, Constants.EVENTS_CONST);
+				super.onCreate(savedInstanceState, Constants.CREAT_LOCAL_PLACE_CONST);
 				AppTools.info("on create CreateEvent");
 				initGraphicalInterface();
 			}

@@ -39,7 +39,11 @@ public class ServerConnection {
     public static final String GET_PERSONAL_EVENTS = "get_personal_events/";
     public static final String GET_PLACES = "get_places/";
     public static final String SAVE_EVENT_PLACE = "save_event_place/";
-
+    public static final String GET_EVENT_STATUS = "get_event_status/";
+    public static final String CLOSE_OPEN_EVENT = "close_event/";
+    public static final String DELETE_EVENT = "delete_event/";
+    public static final String GET_EVENT_INFO = "get_event_info/";
+    
 	private ServerConnection() {
 		if (LOCAL)
 			setRequestUrl(LOCAL_URL);
@@ -76,7 +80,28 @@ public class ServerConnection {
 			returnObj = request.executePost();
 			AppTools.debug(returnObj.toString());
 		}
+		if(service.equals(DELETE_EVENT)){
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(CLOSE_OPEN_EVENT)){
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		
+		if(service.equals(GET_EVENT_STATUS)){
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
 		if(service.equals(UPDATE_USER_INTREST)){
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(GET_EVENT_INFO)){
 			request = new HttpRequest(requestUrl, parameters);
 			returnObj = request.executePost();
 			AppTools.debug(returnObj.toString());
