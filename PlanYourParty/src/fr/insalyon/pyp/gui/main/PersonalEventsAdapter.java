@@ -46,12 +46,17 @@ public class PersonalEventsAdapter extends BaseAdapter {
 				.findViewById(R.id.personal_events_item_title);
 		TextView hours = (TextView) vi
 				.findViewById(R.id.persoanl_events_item_hours);
+
+		TextView description = (TextView) vi
+				.findViewById(R.id.persoanl_events_item_description);
 		ImageView next = (ImageView) vi
 				.findViewById(R.id.personal_events_next_button);
 		String[] row_data = data.get(position);
 		if (position == 0) {
 			title.setText(row_data[0]);
 			hours.setText("");
+			description.setText("");
+
 			next.setImageDrawable(PYPContext.getContext().getResources().getDrawable(android.R.drawable.ic_menu_edit));
 			next.setVisibility(View.VISIBLE);
 		} else {
@@ -60,6 +65,8 @@ public class PersonalEventsAdapter extends BaseAdapter {
 			// Setting all values in listview
 			title.setText(row_data[0]);
 			hours.setText(row_data[1]);
+			description.setText(row_data[4]);
+			
 			next.setVisibility(View.VISIBLE);
 		}
 		return vi;
