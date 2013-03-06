@@ -15,6 +15,8 @@
   <string name="forgotten_password">Mot de passe oublié ?</string>
   <string name="loading">Chargement</string>
   <string name="alert_dialog_ok">OK</string>
+      <string name="alert_dialog_yes">Oui</string>
+    <string name="alert_dialog_no">Non</string>
   <string name="secret_question_answer">Votre réponse</string>
   <string name="validate">Valider</string>
   <string name="old_password">Ancien mot de passe</string>
@@ -116,9 +118,10 @@
     <string name="DifferentPassword_title">Mot de passe differents</string>
     <string name="DifferentPassword_text">Le mot de passe specifie  n\'est pas le meme.</string>
     <string name="ViewName">Name</string>
-     <string name="canteditArea_title">Vous ne pouvez pas editer cet evement </string>
-    <string name="canteditArea_text">Vous n\'etes pas proche de la location d\'evement</string>
-    
+     <string name="canteditArea_title">Vous ne pouvez pas editer cet evenement </string>
+    <string name="canteditArea_text">Vous n\'etes pas proche de la location d\'evenement</string>
+         <string name="delete_event_title">Supression d\'evenement</string>
+    <string name="delete_event_text">Est-ce que vous etes sure de suprime cet evenement? </string>
     
     <!-- Pages title -->
 	<string name="ForgotPasswordTitle">Recuperation mdp</string>

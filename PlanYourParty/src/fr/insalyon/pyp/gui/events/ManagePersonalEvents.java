@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -101,7 +102,14 @@ public class ManagePersonalEvents extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				new deleteEvent().execute(id);
+				DialogInterface.OnClickListener newListner = new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface dialog, int which) {
+						AppTools.debug("Deleting....");
+						new deleteEvent().execute(id);
+					}
+				};
+				Popups.showPopup(Constants.deleteQuestion, newListner);
 			}
 		});
 		open.setVisibility(View.GONE);
@@ -112,7 +120,7 @@ public class ManagePersonalEvents extends BaseActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		
+
 	}
 
 	private class GetEventStatus extends AsyncTask<String, Void, Void> {
@@ -153,7 +161,7 @@ public class ManagePersonalEvents extends BaseActivity {
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
 				parameters.add(new BasicNameValuePair("event_id", params[0]));
-				AppTools.debug("ID of the event: "+params[0]);
+				AppTools.debug("ID of the event: " + params[0]);
 				res = srvCon.connect(ServerConnection.GET_EVENT_STATUS,
 						parameters);
 			} catch (Exception e) {
@@ -185,15 +193,14 @@ public class ManagePersonalEvents extends BaseActivity {
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
 				parameters.add(new BasicNameValuePair("event_id", params[0]));
-				srvCon.connect(ServerConnection.DELETE_EVENT,
-						parameters);
+				srvCon.connect(ServerConnection.DELETE_EVENT, parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return null;
 		}
 	}
-	
+
 	private class closeOpenEvent extends AsyncTask<String, Void, Void> {
 
 		@Override
@@ -223,8 +230,7 @@ public class ManagePersonalEvents extends BaseActivity {
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
 				parameters.add(new BasicNameValuePair("event_id", params[0]));
-				srvCon.connect(ServerConnection.CLOSE_OPEN_EVENT,
-						parameters);
+				srvCon.connect(ServerConnection.CLOSE_OPEN_EVENT, parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
