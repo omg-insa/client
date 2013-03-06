@@ -6,84 +6,114 @@
 
     <EditText
         android:id="@+id/EventName"
-        android:layout_width="match_parent"
+        style="@style/text_edit"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:hint="@string/EventName"
-        android:ems="10" >
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/text_edit"
+        android:ems="10"
+        android:hint="@string/EventName" >
 
         <requestFocus />
     </EditText>
 
-    
     <LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal" >
         
     <EditText
         android:id="@+id/StartEventHour"
+        style="@style/text_edit"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:hint="@string/StartEventHour"
+        android:layout_gravity="center"
+        android:background="@drawable/text_edit"
         android:ems="10"
+        android:hint="@string/StartEventHour"
         android:inputType="time"
         android:maxLength="2" />
     
     <EditText
         android:id="@+id/StartEventMinute"
+        style="@style/text_edit"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:hint="@string/StartEventMinute"
+        android:layout_gravity="center"
+        android:background="@drawable/text_edit"
         android:ems="10"
+        android:hint="@string/StartEventMinute"
         android:inputType="time"
         android:maxLength="2" />
+
     </LinearLayout>
 
-     
     <LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal" >
     
     <EditText
         android:id="@+id/EndEventHour"
+        style="@style/text_edit"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:hint="@string/EndEventHour"
+        android:layout_gravity="center"
+        android:background="@drawable/text_edit"
         android:ems="10"
+        android:hint="@string/EndEventHour"
         android:inputType="time"
         android:maxLength="2" />
     
     <EditText
         android:id="@+id/EndEventMinute"
+        style="@style/text_edit"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:hint="@string/EndEventMinute"
+        android:layout_gravity="center"
+        android:background="@drawable/text_edit"
         android:ems="10"
+        android:hint="@string/EndEventMinute"
         android:inputType="time"
         android:maxLength="2" />
+
 	</LinearLayout>
     
     <EditText
         android:id="@+id/PriceEvent"
-        android:layout_width="match_parent"
+        style="@style/text_edit"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:hint="@string/PriceEvent"
-        android:ems="10" />
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/text_edit"
+        android:ems="10"
+        android:hint="@string/PriceEvent" />
 
     <EditText
         android:id="@+id/DescriptionEvent"
-        android:layout_width="match_parent"
+        style="@style/text_edit"
+        android:layout_width="250dp"
         android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
         android:layout_weight="0.38"
+        android:background="@drawable/text_edit"
         android:ems="10"
+        android:gravity="top"
         android:hint="@string/DescriptionEvent"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:minLines="7" />
 
     <Button
         android:id="@+id/NextStepBtn"
+        style="@style/button_text"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/blue_button"
         android:text="@string/NextStep" />
 
 </LinearLayout>
