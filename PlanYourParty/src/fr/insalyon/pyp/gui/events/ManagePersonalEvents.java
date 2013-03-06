@@ -112,6 +112,7 @@ public class ManagePersonalEvents extends BaseActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		
 	}
 
 	private class GetEventStatus extends AsyncTask<String, Void, Void> {

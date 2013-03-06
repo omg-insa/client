@@ -84,6 +84,7 @@ public class MainActivity extends BaseActivity {
 		super.onResume();
 		// check if logged in
 		checkLoggedIn();
+		new GetPersonalEvents().execute();
 	}
 
 	@Override
@@ -121,6 +122,9 @@ public class MainActivity extends BaseActivity {
 		}
 		return false;
 	}
+	
+	
+
 
 	private void buildList(ArrayList<String[]> data) {
 
