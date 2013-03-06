@@ -43,7 +43,10 @@ public class ServerConnection {
     public static final String CLOSE_OPEN_EVENT = "close_event/";
     public static final String DELETE_EVENT = "delete_event/";
     public static final String GET_EVENT_INFO = "get_event_info/";
-    
+    public static final String SAVE_EVENT_INTREST = "save_event_intrest/";
+    public static final String GET_EVENT_INTREST = "get_event_intrest/";
+    public static final String GET_LOCAL_PLACE = "get_local_place/";
+
 	private ServerConnection() {
 		if (LOCAL)
 			setRequestUrl(LOCAL_URL);
@@ -191,6 +194,18 @@ public class ServerConnection {
 			AppTools.debug(returnObj.toString());
 		}
 		if(service.equals(SAVE_EVENT_PLACE))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(SAVE_EVENT_INTREST))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(GET_EVENT_INTREST))
 		{
 			request = new HttpRequest(requestUrl, parameters);
 			returnObj = request.executePost();

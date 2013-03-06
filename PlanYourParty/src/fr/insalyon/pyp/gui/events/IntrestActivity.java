@@ -34,6 +34,8 @@ public class IntrestActivity extends BaseActivity {
 	private IntrestsAdapter adapter;
 	private TextView windowTitle;
 	private Button validateCreateEvent;
+	private ArrayList<Long> interestsChecked = new ArrayList<Long>();
+	private Long event_id = 49003L;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class IntrestActivity extends BaseActivity {
 
 	private void buildList(ArrayList<String[]> data) {
 
-		list = (ListView) findViewById(R.id.create_intrests_list);
+		list = (ListView) findViewById(R.id.create_event_intrests_list);
 
 		// Getting adapter by passing xml data ArrayList
 		adapter = new IntrestsAdapter(this, data);
@@ -82,15 +84,28 @@ public class IntrestActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				if (arg1 != null) {
+					
+					AppTools.debug("On Item Click");
+					
 					CheckBox interest_checkBox = (CheckBox) arg1.findViewById(R.id.interest_checkBox);
 					//TODO: add business logic
 					
+					long interestId = adapter.getItemId(arg2);
+					
 					if(interest_checkBox.isChecked())
-						interest_checkBox.setChecked(false);
+					{
+						interestsChecked.add(interestId);
+						//TODO: check with the API if multiple interests are allowed
+						//list.setEnabled(false);
+					}
 					else
-						interest_checkBox.setChecked(true);
+					{
+						interestsChecked.remove(interestId);
+						//TODO: check with the API if multiple interests are allowed
+						//list.setEnabled(true);
+					}
 				}
-				new UpdateUserIntrest().execute(arg1.getTag().toString());
+				new UpdateUserIntrest().execute(interestsChecked.get(0));
 			}
 		});
 	}
@@ -138,7 +153,8 @@ public class IntrestActivity extends BaseActivity {
 						.getSharedPreferences(AppTools.PREFS_NAME, 0);
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
-				res = srvCon.connect(ServerConnection.GET_INTRESTS_LIST,
+				parameters.add(new BasicNameValuePair("event_id", event_id.toString()));
+				res = srvCon.connect(ServerConnection.GET_EVENT_INTREST,
 						parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -170,9 +186,9 @@ public class IntrestActivity extends BaseActivity {
 						.getSharedPreferences(AppTools.PREFS_NAME, 0);
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
-				parameters.add(new BasicNameValuePair("intrest",
-						(String) params[0]));
-				srvCon.connect(ServerConnection.UPDATE_USER_INTREST,
+				parameters.add(new BasicNameValuePair("event_id", event_id.toString()));
+				parameters.add(new BasicNameValuePair("intrest_id", params[0].toString()));
+				srvCon.connect(ServerConnection.SAVE_EVENT_INTREST,
 						parameters);
 			} catch (Exception e) {
 				e.printStackTrace();

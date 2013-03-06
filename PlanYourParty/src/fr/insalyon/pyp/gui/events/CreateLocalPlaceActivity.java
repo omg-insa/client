@@ -9,7 +9,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -91,6 +93,15 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 				});
 				
 			}
+			
+			@Override
+			public void onActivityResult(int requestCode, int resultCode, Intent data) {
+				AppTools.error("Autocompleating...");
+			    if (resultCode == Activity.RESULT_OK) {
+			    	// TODO: get info
+					new GetLocalPlaceTask().execute();
+			    }
+			}
 
 
 			@Override
@@ -129,10 +140,9 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 							else {
 								// OK
 								String id = res.getString("id");
-								String[] params = new String[2];
+								String[] params = new String[1];
 								params[0] = id;
-								// TODO: transmettre id a fenetre suivante
-								IntentHelper.openNewActivity(IntrestActivity.class, params, false);
+								new SelectPlaceTask().execute((Object[])params);
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
@@ -234,4 +244,134 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 					return null;
 				}
 			}
+				
+				
+				private class SelectPlaceTask extends AsyncTask<Object, Void, Void> {
+
+					ProgressDialog mProgressDialog;
+					JSONObject res;
+
+					@Override
+					protected void onPostExecute(Void result) {
+						mProgressDialog.dismiss();
+						if (res != null) {
+							try {
+								if (res.has("error")) {
+									// Error
+									String error;
+									error = res.getString("error");
+									CreateLocalPlaceActivity.this.networkError(error);
+								}
+
+								else {
+									// OK
+									// Get id of the object
+									String[] params = new String[2];
+									params[1] = res.getString("id");
+									String[] paramsGet = IntentHelper.getActiveIntentParam(String[].class);
+									params[0] = paramsGet[0];
+									
+									IntentHelper.openNewActivity(IntrestActivity.class, params, false);
+								}
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+
+					@Override
+					protected void onPreExecute() {
+						mProgressDialog = ProgressDialog.show(CreateLocalPlaceActivity.this,
+								getString(R.string.app_name), getString(R.string.loading));
+					}
+
+					@Override
+					protected Void doInBackground(Object... params) {
+						// Send request to server for login
+
+						ServerConnection srvCon = ServerConnection.GetServerConnection();
+						List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+						// Get the token & the username
+						String[] paramsGet = IntentHelper.getActiveIntentParam(String[].class);
+						String eventId = paramsGet[0];
+						
+						parameters.add(new BasicNameValuePair("event_id", eventId));
+						parameters.add(new BasicNameValuePair("place_id", (String) params[0]));
+						parameters.add(new BasicNameValuePair("is_local", "True"));
+						parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
+						
+						
+						try {
+							res = srvCon.connect(ServerConnection.SAVE_EVENT_PLACE, parameters);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						return null;
+					}
+				}
+				
+			
+			
+			private class GetLocalPlaceTask extends AsyncTask<Object, Void, Void> {
+
+				ProgressDialog mProgressDialog;
+				JSONObject res;
+
+				@Override
+				protected void onPostExecute(Void result) {
+					mProgressDialog.dismiss();
+					if (res != null) {
+						try {
+							if (res.has("error")) {
+								// Error
+								String error;
+								error = res.getString("error");
+								CreateLocalPlaceActivity.this.networkError(error);
+							}
+
+							else {
+								// OK
+								// Get id of the object
+								String[] params = new String[4];
+								LocalPlaceName.setText(res.getString("name"));
+//								TypeLocalPlace.setSelection(res.getString("type"));
+								DescriptionLocalPlace.setText(res.getString("description"));
+								AddressLocalPlace.setText(res.getString("address"));
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+
+				@Override
+				protected void onPreExecute() {
+					mProgressDialog = ProgressDialog.show(CreateLocalPlaceActivity.this,
+							getString(R.string.app_name), getString(R.string.loading));
+				}
+
+				@Override
+				protected Void doInBackground(Object... params) {
+					// Send request to server for login
+
+					ServerConnection srvCon = ServerConnection.GetServerConnection();
+					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+					// Get the token & the id
+					String[] paramsGet = IntentHelper.getActiveIntentParam(String[].class);
+					String eventId = paramsGet[0];
+					
+					parameters.add(new BasicNameValuePair("id", (String) params[0]));
+					parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
+					
+					
+					try {
+						res = srvCon.connect(ServerConnection.GET_LOCAL_PLACE, parameters);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return null;
+				}
+			}
+			
+			
 }
