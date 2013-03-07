@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Location;
@@ -22,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
+import fr.insalyon.pyp.gui.events.IntrestActivity;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
@@ -64,6 +66,22 @@ public class GetPlacesActivity extends BaseActivity {
 	}
 
 	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		AppTools.error("Autocompleating...");
+	    if (resultCode == Activity.RESULT_OK) {
+	    	AppTools.error("ClosingGETPLACEACTIVITY");
+	    	String[] row_values = data.getExtras().getStringArray(Constants.PARAMNAME);
+	    	if(row_values.length == 3){
+	    		Intent intent = new Intent(PYPContext.getContext(),
+						GetPlacesActivity.class);
+				intent.putExtra(Constants.PARAMNAME, row_values);
+				setResult(RESULT_OK, intent);
+	    		this.finish();
+	    	}
+	    }
+	}
+	
+	@Override
 	public void onBackPressed() {
 		Intent intent = new Intent(PYPContext.getContext(),
 				GetPlacesActivity.class);
@@ -101,8 +119,10 @@ public class GetPlacesActivity extends BaseActivity {
 				else {
 					String[] params = IntentHelper
 							.getActiveIntentParam(String[].class);
-					IntentHelper.openNewActivity(
-							CreateLocalPlaceActivity.class, params, false);
+					Intent i =  new Intent(GetPlacesActivity.this, CreateLocalPlaceActivity.class);
+					i.putExtra(Constants.PARAMNAME,params);
+					startActivityForResult(i,1);
+
 				}
 			}
 		});
@@ -192,8 +212,9 @@ public class GetPlacesActivity extends BaseActivity {
 						// Get id of the object
 						String[] params = new String[1];
 						params[0] = res.getString("id");
-						IntentHelper.openNewActivity(IntrestActivity.class,
-								params, false);
+						Intent i =  new Intent(GetPlacesActivity.this, IntrestActivity.class);
+						i.putExtra(Constants.PARAMNAME,params);
+						startActivityForResult(i,1);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

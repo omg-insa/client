@@ -25,7 +25,6 @@ import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
-import fr.insalyon.pyp.gui.main.MainActivity;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
@@ -66,8 +65,11 @@ public class IntrestActivity extends BaseActivity {
 		validateCreateEvent.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				IntentHelper.openNewActivity(MainActivity.class, null, false);
-
+				Intent intent = new Intent(PYPContext.getContext(),
+						IntrestActivity.class);
+				intent.putExtra(Constants.PARAMNAME, new String[] { event_id,place_id,"forceClose" });
+				setResult(RESULT_OK, intent);
+				IntrestActivity.this.finish();
 			}
 		});
 

@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
     <EditText
         android:id="@+id/EventName"
         style="@style/text_edit"
@@ -115,5 +118,5 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/blue_button"
         android:text="@string/NextStep" />
-
+</LinearLayout>
 </ScrollView>

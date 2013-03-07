@@ -120,6 +120,13 @@ public class CreateEventActivity extends BaseActivity {
 		AppTools.error("Autocompleating...");
 	    if (resultCode == Activity.RESULT_OK) {
 	    	String[] row_values = data.getExtras().getStringArray(Constants.PARAMNAME);
+	    	if(row_values.length == 3){
+	    		Intent intent = new Intent(PYPContext.getContext(),
+						CreateEventActivity.class);
+				intent.putExtra(Constants.PARAMNAME, row_values);
+				setResult(RESULT_OK, intent);
+	    		this.finish();
+	    	}
 	    	event_id = row_values[0];
 			new GetEventInfo().execute(event_id);
 	    }

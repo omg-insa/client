@@ -7,7 +7,9 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -77,8 +79,9 @@ public class ManagePersonalEvents extends BaseActivity {
 
 				@Override
 				public void onClick(View v) {
-					IntentHelper.openNewActivity(CreateEventActivity.class,
-							data, false);
+					Intent i =  new Intent(ManagePersonalEvents.this, CreateEventActivity.class);
+					i.putExtra(Constants.PARAMNAME,data);
+					startActivityForResult(i,1);
 				}
 			});
 		}
@@ -117,6 +120,17 @@ public class ManagePersonalEvents extends BaseActivity {
 		hideHeader(false);
 	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		AppTools.error("Autocompleating...");
+	    if (resultCode == Activity.RESULT_OK) {
+	    	String[] row_values = data.getExtras().getStringArray(Constants.PARAMNAME);
+	    	if(row_values.length == 3){
+	    		this.finish();
+	    	}
+	    }
+	}
+	
 	@Override
 	public void onResume() {
 		super.onResume();

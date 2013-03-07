@@ -22,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
-import fr.insalyon.pyp.R.string;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;

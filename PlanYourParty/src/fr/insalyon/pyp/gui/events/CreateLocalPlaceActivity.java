@@ -106,6 +106,13 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 			    if (resultCode == Activity.RESULT_OK) {
 			    	AppTools.error("Executing get request");
 			    	String[] row_values = data.getExtras().getStringArray(Constants.PARAMNAME);
+			    	if(row_values.length == 3){
+			    		Intent intent = new Intent(PYPContext.getContext(),
+								CreateLocalPlaceActivity.class);
+						intent.putExtra(Constants.PARAMNAME, row_values );
+						setResult(RESULT_OK, intent);
+			    		this.finish();
+			    	}
 			    	event_id = row_values[0];
 			    	place_id = row_values[1];
 			    	new GetLocalPlaceTask().execute();
@@ -340,8 +347,8 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 								// OK
 								// Get id of the object
 								LocalPlaceName.setText(res.getString("name"));
-								// TODO: verify this
-								ArrayAdapter myAdap = (ArrayAdapter) TypeLocalPlace.getAdapter();
+								@SuppressWarnings("unchecked")
+								ArrayAdapter<String> myAdap = (ArrayAdapter<String>) TypeLocalPlace.getAdapter();
 								int spinnerPosition = myAdap.getPosition(res.getString("type"));
 								TypeLocalPlace.setSelection(spinnerPosition);
 								DescriptionLocalPlace.setText(res.getString("description"));
