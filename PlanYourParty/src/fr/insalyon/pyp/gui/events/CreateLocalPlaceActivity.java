@@ -35,7 +35,7 @@ import fr.insalyon.pyp.tools.TerminalInfo;
 
 public class CreateLocalPlaceActivity extends BaseActivity {
 			private LinearLayout abstractView;
-			private LinearLayout mainView;
+			private ScrollView mainView;
 			private TextView windowTitle;
 			
 			private TextView LocalPlaceName;
@@ -45,6 +45,7 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 			
 			private Button NextStepBtn;
 			private String event_id;
+			private String place_id;
 			
 			@Override
 			public void onCreate(Bundle savedInstanceState) {
@@ -102,8 +103,11 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 			public void onActivityResult(int requestCode, int resultCode, Intent data) {
 				AppTools.error("Autocompleating...");
 			    if (resultCode == Activity.RESULT_OK) {
-			    	// TODO: get info
-					new GetLocalPlaceTask().execute();
+			    	AppTools.error("Executing get request");
+			    	String[] row_values = data.getExtras().getStringArray(Constants.PARAMNAME);
+			    	event_id = row_values[0];
+			    	place_id = row_values[1];
+			    	new GetLocalPlaceTask().execute();
 			    }
 			}
 
@@ -146,6 +150,7 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 								String id = res.getString("id");
 								String[] params = new String[1];
 								params[0] = id;
+								place_id = id;
 								new SelectPlaceTask().execute((Object[])params);
 							}
 						} catch (JSONException e) {
@@ -174,11 +179,12 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 					parameters.add(new BasicNameValuePair("description", DescriptionLocalPlace
 							.getText().toString()));
 					parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
-					// TODO: if ID exist
-					// Longitude
-					// Latitude
-					String latitude = "45.78";
-					String longitude = "4.87";
+					if(place_id!=null){
+						parameters.add(new BasicNameValuePair("id", place_id));
+					}
+					Location l = TerminalInfo.getPosition();
+					String latitude = String.valueOf(l.getLatitude());
+					String longitude = String.valueOf(l.getLongitude());
 					parameters.add(new BasicNameValuePair("latitude", latitude));
 					parameters.add(new BasicNameValuePair("longitude", longitude));
 					
@@ -236,7 +242,6 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 					String longitude =  String.valueOf(l.getLongitude());
 					parameters.add(new BasicNameValuePair("latitude", latitude));
 					parameters.add(new BasicNameValuePair("longitude", longitude));
-					
 					parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
 
 					try {
@@ -270,11 +275,12 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 									// OK
 									// Get id of the object
 									String[] params = new String[2];
-									params[1] = res.getString("id");
-									String[] paramsGet = IntentHelper.getActiveIntentParam(String[].class);
-									params[0] = paramsGet[0];
-									
-									IntentHelper.openNewActivity(IntrestActivity.class, params, false);
+									params[0] = event_id;
+									params[1] = place_id;
+									Intent i =  new Intent(CreateLocalPlaceActivity.this, IntrestActivity.class);
+									i.putExtra(Constants.PARAMNAME,params);
+									startActivityForResult(i,1);
+
 								}
 							} catch (JSONException e) {
 								e.printStackTrace();
@@ -294,11 +300,8 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 
 						ServerConnection srvCon = ServerConnection.GetServerConnection();
 						List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-						// Get the token & the username
-						String[] paramsGet = IntentHelper.getActiveIntentParam(String[].class);
-						String eventId = paramsGet[0];
-						
-						parameters.add(new BasicNameValuePair("event_id", eventId));
+						// Get the token & the username						
+						parameters.add(new BasicNameValuePair("event_id", event_id));
 						parameters.add(new BasicNameValuePair("place_id", (String) params[0]));
 						parameters.add(new BasicNameValuePair("is_local", "True"));
 						parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
@@ -335,7 +338,6 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 							else {
 								// OK
 								// Get id of the object
-								String[] params = new String[4];
 								LocalPlaceName.setText(res.getString("name"));
 //								TypeLocalPlace.setSelection(res.getString("type"));
 								DescriptionLocalPlace.setText(res.getString("description"));
@@ -360,10 +362,8 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 					ServerConnection srvCon = ServerConnection.GetServerConnection();
 					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 					// Get the token & the id
-					String[] paramsGet = IntentHelper.getActiveIntentParam(String[].class);
-					String eventId = paramsGet[0];
 					
-					parameters.add(new BasicNameValuePair("id", (String) params[0]));
+					parameters.add(new BasicNameValuePair("id",place_id));
 					parameters.add(new BasicNameValuePair("auth_token", PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0).getString("auth_token", "")));
 					
 					

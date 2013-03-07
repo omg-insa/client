@@ -63,19 +63,20 @@ public class GetPlacesAdapter extends BaseAdapter {
 //			e.printStackTrace();
 //		}
         if (position == data.size() - 1) {
-        	//TODO: maybe change this
-        	vi.setTag("last");
+        	vi.setTag(new String[] {"last","false"});
 			title.setText(row_data[0]);
 			type.setText(null);
 			description.setText(null);
 			next.setImageDrawable(PYPContext.getContext().getResources().getDrawable(android.R.drawable.ic_menu_edit));
 			next.setVisibility(View.VISIBLE);
 		} else {
-	        vi.setTag(row_data[3]);
+	        vi.setTag(new String[]{row_data[3],row_data[4]});
 	        title.setText(row_data[0]);
 	        type.setText(row_data[1]);
 	        description.setText(row_data[2]);
 	        id.setText(row_data[3]);
+			next.setVisibility(View.GONE);
+
 		}
         return vi;
     }

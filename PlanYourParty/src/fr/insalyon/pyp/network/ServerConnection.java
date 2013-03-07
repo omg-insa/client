@@ -88,6 +88,11 @@ public class ServerConnection {
 			returnObj = request.executePost();
 			AppTools.debug(returnObj.toString());
 		}
+		if(service.equals(GET_LOCAL_PLACE)){
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
 		if(service.equals(CLOSE_OPEN_EVENT)){
 			request = new HttpRequest(requestUrl, parameters);
 			returnObj = request.executePost();

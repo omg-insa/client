@@ -8,6 +8,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,7 +18,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,8 +38,8 @@ public class IntrestActivity extends BaseActivity {
 	private IntrestsAdapter adapter;
 	private TextView windowTitle;
 	private Button validateCreateEvent;
-	private ArrayList<Long> interestsChecked = new ArrayList<Long>();
 	private String event_id;
+	private String place_id;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,26 +55,41 @@ public class IntrestActivity extends BaseActivity {
 		abstractView.setVisibility(LinearLayout.GONE);
 		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayoutTop);
 		abstractView.setVisibility(LinearLayout.VISIBLE);
-		mainView = (LinearLayout) mInflater.inflate(R.layout.create_event_intersts_activity,
-				null);
+		mainView = (LinearLayout) mInflater.inflate(
+				R.layout.create_event_intersts_activity, null);
 		abstractView.addView(mainView);
-		
+
 		windowTitle = (TextView) findViewById(R.id.pageTitle);
 		windowTitle.setText(R.string.InterestTitle);
-		
+
 		validateCreateEvent = (Button) findViewById(R.id.validate_create_event);
 		validateCreateEvent.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				IntentHelper.openNewActivity(MainActivity.class, null, false);
-				
+
 			}
 		});
-		
+
 		String[] params = IntentHelper.getActiveIntentParam(String[].class);
 		event_id = params[0];
+		if (params.length == 2) {
+			place_id = params[1];
+		}
 
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (place_id != null) {
+			Intent intent = new Intent(PYPContext.getContext(),
+					IntrestActivity.class);
+			intent.putExtra(Constants.PARAMNAME, new String[] { event_id,place_id });
+			setResult(RESULT_OK, intent);
+			this.finish();
+			return;
+		}
+		super.onBackPressed();
 	}
 
 	@Override
@@ -100,11 +115,13 @@ public class IntrestActivity extends BaseActivity {
 					long arg3) {
 				String interestId = null;
 				if (arg1 != null) {
-					
+
 					AppTools.debug("On Item Click");
-					
-					ImageView full = (ImageView) arg1.findViewById(R.id.item_full);
-					ImageView empty = (ImageView) arg1.findViewById(R.id.item_empty);
+
+					ImageView full = (ImageView) arg1
+							.findViewById(R.id.item_full);
+					ImageView empty = (ImageView) arg1
+							.findViewById(R.id.item_empty);
 					if (full.getVisibility() == View.VISIBLE) {
 						full.setVisibility(View.GONE);
 						empty.setVisibility(View.VISIBLE);
@@ -112,10 +129,10 @@ public class IntrestActivity extends BaseActivity {
 						empty.setVisibility(View.GONE);
 						full.setVisibility(View.VISIBLE);
 					}
-					
+
 					interestId = arg1.getTag().toString();
 				}
-				if(interestId != null)
+				if (interestId != null)
 					new UpdateUserIntrest().execute(interestId);
 			}
 		});
@@ -137,12 +154,13 @@ public class IntrestActivity extends BaseActivity {
 								obj.getString("description"),
 								obj.getString("selected"), obj.getString("id") });
 					}
-					/*for (int i = 0; i < 10; i++) {
-						data.add(new String[] { "name"+Integer.toString(i),
-								"description"+Integer.toString(i),
-								"false", "id"+Integer.toString(i) });
-					}*/
-					//AppTools.debug("Number of intrests:" + array.length());
+					/*
+					 * for (int i = 0; i < 10; i++) { data.add(new String[] {
+					 * "name"+Integer.toString(i),
+					 * "description"+Integer.toString(i), "false",
+					 * "id"+Integer.toString(i) }); }
+					 */
+					// AppTools.debug("Number of intrests:" + array.length());
 					IntrestActivity.this.buildList(data);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -176,10 +194,9 @@ public class IntrestActivity extends BaseActivity {
 
 	private class UpdateUserIntrest extends AsyncTask<Object, Void, Void> {
 
-
 		@Override
 		protected void onPostExecute(Void result) {
-		
+
 		}
 
 		@Override
@@ -190,7 +207,7 @@ public class IntrestActivity extends BaseActivity {
 		protected Void doInBackground(Object... params) {
 			// Send request to server for login
 			ServerConnection srvCon = ServerConnection.GetServerConnection();
-			
+
 			try {
 				List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 				SharedPreferences settings = PYPContext.getContext()
@@ -198,9 +215,9 @@ public class IntrestActivity extends BaseActivity {
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
 				parameters.add(new BasicNameValuePair("event_id", event_id));
-				parameters.add(new BasicNameValuePair("intrest_id", (String )params[0]));
-				srvCon.connect(ServerConnection.SAVE_EVENT_INTREST,
-						parameters);
+				parameters.add(new BasicNameValuePair("intrest_id",
+						(String) params[0]));
+				srvCon.connect(ServerConnection.SAVE_EVENT_INTREST, parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

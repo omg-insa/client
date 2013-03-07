@@ -95,8 +95,9 @@ public class GetPlacesActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if (arg1.getTag().toString() != "last")
-					new SelectPlaceTask().execute(arg1.getTag().toString());
+				String[] tagData = (String[])arg1.getTag();
+				if (tagData[0]!= "last")
+					new SelectPlaceTask().execute(tagData[0],tagData[1]);
 				else {
 					String[] params = IntentHelper
 							.getActiveIntentParam(String[].class);
@@ -127,7 +128,7 @@ public class GetPlacesActivity extends BaseActivity {
 						JSONObject obj = array.getJSONObject(i);
 						data.add(new String[] { obj.getString("name"),
 								obj.getString("type"),
-								obj.getString("address"), obj.getString("id") });
+								obj.getString("address"), obj.getString("id"),obj.getString("source")});
 					}
 					data.add(new String[] { "Add location" });
 					AppTools.debug("Number of places:" + array.length());
@@ -169,7 +170,7 @@ public class GetPlacesActivity extends BaseActivity {
 		}
 	}
 
-	private class SelectPlaceTask extends AsyncTask<Object, Void, Void> {
+	private class SelectPlaceTask extends AsyncTask<String, Void, Void> {
 
 		ProgressDialog mProgressDialog;
 		JSONObject res;
@@ -207,20 +208,17 @@ public class GetPlacesActivity extends BaseActivity {
 		}
 
 		@Override
-		protected Void doInBackground(Object... params) {
+		protected Void doInBackground(String... params) {
 			// Send request to server for login
 
 			ServerConnection srvCon = ServerConnection.GetServerConnection();
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 			// Get the token & the username
-			String[] paramsGet = IntentHelper
-					.getActiveIntentParam(String[].class);
-			String eventId = paramsGet[0];
+			
 
-			parameters.add(new BasicNameValuePair("event_id", eventId));
-			parameters.add(new BasicNameValuePair("place_id",
-					(String) params[0]));
-			parameters.add(new BasicNameValuePair("is_local", "False"));
+			parameters.add(new BasicNameValuePair("event_id", event_id));
+			parameters.add(new BasicNameValuePair("place_id",params[0]));
+			parameters.add(new BasicNameValuePair("is_local", params[1]));
 			parameters.add(new BasicNameValuePair("auth_token", PYPContext
 					.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0)
 					.getString("auth_token", "")));
