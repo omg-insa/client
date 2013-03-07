@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
@@ -59,7 +60,7 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 				event_id = IntentHelper.getActiveIntentParam(String[].class)[0];
 				LayoutInflater mInflater = LayoutInflater.from(this);
 				abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-				mainView = (LinearLayout) mInflater.inflate(R.layout.create_local_place_activity,
+				mainView = (ScrollView) mInflater.inflate(R.layout.create_local_place_activity,
 						null);
 				abstractView.addView(mainView);
 				
