@@ -37,6 +37,8 @@ public class Popups {
 		initDifferentPassword();
 		intCantEditEvent();
 		initDeleteEvent();
+		initUpdatePersonalInfoOk();
+		initUpdateSecurityQuestionOk();
 	}
 
 	/**
@@ -224,6 +226,24 @@ public class Popups {
 				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
 				null, null, false);
 		popupList.put(Constants.DifferentPassword, popup);
+	}
+	
+	private static void initUpdatePersonalInfoOk() {
+		PopupEntity popup = new PopupEntity(
+				R.string.personal_info_update_ok_title,
+				R.string.personal_info_update_ok_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.UpdatePersonalInfoOk, popup);
+	}
+	
+	private static void initUpdateSecurityQuestionOk() {
+		PopupEntity popup = new PopupEntity(
+				R.string.security_question_update_ok_title,
+				R.string.security_question_update_ok_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.UpdateSecurityQuestionOk, popup);
 	}
 	
 }

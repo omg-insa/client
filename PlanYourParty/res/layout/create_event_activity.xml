@@ -23,78 +23,132 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
+        android:layout_marginLeft="35dp"
+        android:gravity="left|center_vertical"
         android:orientation="horizontal" >
-        
-    <EditText
-        android:id="@+id/StartEventHour"
-        style="@style/text_edit"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/text_edit"
-        android:ems="10"
-        android:hint="@string/StartEventHour"
-        android:inputType="time"
-        android:maxLength="2" />
-    
-    <EditText
-        android:id="@+id/StartEventMinute"
-        style="@style/text_edit"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/text_edit"
-        android:ems="10"
-        android:hint="@string/StartEventMinute"
-        android:inputType="time"
-        android:maxLength="2" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/StartEvent"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical" >
+
+            <EditText
+                android:id="@+id/StartEventHour"
+                style="@style/text_edit"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/text_edit"
+                android:ems="10"
+                android:hint="@string/StartEventHour"
+                android:inputType="time"
+                android:maxLength="2" />
+
+            <EditText
+                android:id="@+id/StartEventMinute"
+                style="@style/text_edit"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/text_edit"
+                android:ems="10"
+                android:hint="@string/StartEventMinute"
+                android:inputType="time"
+                android:maxLength="2" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
+        android:gravity="left|center_vertical"
         android:orientation="horizontal" >
-    
-    <EditText
-        android:id="@+id/EndEventHour"
-        style="@style/text_edit"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/text_edit"
-        android:ems="10"
-        android:hint="@string/EndEventHour"
-        android:inputType="time"
-        android:maxLength="2" />
-    
-    <EditText
-        android:id="@+id/EndEventMinute"
-        style="@style/text_edit"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/text_edit"
-        android:ems="10"
-        android:hint="@string/EndEventMinute"
-        android:inputType="time"
-        android:maxLength="2" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:text="@string/EndEvent"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical" >
+
+            <EditText
+                android:id="@+id/EndEventHour"
+                style="@style/text_edit"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/text_edit"
+                android:ems="10"
+                android:hint="@string/EndEventHour"
+                android:inputType="time"
+                android:maxLength="2" />
+
+            <EditText
+                android:id="@+id/EndEventMinute"
+                style="@style/text_edit"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/text_edit"
+                android:ems="10"
+                android:hint="@string/EndEventMinute"
+                android:inputType="time"
+                android:maxLength="2" />
+
+        </LinearLayout>
 
 	</LinearLayout>
-    
-    <EditText
-        android:id="@+id/PriceEvent"
-        style="@style/text_edit"
-        android:layout_width="250dp"
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/text_edit"
-        android:ems="10"
-        android:hint="@string/PriceEvent" />
+        android:layout_gravity="center_vertical"
+        android:gravity="left|center_vertical" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:hint="@string/PriceEvent"
+            android:text="@string/PriceEvent"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical" >
+
+            <EditText
+                android:id="@+id/PriceEvent"
+                style="@style/text_edit"
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/text_edit"
+                android:ems="10"
+                android:hint="@string/PriceEvent"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/DescriptionEvent"

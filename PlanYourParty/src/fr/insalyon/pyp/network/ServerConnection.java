@@ -49,6 +49,8 @@ public class ServerConnection {
     public static final String GET_LOCAL_PLACE = "get_local_place/";
     public static final String ADD_MESSAGE = "add_message/";
     public static final String GET_CONVERSATION = "get_messages/";
+    public static final String GET_EVENT_FULL_INFO = "get_event_full_info/";
+    public static final String STAR = "star/";
 
 	private ServerConnection() {
 		if (LOCAL)
@@ -232,6 +234,18 @@ public class ServerConnection {
 			AppTools.debug(returnObj.toString());
 		}
 		if(service.equals(GET_CONVERSATION))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(GET_EVENT_FULL_INFO))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(STAR))
 		{
 			request = new HttpRequest(requestUrl, parameters);
 			returnObj = request.executePost();

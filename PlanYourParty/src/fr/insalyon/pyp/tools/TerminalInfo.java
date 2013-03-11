@@ -207,7 +207,12 @@ public class TerminalInfo {
 	
 	public static Location getPosition(){
 		LocationManager mlocManager = (LocationManager) PYPContext.getContext().getSystemService(Context.LOCATION_SERVICE);
-		return mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);	
+		Location l = mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);	
+		if (l==null)
+			l = mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		if (l==null)
+			l = mlocManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+		return l;
 	}
 	
 

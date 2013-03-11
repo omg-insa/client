@@ -23,11 +23,11 @@
      <activity android:name=".gui.login.ResetPasswordAfterRecoveryActivity"></activity>
      <activity android:name=".gui.account.AcountActivity"></activity>
      <activity android:name=".gui.account.SecurityActivity"></activity>
-      <activity android:name=".gui.account.PersoanlInfoActivity"></activity>
-      <activity android:name=".gui.account.IntrestActivity" ></activity>
-       <activity android:name=".gui.events.IntrestActivity"></activity>
-              <activity android:name=".gui.events.ManagePersonalEvents"></activity>
-       
+     <activity android:name=".gui.account.PersonalInfoActivity"></activity>
+     <activity android:name=".gui.account.IntrestActivity" ></activity>
+     <activity android:name=".gui.events.IntrestActivity"></activity>
+     <activity android:name=".gui.events.ManagePersonalEvents"></activity>
+     <activity android:name=".gui.events.GetEventDetailActivity"></activity>
      <activity android:name=".gui.events.CreateEventActivity">
          	   
         </activity>
