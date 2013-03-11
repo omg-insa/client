@@ -211,6 +211,8 @@ public class SecurityActivity extends BaseActivity {
 					}
 
 					else {
+						// Update ok pop up
+						Popups.showPopup(Constants.UpdateSecurityQuestionOk);
 						AppTools.debug("Security question update ok");
 						currentPassword.setText("");
 

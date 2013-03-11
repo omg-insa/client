@@ -49,7 +49,7 @@ public class AcountActivity extends BaseActivity {
 		personalInfo = (Button) findViewById(R.id.profils_info_perso);
 		personalInfo.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				IntentHelper.openNewActivity(PersoanlInfoActivity.class, null, false);
+				IntentHelper.openNewActivity(PersonalInfoActivity.class, null, false);
 			}
 		});
 		intrestInfo = (Button) findViewById(R.id.profils_activity_interets);

@@ -42,6 +42,7 @@
   <string name="Sexe">Sex</string>
   <string name="fullName">Full name</string>
   <string name="DateDeNaissance">Birthday</string>
+  <string name="checkin">Check\'in</string>
 
   <string-array name="sex_array">
     <item>Sex</item>
@@ -80,6 +81,9 @@
 	<string name="ManagePersonalEventActivity_Close">Close</string>
 	<string name="ManagePersonalEventActivity_Open">Open</string>
     
+	<string name="Comment">Comment</string>
+	<string name="SendButton">Send</string>
+	
     <string-array name="place_type_array">
         <item>Bar</item>
         <item>NightClub</item>
@@ -114,9 +118,14 @@
     <string name="timeFormatWrong_text">Please enter a valid time.</string>
     <string name="canteditArea_title">You can\'t edit this event </string>
     <string name="canteditArea_text">You are not close enough to the event location to edit this event</string>
-     <string name="delete_event_title">Delete event</string>
+    <string name="delete_event_title">Delete event</string>
     <string name="delete_event_text">Are you sure you want to delete this event? </string>
+    <string name="personal_info_update_ok_title">Personal Information</string>
+    <string name="personal_info_update_ok_text">Your data have been successfully updated !</string>
+    <string name="security_question_update_ok_title">Security question</string>
+    <string name="security_question_update_ok_text">Your security question has been successfully updated !</string>
     <string name="ViewName">Name</string>
+    
     
     <!-- Page titles -->
 	<string name="ForgotPasswordTitle">Recovery pwd</string>
