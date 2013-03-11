@@ -7,13 +7,12 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
@@ -25,7 +24,7 @@ import fr.insalyon.pyp.tools.PYPContext;
 
 public class GetEventDetailActivity extends BaseActivity {
 	private LinearLayout abstractView;
-	private LinearLayout mainView;
+	private ScrollView mainView;
 	private TextView windowTitle;
 	private TextView eventNameField;
 	private TextView eventTypeField;
@@ -45,8 +44,8 @@ public class GetEventDetailActivity extends BaseActivity {
 		// set layouts
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-		mainView = (LinearLayout) mInflater.inflate(
-				R.layout.manage_personal_event_activity, null);
+		mainView = (ScrollView) mInflater.inflate(
+				R.layout.get_event_detail_activity, null);
 		abstractView.addView(mainView);
 		windowTitle = (TextView) findViewById(R.id.pageTitle);
 		windowTitle.setText(R.string.GetEventDetail);
@@ -54,8 +53,6 @@ public class GetEventDetailActivity extends BaseActivity {
 		eventNameField = (TextView) findViewById(R.id.event_name);
 		eventHoursField = (TextView) findViewById(R.id.event_hours);
 		eventTypeField = (TextView) findViewById(R.id.event_type);
-		
-		
 		
 		checkInTxt = (TextView) findViewById(R.id.check_in);
 		
@@ -114,7 +111,7 @@ public class GetEventDetailActivity extends BaseActivity {
 						.getSharedPreferences(AppTools.PREFS_NAME, 0);
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
-				parameters.add(new BasicNameValuePair("event_id", params[0]));
+				parameters.add(new BasicNameValuePair("id", params[0]));
 				AppTools.debug("ID of the event: " + params[0]);
 				res = srvCon.connect(ServerConnection.GET_EVENT_FULL_INFO,
 						parameters);
