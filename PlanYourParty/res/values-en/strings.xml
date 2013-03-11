@@ -68,6 +68,8 @@
     <string name="PriceEvent">Price</string>
     <string name="DescriptionEvent">Description</string>
     <string name="NextStep">Next step</string>
+	<string name="StartEvent">Start event</string>
+    <string name="EndEvent">End event</string>
     
     <string name="PlaceName">Place name</string>
     <string name="AddressLocalPlace">Address</string>
