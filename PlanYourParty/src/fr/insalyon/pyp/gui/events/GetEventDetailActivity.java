@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
+import fr.insalyon.pyp.gui.main.MainActivity;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
@@ -29,7 +31,21 @@ public class GetEventDetailActivity extends BaseActivity {
 	private TextView eventNameField;
 	private TextView eventTypeField;
 	private TextView eventHoursField;
+	
 	private TextView checkInTxt;
+	
+	private TextView eventPriceField;
+	private TextView eventDescriptionField;
+	private TextView eventAgeAverageField;
+	private TextView eventFemaleRatioField;
+	private TextView eventSingleRatioField;
+	private TextView eventHeadcountField;
+	
+	private TextView eventPlaceNameField;
+	private TextView eventPlaceDescriptionField;
+	private TextView eventPlaceAddressField;
+	
+	
 	private String id;
 
 	@Override
@@ -56,6 +72,17 @@ public class GetEventDetailActivity extends BaseActivity {
 		
 		checkInTxt = (TextView) findViewById(R.id.check_in);
 		
+		eventPriceField = (TextView) findViewById(R.id.event_price);
+		eventDescriptionField = (TextView) findViewById(R.id.event_description);
+		eventAgeAverageField = (TextView) findViewById(R.id.event_age);
+		eventFemaleRatioField = (TextView) findViewById(R.id.event_female);
+		eventSingleRatioField = (TextView) findViewById(R.id.event_single);
+		eventHeadcountField = (TextView) findViewById(R.id.event_headcount);
+		
+		eventPlaceNameField = (TextView) findViewById(R.id.event_place_name);
+		eventPlaceDescriptionField = (TextView) findViewById(R.id.event_place_description);
+		eventPlaceAddressField = (TextView) findViewById(R.id.event_place_address);
+		
 		
 		final String[] data = IntentHelper.getActiveIntentParam(String[].class);
 //		Drawable background = ((LinearLayout) findViewById(R.id.event_detail_backgorund))
@@ -63,11 +90,7 @@ public class GetEventDetailActivity extends BaseActivity {
 //		background.setAlpha(95);
 		id = data[0];
 		//AppTools.debug(data[1]);
-//		if (data[1].equals("false")) {
-//			checkInTxt.setText("Your in!!!");
-//		} else {
-//			checkInTxt.setText("Your out!!!");
-//		}
+
 		new GetEventDetails().execute(id);
 		hideHeader(false);
 	}
@@ -81,15 +104,28 @@ public class GetEventDetailActivity extends BaseActivity {
 	private class GetEventDetails extends AsyncTask<String, Void, Void> {
 
 		JSONObject res;
+		ProgressDialog mProgressDialog;
 
 		@Override
 		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
 			if (res != null) {
 				try {
 					// Put the data in form
 					eventNameField.setText(res.getString("name"));
 					eventTypeField.setText(res.getString("type"));
 					eventHoursField.setText(res.getString("start_time")+" - "+res.getString("end_time"));
+					
+					eventPriceField.setText(res.getString("price"));
+					eventDescriptionField.setText(res.getString("description"));
+					eventAgeAverageField.setText(res.getString("age_average"));
+					eventFemaleRatioField.setText(res.getString("female_ratio"));
+					eventSingleRatioField.setText(res.getString("single_ratio"));
+					eventHeadcountField.setText(res.getString("headcount"));
+					
+					eventPlaceNameField.setText(res.getString("place_name"));
+					eventPlaceDescriptionField.setText(res.getString("place_description"));
+					eventPlaceAddressField.setText(res.getString("place_address"));
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -99,6 +135,9 @@ public class GetEventDetailActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
+			mProgressDialog = ProgressDialog.show(GetEventDetailActivity.this,
+					getString(R.string.app_name), getString(R.string.loading));
+			AppTools.debug("Loading events");
 		}
 
 		@Override
