@@ -8,6 +8,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -235,9 +236,11 @@ public class MainActivity extends BaseActivity {
 	private class GetEvents extends AsyncTask<Void, Void, Void> {
 
 		JSONObject res;
+		ProgressDialog mProgressDialog;
 
 		@Override
 		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
 			if (res != null) {
 				try {
 					JSONArray array = res.getJSONArray("list");
@@ -262,7 +265,9 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
-			AppTools.debug("Loading persoanl events");
+			mProgressDialog = ProgressDialog.show(MainActivity.this,
+					getString(R.string.app_name), getString(R.string.loading));
+			AppTools.debug("Loading events");
 		}
 
 		@Override
