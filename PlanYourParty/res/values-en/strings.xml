@@ -78,6 +78,9 @@
 	<string name="ManagePersonalEventActivity_Close">Close</string>
 	<string name="ManagePersonalEventActivity_Open">Open</string>
     
+	<string name="Comment">Comment</string>
+	<string name="SendButton">Send</string>
+	
     <string-array name="place_type_array">
         <item>Bar</item>
         <item>NightClub</item>

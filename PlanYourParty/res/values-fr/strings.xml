@@ -78,6 +78,9 @@
     <string name="AddressLocalPlace">Adresse</string>
     <string name="DescriptionLocalPlace">Description</string>
     
+    <string name="Comment">Commentaire</string>
+	<string name="SendButton">Envoyer</string>
+    
     <string-array name="place_type_array">
         <item>Bar</item>
         <item>Boite de nuit</item>
