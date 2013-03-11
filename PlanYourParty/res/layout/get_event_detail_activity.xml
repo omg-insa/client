@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+       android:id="@+id/event_detail_backgorund"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="@drawable/roundbackground"
+       android:orientation="vertical"
+       android:padding="20dp"
+       android:layout_marginBottom="20dp" >
+ <EditText
+        android:id="@+id/event_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/fullName"
+        style="@style/text_edit" 
+        android:layout_gravity="center"
+        android:background="@drawable/text_edit"/>
+
+
+    <Spinner
+    	android:id="@+id/event_type"
+    	android:layout_width="210dp"
+    	android:layout_height="45dp" 
+    	android:layout_gravity="center"
+    	style="@style/text_edit"
+    	android:ems="10"
+    />
+        
+
+  <Spinner
+    android:id="@+id/status_spinner"
+    android:layout_width="210dp"
+    android:layout_height="45dp" 
+    style="@style/text_edit"
+    />
+	
+  <!--  add style -->
+	<TextView
+       android:id="@+id/check_in"
+       android:layout_width="wrap_content"
+       android:layout_gravity="center"
+       android:width="100dp" />
+       
+</LinearLayout>
+
+</LinearLayout>
+</ScrollView>

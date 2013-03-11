@@ -35,7 +35,8 @@ public class MainActivity extends BaseActivity {
 	private LinearLayout mainView;
 	private TextView windowTitle;
 	private ListView list;
-	private PersonalEventsAdapter adapter;
+	private PersonalEventsAdapter personalEventsadapter;
+	private EventsAdapter eventsAdapter;
 
 	private ViewFlipper vf;
 	private float lastX;
@@ -121,12 +122,12 @@ public class MainActivity extends BaseActivity {
 		list = (ListView) findViewById(R.id.personal_events_list);
 
 		// Getting adapter by passing xml data ArrayList
-		adapter = new PersonalEventsAdapter(this, data);
-		if(adapter == null){
+		personalEventsadapter = new PersonalEventsAdapter(this, data);
+		if(personalEventsadapter == null){
 			AppTools.info("Adapter is null");
 			return;
 		}
-		list.setAdapter(adapter);
+		list.setAdapter(personalEventsadapter);
 
 		// Click event for single list row
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -203,12 +204,12 @@ public class MainActivity extends BaseActivity {
 		list = (ListView) findViewById(R.id.events_list);
 
 		// Getting adapter by passing xml data ArrayList
-		adapter = new PersonalEventsAdapter(this, data);
-		if(adapter == null){
+		eventsAdapter = new EventsAdapter(this, data);
+		if(eventsAdapter == null){
 			AppTools.info("Adapter is null");
 			return;
 		}
-		list.setAdapter(adapter);
+		list.setAdapter(eventsAdapter);
 
 		// Click event for single list row
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -247,7 +248,8 @@ public class MainActivity extends BaseActivity {
 						double lon = Double.parseDouble(obj.getString("lon"));
 						double lat = Double.parseDouble(obj.getString("lat"));
 						data.add(new String[] { obj.getString("name"),
-								obj.getString("type")+" - "+obj.getString("description"),
+								obj.getString("type"),
+								obj.getString("start_time")+" - "+obj.getString("end_time"),
 								AppTools.checkInArea(lon, lat, Constants.AREA_RADIUS).toString(), obj.getString("id") });
 					}
 					AppTools.debug("Number of personal events:" + data.size());

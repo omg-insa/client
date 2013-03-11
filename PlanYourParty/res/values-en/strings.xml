@@ -130,5 +130,6 @@
 	<string name="ManagePersonalEvent">Manage event</string>
 	<string name="CreateLocalPlace">Current Location</string>
 	<string name="GetPlaces">Location</string>
+	<string name="GetEventDetail">Details</string>
 	
 </resources>

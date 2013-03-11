@@ -21,6 +21,16 @@
         android:textStyle="bold"
         android:typeface="sans"
     />
+      
+     <TextView
+       android:id="@+id/events_item_hours"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Rock"
+       android:textColor="#EEE"
+       android:textSize="10dip"
+       android:typeface="sans" 
+       />
 
     
     <TextView
