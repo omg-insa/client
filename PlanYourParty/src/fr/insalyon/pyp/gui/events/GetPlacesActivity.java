@@ -115,7 +115,7 @@ public class GetPlacesActivity extends BaseActivity {
 					long arg3) {
 				String[] tagData = (String[])arg1.getTag();
 				if (tagData[0]!= "last")
-					new SelectPlaceTask().execute(tagData[0],tagData[1]);
+					new SelectPlaceTask().execute(tagData[0],tagData[1],tagData[2]);
 				else {
 					String[] params = IntentHelper
 							.getActiveIntentParam(String[].class);
@@ -148,7 +148,7 @@ public class GetPlacesActivity extends BaseActivity {
 						JSONObject obj = array.getJSONObject(i);
 						data.add(new String[] { obj.getString("name"),
 								obj.getString("type"),
-								obj.getString("address"), obj.getString("id"),obj.getString("source")});
+								obj.getString("address"), obj.getString("id"),obj.getString("source"),obj.getString("reference")});
 					}
 					data.add(new String[] { "Add location" });
 					AppTools.debug("Number of places:" + array.length());
@@ -240,6 +240,8 @@ public class GetPlacesActivity extends BaseActivity {
 			parameters.add(new BasicNameValuePair("event_id", event_id));
 			parameters.add(new BasicNameValuePair("place_id",params[0]));
 			parameters.add(new BasicNameValuePair("is_local", params[1]));
+			parameters.add(new BasicNameValuePair("place_reference", params[2]));
+
 			parameters.add(new BasicNameValuePair("auth_token", PYPContext
 					.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0)
 					.getString("auth_token", "")));

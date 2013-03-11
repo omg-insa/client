@@ -70,7 +70,7 @@ public class GetPlacesAdapter extends BaseAdapter {
 			next.setImageDrawable(PYPContext.getContext().getResources().getDrawable(android.R.drawable.ic_menu_edit));
 			next.setVisibility(View.VISIBLE);
 		} else {
-	        vi.setTag(new String[]{row_data[3],row_data[4]});
+	        vi.setTag(new String[]{row_data[3],row_data[4],row_data[5]});
 	        title.setText(row_data[0]);
 	        type.setText(row_data[1]);
 	        description.setText(row_data[2]);
