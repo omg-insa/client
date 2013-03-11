@@ -203,8 +203,6 @@
          android:text="@string/checkin"/>
      
  </LinearLayout>
-    
-    
 
 </LinearLayout>
 </ScrollView>

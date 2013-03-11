@@ -31,7 +31,7 @@ import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
 import fr.insalyon.pyp.tools.PYPContext;
 
-public class PersoanlInfoActivity extends BaseActivity {
+public class PersonalInfoActivity extends BaseActivity {
 	private LinearLayout abstractView;
 	private ScrollView mainView;
 	Spinner sexSpinner;
@@ -144,7 +144,7 @@ public class PersoanlInfoActivity extends BaseActivity {
 	public void onResume() {
 		super.onResume();
 		checkLoggedIn();
-		new GetPersoanlInfoTask().execute();
+		new GetPersonalInfoTask().execute();
 	}
 
 	private class PersonalInfoChangeTask extends AsyncTask<Void, Void, Void> {
@@ -176,6 +176,8 @@ public class PersoanlInfoActivity extends BaseActivity {
 					}
 
 					else {
+						// Update ok pop up
+						Popups.showPopup(Constants.UpdatePersonalInfoOk);
 						AppTools.debug("Pesonal info update ok");
 						return;
 					}
@@ -187,7 +189,7 @@ public class PersoanlInfoActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
-			mProgressDialog = ProgressDialog.show(PersoanlInfoActivity.this,
+			mProgressDialog = ProgressDialog.show(PersonalInfoActivity.this,
 					getString(R.string.app_name), getString(R.string.loading));
 		}
 
@@ -223,7 +225,7 @@ public class PersoanlInfoActivity extends BaseActivity {
 		}
 	}
 
-	private class GetPersoanlInfoTask extends AsyncTask<Void, Void, Void> {
+	private class GetPersonalInfoTask extends AsyncTask<Void, Void, Void> {
 
 		JSONObject res;
 

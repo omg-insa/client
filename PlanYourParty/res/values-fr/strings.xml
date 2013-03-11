@@ -123,11 +123,15 @@
     <string name="WrongData_text">Les donnees envoyees au serveur sont erronees.</string>
     <string name="DifferentPassword_title">Mot de passe differents</string>
     <string name="DifferentPassword_text">Le mot de passe specifie  n\'est pas le meme.</string>
-    <string name="ViewName">Name</string>
-     <string name="canteditArea_title">Vous ne pouvez pas editer cet evenement </string>
+    <string name="canteditArea_title">Vous ne pouvez pas editer cet evenement </string>
     <string name="canteditArea_text">Vous n\'etes pas proche de la location d\'evenement</string>
-         <string name="delete_event_title">Supression d\'evenement</string>
+    <string name="delete_event_title">Supression d\'evenement</string>
     <string name="delete_event_text">Est-ce que vous etes sure de suprime cet evenement? </string>
+    <string name="personal_info_update_ok_title">Informations personnelles</string>
+    <string name="personal_info_update_ok_text">Vos données ont été mise à jour avec succès !</string>
+    <string name="security_question_update_ok_title">Question de sécurité</string>
+    <string name="security_question_update_ok_text">Votre question de sécurité a été mise à jour avec succès !</string>
+    <string name="ViewName">Name</string>
     
     <!-- Pages title -->
 	<string name="ForgotPasswordTitle">Recuperation mdp</string>
