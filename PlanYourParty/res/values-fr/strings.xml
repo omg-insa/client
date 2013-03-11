@@ -73,6 +73,9 @@
     <string name="PriceEvent">Prix</string>
     <string name="DescriptionEvent">Description</string>
     <string name="NextStep">Etape suivante</string>
+	<string name="StartEvent">Heure de début</string>
+    <string name="EndEvent">Heure de fin</string>
+	
     
     <string name="PlaceName">Nom de l\'emplacement</string>
     <string name="AddressLocalPlace">Adresse</string>
