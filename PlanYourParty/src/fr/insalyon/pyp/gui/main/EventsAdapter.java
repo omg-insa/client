@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
+import fr.insalyon.pyp.tools.AppTools;
 
 public class EventsAdapter extends BaseAdapter {
 
@@ -53,7 +54,7 @@ public class EventsAdapter extends BaseAdapter {
 				.findViewById(R.id.personal_events_next_button);
 		String[] row_data = data.get(position);
 		
-		vi.setTag(new String[]{row_data[3],row_data[2]});
+		vi.setTag(new String[]{row_data[3]});
 
 		// Setting all values in listview
 		title.setText(row_data[0]);

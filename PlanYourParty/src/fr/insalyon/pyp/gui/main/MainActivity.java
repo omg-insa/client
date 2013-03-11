@@ -36,6 +36,7 @@ public class MainActivity extends BaseActivity {
 	private LinearLayout mainView;
 	private TextView windowTitle;
 	private ListView list;
+	private ListView events_list;
 	private PersonalEventsAdapter personalEventsadapter;
 	private EventsAdapter eventsAdapter;
 
@@ -202,7 +203,7 @@ public class MainActivity extends BaseActivity {
 	
 	private void buildListEvents(ArrayList<String[]> data) {
 
-		list = (ListView) findViewById(R.id.events_list);
+		events_list = (ListView) findViewById(R.id.events_list);
 
 		// Getting adapter by passing xml data ArrayList
 		eventsAdapter = new EventsAdapter(this, data);
@@ -210,22 +211,15 @@ public class MainActivity extends BaseActivity {
 			AppTools.info("Adapter is null");
 			return;
 		}
-		list.setAdapter(eventsAdapter);
+		events_list.setAdapter(eventsAdapter);
 
 		// Click event for single list row
-		list.setOnItemClickListener(new OnItemClickListener() {
+		events_list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if(arg2 == 0){
-					IntentHelper.openNewActivity(CreateEventActivity.class,null,false);
-				}
-				else {
-					String[] tagData = (String[])arg1.getTag();
-					IntentHelper.openNewActivity(ManagePersonalEvents.class,tagData,false);
-
-				}
+				
 			}
 		});
 	}
@@ -245,17 +239,13 @@ public class MainActivity extends BaseActivity {
 				try {
 					JSONArray array = res.getJSONArray("list");
 					ArrayList<String[]> data = new ArrayList<String[]>();
-					data.add(new String[] {getString(R.string.Events)});
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
-						double lon = Double.parseDouble(obj.getString("lon"));
-						double lat = Double.parseDouble(obj.getString("lat"));
 						data.add(new String[] { obj.getString("name"),
 								obj.getString("type"),
-								obj.getString("start_time")+" - "+obj.getString("end_time"),
-								AppTools.checkInArea(lon, lat, Constants.AREA_RADIUS).toString(), obj.getString("id") });
+								obj.getString("start_time")+" - "+obj.getString("end_time"),obj.getString("id") });
 					}
-					AppTools.debug("Number of personal events:" + data.size());
+					AppTools.debug("Number of events:" + data.size());
 					MainActivity.this.buildListEvents(data);
 				} catch (Exception e) {
 					e.printStackTrace();
