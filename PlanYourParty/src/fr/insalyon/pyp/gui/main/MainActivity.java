@@ -26,6 +26,7 @@ import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.events.CreateEventActivity;
+import fr.insalyon.pyp.gui.events.GetEventDetailActivity;
 import fr.insalyon.pyp.gui.events.ManagePersonalEvents;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
@@ -175,7 +176,8 @@ public class MainActivity extends BaseActivity {
 						double lat = Double.parseDouble(obj.getString("lat"));
 						data.add(new String[] { obj.getString("name"),
 								obj.getString("start_time")+" - "+obj.getString("end_time"),
-								AppTools.checkInArea(lon, lat, Constants.AREA_RADIUS).toString(), obj.getString("id"),
+								AppTools.checkInArea(lon, lat, Constants.AREA_RADIUS).toString(),
+								obj.getString("id"),
 								obj.getString("description")});
 					}
 					AppTools.debug("Number of personal events:" + data.size());
@@ -234,7 +236,8 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				
+				String[] tagData = (String[])arg1.getTag();
+				IntentHelper.openNewActivity(GetEventDetailActivity.class,tagData,false);
 			}
 		});
 	}
@@ -256,7 +259,12 @@ public class MainActivity extends BaseActivity {
 					ArrayList<String[]> data = new ArrayList<String[]>();
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
+						double lon = Double.parseDouble(obj.getString("lon"));
+						double lat = Double.parseDouble(obj.getString("lat"));
 						data.add(new String[] { obj.getString("name"),
+								obj.getString("start_time")+" - "+obj.getString("end_time"),
+								AppTools.checkInArea(lon, lat, Constants.AREA_RADIUS).toString(),
+								obj.getString("id"),
 								obj.getString("type"),
 								obj.getString("start_time")+" - "+obj.getString("end_time"),obj.getString("id") });
 					}
@@ -270,8 +278,9 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
-			mProgressDialog = ProgressDialog.show(MainActivity.this,
-					getString(R.string.app_name), getString(R.string.loading));
+			if( events_list == null )
+				mProgressDialog = ProgressDialog.show(MainActivity.this,
+						getString(R.string.app_name), getString(R.string.loading));
 			AppTools.debug("Loading events");
 		}
 

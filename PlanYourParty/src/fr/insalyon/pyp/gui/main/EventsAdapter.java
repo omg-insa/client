@@ -50,15 +50,15 @@ public class EventsAdapter extends BaseAdapter {
 		TextView type = (TextView) vi
 				.findViewById(R.id.events_item_type);
 		ImageView next = (ImageView) vi
-				.findViewById(R.id.personal_events_next_button);
+				.findViewById(R.id.events_next_button);
 		String[] row_data = data.get(position);
 		
 		vi.setTag(new String[]{row_data[3]});
 
 		// Setting all values in listview
 		title.setText(row_data[0]);
-		type.setText(row_data[1]);
-		hours.setText(row_data[2]);
+		hours.setText(row_data[1]);
+		type.setText(row_data[4]);
 		next.setVisibility(View.VISIBLE);
 		
 		return vi;

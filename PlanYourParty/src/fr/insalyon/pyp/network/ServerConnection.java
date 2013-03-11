@@ -47,6 +47,7 @@ public class ServerConnection {
     public static final String SAVE_EVENT_INTREST = "save_event_intrest/";
     public static final String GET_EVENT_INTREST = "get_event_intrest/";
     public static final String GET_LOCAL_PLACE = "get_local_place/";
+    public static final String GET_EVENT_FULL_INFO = "get_event_full_info/";
 
 	private ServerConnection() {
 		if (LOCAL)
@@ -218,6 +219,12 @@ public class ServerConnection {
 			AppTools.debug(returnObj.toString());
 		}
 		if(service.equals(GET_EVENTS))
+		{
+			request = new HttpRequest(requestUrl, parameters);
+			returnObj = request.executePost();
+			AppTools.debug(returnObj.toString());
+		}
+		if(service.equals(GET_EVENT_FULL_INFO))
 		{
 			request = new HttpRequest(requestUrl, parameters);
 			returnObj = request.executePost();

@@ -10,11 +10,9 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
@@ -29,8 +27,9 @@ public class GetEventDetailActivity extends BaseActivity {
 	private LinearLayout abstractView;
 	private LinearLayout mainView;
 	private TextView windowTitle;
-	private EditText eventNameField;
-	private EditText eventTypeField;
+	private TextView eventNameField;
+	private TextView eventTypeField;
+	private TextView eventHoursField;
 	private TextView checkInTxt;
 	private String id;
 
@@ -52,45 +51,37 @@ public class GetEventDetailActivity extends BaseActivity {
 		windowTitle = (TextView) findViewById(R.id.pageTitle);
 		windowTitle.setText(R.string.GetEventDetail);
 		
-		eventNameField = (EditText) findViewById(R.id.event_name);
-		eventTypeField = (EditText) findViewById(R.id.event_type);
+		eventNameField = (TextView) findViewById(R.id.event_name);
+		eventHoursField = (TextView) findViewById(R.id.event_hours);
+		eventTypeField = (TextView) findViewById(R.id.event_type);
+		
+		
 		
 		checkInTxt = (TextView) findViewById(R.id.check_in);
 		
 		
 		final String[] data = IntentHelper.getActiveIntentParam(String[].class);
-		Drawable background = ((LinearLayout) findViewById(R.id.event_detail_backgorund))
-				.getBackground();
-		background.setAlpha(95);
+//		Drawable background = ((LinearLayout) findViewById(R.id.event_detail_backgorund))
+//				.getBackground();
+//		background.setAlpha(95);
 		id = data[0];
 		AppTools.debug(data[1]);
-		if (data[1].equals("false")) {
-			checkInTxt.setText("Your in!!!");
-		} else {
-			checkInTxt.setText("Your out!!!");
-		}
-		new GetEventStatus().execute(id);
+//		if (data[1].equals("false")) {
+//			checkInTxt.setText("Your in!!!");
+//		} else {
+//			checkInTxt.setText("Your out!!!");
+//		}
+		new GetEventDetails().execute(id);
 		hideHeader(false);
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		AppTools.error("Autocompleating...");
-	    if (resultCode == Activity.RESULT_OK) {
-	    	String[] row_values = data.getExtras().getStringArray(Constants.PARAMNAME);
-	    	if(row_values.length == 3){
-	    		this.finish();
-	    	}
-	    }
-	}
-	
 	@Override
 	public void onResume() {
 		super.onResume();
 
 	}
 
-	private class GetEventStatus extends AsyncTask<String, Void, Void> {
+	private class GetEventDetails extends AsyncTask<String, Void, Void> {
 
 		JSONObject res;
 
@@ -98,15 +89,11 @@ public class GetEventDetailActivity extends BaseActivity {
 		protected void onPostExecute(Void result) {
 			if (res != null) {
 				try {
-//					if (res.getString("status").equals("Closed")) {
-//						open.setVisibility(View.VISIBLE);
-//						close.setVisibility(View.GONE);
-//
-//					} else {
-//						close.setVisibility(View.VISIBLE);
-//						open.setVisibility(View.GONE);
-//					}
-
+					// Put the data in form
+					eventNameField.setText(res.getString("name"));
+					eventTypeField.setText(res.getString("type"));
+					eventHoursField.setText(res.getString("start_time")+" - "+res.getString("end_time"));
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -129,7 +116,7 @@ public class GetEventDetailActivity extends BaseActivity {
 						.getString("auth_token", "")));
 				parameters.add(new BasicNameValuePair("event_id", params[0]));
 				AppTools.debug("ID of the event: " + params[0]);
-				res = srvCon.connect(ServerConnection.GET_EVENT_STATUS,
+				res = srvCon.connect(ServerConnection.GET_EVENT_FULL_INFO,
 						parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
