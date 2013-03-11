@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
@@ -25,7 +26,7 @@ import fr.insalyon.pyp.tools.PYPContext;
 
 public class GetEventDetailActivity extends BaseActivity {
 	private LinearLayout abstractView;
-	private LinearLayout mainView;
+	private ScrollView mainView;
 	private TextView windowTitle;
 	private TextView eventNameField;
 	private TextView eventTypeField;
@@ -45,8 +46,8 @@ public class GetEventDetailActivity extends BaseActivity {
 		// set layouts
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-		mainView = (LinearLayout) mInflater.inflate(
-				R.layout.manage_personal_event_activity, null);
+		mainView = (ScrollView) mInflater.inflate(
+				R.layout.get_event_detail_activity, null);
 		abstractView.addView(mainView);
 		windowTitle = (TextView) findViewById(R.id.pageTitle);
 		windowTitle.setText(R.string.GetEventDetail);
@@ -65,7 +66,7 @@ public class GetEventDetailActivity extends BaseActivity {
 //				.getBackground();
 //		background.setAlpha(95);
 		id = data[0];
-		AppTools.debug(data[1]);
+		//AppTools.debug(data[1]);
 //		if (data[1].equals("false")) {
 //			checkInTxt.setText("Your in!!!");
 //		} else {
