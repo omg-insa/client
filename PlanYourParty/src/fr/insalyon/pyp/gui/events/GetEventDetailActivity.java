@@ -62,7 +62,7 @@ public class GetEventDetailActivity extends BaseActivity {
 //				.getBackground();
 //		background.setAlpha(95);
 		id = data[0];
-		AppTools.debug(data[1]);
+		//AppTools.debug(data[1]);
 //		if (data[1].equals("false")) {
 //			checkInTxt.setText("Your in!!!");
 //		} else {

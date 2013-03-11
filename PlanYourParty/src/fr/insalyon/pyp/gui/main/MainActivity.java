@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -148,6 +149,14 @@ public class MainActivity extends BaseActivity {
 				}
 			}
 		});
+		
+		list.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				
+				return MainActivity.this.onTouchEvent(event);
+			}
+		});
 	}
 
 	private class GetPersonalEvents extends AsyncTask<Void, Void, Void> {
@@ -214,7 +223,13 @@ public class MainActivity extends BaseActivity {
 			return;
 		}
 		events_list.setAdapter(eventsAdapter);
-
+		events_list.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				
+				return MainActivity.this.onTouchEvent(event);
+			}
+		});
 		// Click event for single list row
 		events_list.setOnItemClickListener(new OnItemClickListener() {
 
