@@ -42,6 +42,7 @@
   <string name="Sexe">Sex</string>
   <string name="fullName">Full name</string>
   <string name="DateDeNaissance">Birthday</string>
+  <string name="checkin">Check\'in</string>
 
   <string-array name="sex_array">
     <item>Sex</item>

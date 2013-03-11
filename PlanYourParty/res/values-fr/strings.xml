@@ -42,6 +42,7 @@
   <string name="Sexe">Sexe</string>
   <string name="fullName">Nom et prénom</string>
   <string name="DateDeNaissance">Date de naissance</string>
+  <string name="checkin">Noter</string>
 
   <string-array name="sex_array">
     <item>Sexe</item>
