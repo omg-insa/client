@@ -252,7 +252,9 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			mProgressDialog.dismiss();
+			if( mProgressDialog != null && mProgressDialog.isShowing())
+				mProgressDialog.dismiss();
+			
 			if (res != null) {
 				try {
 					JSONArray array = res.getJSONArray("list");
