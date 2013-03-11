@@ -2,112 +2,161 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center"
     android:orientation="vertical" >
 <LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
     android:orientation="vertical" >
 
     <LinearLayout
        android:id="@+id/event_detail_backgorund"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:background="@drawable/roundbackground"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
        android:orientation="vertical"
-       android:padding="20dp"
+       android:padding="25dp"
        android:layout_marginBottom="20dp" >
+       
  <TextView
         android:id="@+id/event_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_gravity="center"/>
+        android:textSize="30sp"
+        android:textColor="#fff"
+        android:layout_marginBottom="10dp"
+        />
+ 
+ <LinearLayout 
+    android:layout_width="fill_parent"
+     android:layout_height="1dp"
+     android:padding="25dp"
+     android:layout_marginBottom="5dp"
+     android:background="#4B5CD7"/>
+ 
  
  <TextView
         android:id="@+id/event_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"/>
+        android:ems="10"/>
 
 <TextView
         android:id="@+id/event_hours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_gravity="center"/>
+        android:textColor="#40a1ff"
+        />
 
 <TextView
         android:id="@+id/event_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"/>
+        android:ems="10"/>
+
+<TextView
+        android:id="@+id/event_description_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/DescriptionEvent"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:ems="10"/>
 
 <TextView
         android:id="@+id/event_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"/>
+        android:ems="10"/>
+
+<LinearLayout 
+     android:layout_height="1dp"
+     android:layout_width="160dp"
+     android:layout_gravity="center"
+     android:layout_marginTop="15dp"
+     android:layout_marginBottom="10dp"
+     android:background="#ffffff"/>
 
 <TextView
         android:id="@+id/event_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"/>
+        android:ems="10"/>
         
 <TextView
         android:id="@+id/event_female"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"/>
+        android:ems="10"/>
 
 <TextView
         android:id="@+id/event_single"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"/>
+        android:ems="10"/>
 
 <TextView
         android:id="@+id/event_headcount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"/>
+        android:ems="10"/>
+
+
+<LinearLayout 
+     android:layout_height="1dp"
+     android:layout_width="160dp"
+     android:layout_gravity="center"
+     android:layout_marginTop="15dp"
+     android:layout_marginBottom="10dp"
+     android:background="#ffffff"/>
 
 <TextView
         android:id="@+id/event_place_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_gravity="center"/>
+        android:textSize="25sp"
+        android:textColor="#fff"
+        android:layout_marginBottom="10dp"/>
+
+<TextView
+        android:id="@+id/event_address_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/AddressLocalPlace"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:ems="10"/>
 
 <TextView
         android:id="@+id/event_place_address"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"/>
+
+<TextView
+        android:id="@+id/event_place_description_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"/>
+        android:layout_marginTop="5dp"
+        android:hint="@string/Comment"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:ems="10"/>
 
 <TextView
         android:id="@+id/event_place_description"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="center"/>
+        android:ems="10"/>
 
 </LinearLayout>
 
 <LinearLayout
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:layout_gravity="center_horizontal"
+     android:padding="25dp"
      android:layout_marginBottom="5dp" >
 
     <ImageView

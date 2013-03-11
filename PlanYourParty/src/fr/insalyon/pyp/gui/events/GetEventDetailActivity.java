@@ -243,7 +243,7 @@ public class GetEventDetailActivity extends BaseActivity {
 						eventTypeField.setText(res.getString("type"));
 						eventHoursField.setText(res.getString("start_time")+" - "+res.getString("end_time"));
 						
-						eventPriceField.setText(res.getString("price"));
+						eventPriceField.setText("Price : " + res.getString("price") + " €");
 						eventDescriptionField.setText(res.getString("description"));
 						eventAgeAverageField.setText(res.getString("age_average"));
 						eventFemaleRatioField.setText(res.getString("female_ratio"));
