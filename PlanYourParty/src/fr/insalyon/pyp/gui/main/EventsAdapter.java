@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
-import fr.insalyon.pyp.tools.AppTools;
 
 public class EventsAdapter extends BaseAdapter {
 
