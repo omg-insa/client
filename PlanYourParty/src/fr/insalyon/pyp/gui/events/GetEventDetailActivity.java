@@ -69,7 +69,7 @@ public class GetEventDetailActivity extends BaseActivity {
 		} else {
 			checkInTxt.setText("Your out!!!");
 		}
-		new GetEventStatus().execute(id);
+		new GetEventDetails().execute(id);
 		hideHeader(false);
 	}
 
@@ -90,7 +90,7 @@ public class GetEventDetailActivity extends BaseActivity {
 
 	}
 
-	private class GetEventStatus extends AsyncTask<String, Void, Void> {
+	private class GetEventDetails extends AsyncTask<String, Void, Void> {
 
 		JSONObject res;
 
@@ -98,15 +98,8 @@ public class GetEventDetailActivity extends BaseActivity {
 		protected void onPostExecute(Void result) {
 			if (res != null) {
 				try {
-//					if (res.getString("status").equals("Closed")) {
-//						open.setVisibility(View.VISIBLE);
-//						close.setVisibility(View.GONE);
-//
-//					} else {
-//						close.setVisibility(View.VISIBLE);
-//						open.setVisibility(View.GONE);
-//					}
-
+					// Put the data in form
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -129,7 +122,7 @@ public class GetEventDetailActivity extends BaseActivity {
 						.getString("auth_token", "")));
 				parameters.add(new BasicNameValuePair("event_id", params[0]));
 				AppTools.debug("ID of the event: " + params[0]);
-				res = srvCon.connect(ServerConnection.GET_EVENT_STATUS,
+				res = srvCon.connect(ServerConnection.GET_EVENT_FULL_INFO,
 						parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
