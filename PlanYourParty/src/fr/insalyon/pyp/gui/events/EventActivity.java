@@ -514,12 +514,16 @@ public class EventActivity extends BaseActivity {
 								.getString("single_ratio"));
 						eventHeadcountField.setText(res.getString("headcount"));
 						
-						int stars = Integer.valueOf(res.getString("stars"));
-						if( "".equals(stars)){
+						int stars = 0;
+						if( "".equals(res.getString("stars"))){
 							stars = 1;
 							eventGradeField.setText(Integer.toString(stars));
+						}else{
+							stars = Integer.parseInt(res.getString("stars"));
+							eventGradeField.setText(res.getString("stars"));
 						}
-						eventGradeField.setText(res.getString("stars"));
+						
+						
 						// Set the smiley indicator
 						if( stars <= 2)
 							smiley.setImageDrawable((PYPContext.getContext().getResources()
