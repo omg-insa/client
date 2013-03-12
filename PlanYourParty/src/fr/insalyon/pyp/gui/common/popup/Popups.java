@@ -39,6 +39,7 @@ public class Popups {
 		initDeleteEvent();
 		initUpdatePersonalInfoOk();
 		initUpdateSecurityQuestionOk();
+		initThankGradeEvent();
 	}
 
 	/**
@@ -244,6 +245,15 @@ public class Popups {
 				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
 				null, null, false);
 		popupList.put(Constants.UpdateSecurityQuestionOk, popup);
+	}
+	
+	private static void initThankGradeEvent() {
+		PopupEntity popup = new PopupEntity(
+				R.string.thank_grade_event_title,
+				R.string.thank_grade_event_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.ThankGradeEvent, popup);
 	}
 	
 }

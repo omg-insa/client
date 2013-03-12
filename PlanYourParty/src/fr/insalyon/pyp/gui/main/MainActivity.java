@@ -96,7 +96,6 @@ public class MainActivity extends BaseActivity {
 		super.onResume();
 		// check if logged in
 		checkLoggedIn();
-		new GetEvents().execute();
 		final Handler handler = new Handler();
 		Timer timer = new Timer();
 		TimerTask doAsynchronousTask = new TimerTask() {
