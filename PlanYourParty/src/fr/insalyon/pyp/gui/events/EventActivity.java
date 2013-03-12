@@ -637,5 +637,64 @@ public class EventActivity extends BaseActivity {
 			return null;
 		}
 	}
+	
+	
+	private class GetPersonalRateEvent extends AsyncTask<String, Void, Void> {
+
+		JSONObject res;
+		ProgressDialog mProgressDialog;
+
+		@Override
+		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
+			if (res != null) {
+				try {
+					if (res.has("error")) {
+						// Error
+						String error;
+						error = res.getString("error");
+						EventActivity.this.networkError(error);
+					} else {
+						event_grade = res.getString("stars");
+						if( "".equals(event_grade) )
+							//TODO: show pop up or something
+							SetStars(Integer.decode(event_grade));
+						else
+							SetStars(Integer.decode(event_grade));
+						// TODO: able disable button
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+			mProgressDialog = ProgressDialog.show(EventActivity.this,
+					getString(R.string.app_name), getString(R.string.loading));
+			AppTools.debug("Loading events");
+		}
+
+		@Override
+		protected Void doInBackground(String... params) {
+			// Send request to server for login
+			ServerConnection srvCon = ServerConnection.GetServerConnection();
+			try {
+				List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+				SharedPreferences settings = PYPContext.getContext()
+						.getSharedPreferences(AppTools.PREFS_NAME, 0);
+				parameters.add(new BasicNameValuePair("auth_token", settings
+						.getString("auth_token", "")));
+				parameters.add(new BasicNameValuePair("event_id", params[0]));
+				AppTools.debug("ID of the event: " + params[0]);
+				res = srvCon.connect(ServerConnection.GET_USER_STARS, parameters);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	}
+	
 
 }
