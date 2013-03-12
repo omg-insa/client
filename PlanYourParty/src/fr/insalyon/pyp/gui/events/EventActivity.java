@@ -67,6 +67,7 @@ public class EventActivity extends BaseActivity {
 	private TextView eventPlaceDescriptionField;
 	private TextView eventPlaceAddressField;
 
+	private LinearLayout gradeZone;
 	private ImageView star1;
 	private ImageView star2;
 	private ImageView star3;
@@ -138,6 +139,8 @@ public class EventActivity extends BaseActivity {
 			}
 
 		});
+		
+		gradeZone = (LinearLayout) findViewById(R.id.grade_zone);
 
 		star1 = (ImageView) findViewById(R.id.star1);
 		star2 = (ImageView) findViewById(R.id.star2);
@@ -285,7 +288,7 @@ public class EventActivity extends BaseActivity {
 			Popups.showPopup(Constants.IncompleatData);
 		}
 		if (error.equals("Not checked in")) {
-			checkInButton.setVisibility(View.GONE);
+			gradeZone.setVisibility(View.GONE);
 		}
 	}
 
@@ -553,6 +556,8 @@ public class EventActivity extends BaseActivity {
 						separator2.setVisibility(View.VISIBLE);
 						LinearLayout separator3 = (LinearLayout) findViewById(R.id.separator3);
 						separator3.setVisibility(View.VISIBLE);
+						
+						new GetPersonalRateEvent().execute();
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -661,6 +666,7 @@ public class EventActivity extends BaseActivity {
 						EventActivity.this.networkError(error);
 					} else {
 						event_grade = res.getString("stars");
+						gradeZone.setVisibility(View.GONE);
 						if( "".equals(event_grade) )
 							//TODO: show pop up or something
 							SetStars(Integer.decode(event_grade));
@@ -691,8 +697,8 @@ public class EventActivity extends BaseActivity {
 						.getSharedPreferences(AppTools.PREFS_NAME, 0);
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
-				parameters.add(new BasicNameValuePair("event_id", params[0]));
-				AppTools.debug("ID of the event: " + params[0]);
+				parameters.add(new BasicNameValuePair("event_id", event_id));
+				AppTools.debug("ID of the event: " + event_id);
 				res = srvCon.connect(ServerConnection.GET_USER_STARS, parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
