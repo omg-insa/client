@@ -2,8 +2,6 @@ package fr.insalyon.pyp.gui.events;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -137,17 +135,8 @@ public class EventActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View v) {
-				star1.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star2.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				star3.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				star4.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				star5.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
 				eventGrade = "1";
+				SetStars(Integer.decode(eventGrade));
 			}
 		});
 		
@@ -155,17 +144,8 @@ public class EventActivity extends BaseActivity {
 					
 			@Override
 			public void onClick(View v) {
-				star1.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star2.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star3.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				star4.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				star5.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
 				eventGrade = "2";
+				SetStars(Integer.decode(eventGrade));
 			}
 		});
 		
@@ -173,17 +153,8 @@ public class EventActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View v) {
-				star1.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star2.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star3.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star4.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				star5.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
 				eventGrade = "3";
+				SetStars(Integer.decode(eventGrade));
 			}
 		});
 		
@@ -191,17 +162,8 @@ public class EventActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View v) {
-				star1.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star2.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star3.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star4.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star5.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
 				eventGrade = "4";
+				SetStars(Integer.decode(eventGrade));
 			}
 		});
 		
@@ -209,17 +171,8 @@ public class EventActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View v) {
-				star1.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star2.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star3.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star4.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star5.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
 				eventGrade = "5";
+				SetStars(Integer.decode(eventGrade));
 			}
 		});
 		
@@ -444,6 +397,66 @@ public class EventActivity extends BaseActivity {
 	}
 	
 	
+	private void SetStars(int stars){
+		switch(stars){
+			case 1: star1.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_on));
+					star2.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_off));
+					star3.setImageDrawable(PYPContext.getContext().getResources()
+							.getDrawable(android.R.drawable.btn_star_big_off));
+					star4.setImageDrawable(PYPContext.getContext().getResources()
+							.getDrawable(android.R.drawable.btn_star_big_off));
+					star5.setImageDrawable(PYPContext.getContext().getResources()
+							.getDrawable(android.R.drawable.btn_star_big_off));
+					break;
+			case 2: star1.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+				star2.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+				star3.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_off));
+				star4.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_off));
+				star5.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_off));
+				break;
+			case 3: star1.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+				star2.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+				star3.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_on));
+				star4.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_off));
+				star5.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_off));
+				break;
+			case 4: star1.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+				star2.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+				star3.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_on));
+				star4.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_on));
+				star5.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_off));
+				break;
+			case 5: star1.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+				star2.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+				star3.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_on));
+				star4.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_on));
+				star5.setImageDrawable(PYPContext.getContext().getResources()
+						.getDrawable(android.R.drawable.btn_star_big_on));
+				break;
+		}
+	}
+	
 	
 	// Event Details
 	
@@ -478,6 +491,10 @@ public class EventActivity extends BaseActivity {
 						eventPlaceNameField.setText(res.getString("place_name"));
 						eventPlaceDescriptionField.setText(res.getString("place_description"));
 						eventPlaceAddressField.setText(res.getString("place_address"));
+						
+						String stars = res.getString("stars");
+						if( "".equals(stars))
+						SetStars(Integer.decode(stars));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -533,7 +550,7 @@ public class EventActivity extends BaseActivity {
 					}else{
 						// Disable button
 						// TODO: already grade it
-						checkInButton.setVisibility(View.GONE);
+						// TODO: pop up
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

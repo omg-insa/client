@@ -32,7 +32,6 @@ import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.events.CreateEventActivity;
 import fr.insalyon.pyp.gui.events.EventActivity;
-import fr.insalyon.pyp.gui.events.GetEventDetailActivity;
 import fr.insalyon.pyp.gui.events.ManagePersonalEvents;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
