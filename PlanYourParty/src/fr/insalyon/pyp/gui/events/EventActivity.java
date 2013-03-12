@@ -17,6 +17,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -265,25 +266,25 @@ public class EventActivity extends BaseActivity {
 		// check if logged in
 		checkLoggedIn();
 		new GetEventDetails().execute(event_id);
+		new GetConversation().execute(event_id);
 		final Handler handler = new Handler();
-		// Timer timer = new Timer();
-		// TimerTask doAsynchronousTask = new TimerTask() {
-		// @Override
-		// public void run() {
-		// handler.post(new Runnable() {
-		// public void run() {
-		// try {
-		// GetEventDetails ev = new GetEventDetails();
-		// ev.execute(event_id);
-		// } catch (Exception e) {
-		// AppTools.error(e.getMessage());
-		// }
-		// }
-		// });
-		// }
-		// };
-		// timer.schedule(doAsynchronousTask, 0, 20000);
-		new GetConversation().execute();
+		 Timer timer = new Timer();
+		 TimerTask doAsynchronousTask = new TimerTask() {
+		 @Override
+		 public void run() {
+		 handler.post(new Runnable() {
+		 public void run() {
+		 try {
+		 GetConversation ev = new GetConversation();
+		 ev.execute(event_id);
+		 } catch (Exception e) {
+		 AppTools.error(e.getMessage());
+		 }
+		 }
+		 });
+		 }
+		 };
+		 timer.schedule(doAsynchronousTask, 0, 20000);
 	}
 
 	@Override
@@ -314,7 +315,7 @@ public class EventActivity extends BaseActivity {
 					break;
 				vf.setInAnimation(this, R.anim.in_from_right);
 				vf.setOutAnimation(this, R.anim.out_to_left);
-				new GetConversation().execute();
+				new GetConversation().execute(event_id);
 				vf.showPrevious();
 			}
 			lastX = 0;
@@ -375,8 +376,8 @@ public class EventActivity extends BaseActivity {
 
 			ServerConnection srvCon = ServerConnection.GetServerConnection();
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-			parameters.add(new BasicNameValuePair("message", MessageChat
-					.getText().toString()));
+			parameters.add(new BasicNameValuePair("message", Html.fromHtml(MessageChat
+					.getText().toString()).toString()));
 			if (event_id != null)
 				parameters.add(new BasicNameValuePair("event_id", event_id));
 			parameters.add(new BasicNameValuePair("auth_token", PYPContext
@@ -395,11 +396,9 @@ public class EventActivity extends BaseActivity {
 	private class GetConversation extends AsyncTask<String, Void, Void> {
 
 		JSONObject res;
-		ProgressDialog mProgressDialog;
 
 		@Override
 		protected void onPostExecute(Void result) {
-			mProgressDialog.dismiss();
 			if (res != null) {
 				try {
 					JSONArray array = res.getJSONArray("list");
@@ -419,8 +418,6 @@ public class EventActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
-			mProgressDialog = ProgressDialog.show(EventActivity.this,
-					getString(R.string.app_name), getString(R.string.loading));
 		}
 
 		@Override
@@ -469,7 +466,7 @@ public class EventActivity extends BaseActivity {
 								+ " - " + res.getString("end_time"));
 
 						eventPriceField.setText("Price : "
-								+ res.getString("price") + " €");
+								+ res.getString("price") + " â‚¬");
 						eventDescriptionField.setText(res
 								.getString("description"));
 						eventAgeAverageField.setText(res

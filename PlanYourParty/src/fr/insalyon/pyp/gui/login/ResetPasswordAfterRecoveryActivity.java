@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -160,7 +161,7 @@ public class ResetPasswordAfterRecoveryActivity extends BaseActivity{
 		    if( tmpToken == null || username == null)
 		    	return null; // TODO: popup error
 			parameters.add(new BasicNameValuePair("tmp_token", tmpToken));
-			parameters.add(new BasicNameValuePair("user", username));
+			parameters.add(new BasicNameValuePair("user", Html.fromHtml(username).toString()));
 			parameters.add(new BasicNameValuePair("new_password", newPassword
 					.getText().toString()));
 			try {

@@ -3,15 +3,14 @@ package fr.insalyon.pyp.gui.events;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
-import fr.insalyon.pyp.tools.PYPContext;
 
 public class ChatAdapter extends BaseAdapter {
  
@@ -46,29 +45,11 @@ public class ChatAdapter extends BaseAdapter {
         TextView message = (TextView)vi.findViewById(R.id.chat_item_message);
         TextView date = (TextView)vi.findViewById(R.id.chat_item_date);
         String[] row_data = data.get(position);
-
-
-        // Setting all values in listview
         
-//		try {
-//			URL newurl = new URL(row_data[0]);
-//			Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-//	        icon.setImageBitmap(mIcon_val);
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-        /*if (position == data.size() - 1) {
-        	//vi.setTag(new String[] {"last","false"});
-			date.setText(row_data[0]);
-			message.setText(null);
-			user.setText(null);
-		} else {*/
-	        date.setText(row_data[0]);
-	        message.setText(row_data[1]);
-	        user.setText(row_data[2]);
-		//}
+    	String s_message = Html.fromHtml(row_data[1]).toString();
+        date.setText(row_data[0]);
+        message.setText(s_message);
+        user.setText(row_data[2]);
         return vi;
     }
     
