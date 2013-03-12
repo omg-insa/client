@@ -31,6 +31,7 @@ import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.events.CreateEventActivity;
+import fr.insalyon.pyp.gui.events.EventActivity;
 import fr.insalyon.pyp.gui.events.GetEventDetailActivity;
 import fr.insalyon.pyp.gui.events.ManagePersonalEvents;
 import fr.insalyon.pyp.network.ServerConnection;
@@ -264,7 +265,7 @@ public class MainActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				String[] tagData = (String[]) arg1.getTag();
-				IntentHelper.openNewActivity(GetEventDetailActivity.class,
+				IntentHelper.openNewActivity(EventActivity.class,
 						tagData, false);
 			}
 		});

@@ -28,10 +28,9 @@
      <activity android:name=".gui.events.IntrestActivity"></activity>
      <activity android:name=".gui.events.ManagePersonalEvents"></activity>
      <activity android:name=".gui.events.GetEventDetailActivity"></activity>
-     <activity android:name=".gui.events.CreateEventActivity">
-         	   
-        </activity>
-       <activity android:name=".gui.main.MainActivity"
+     <activity android:name=".gui.events.CreateEventActivity"></activity>
+     <activity android:name=".gui.events.EventActivity"></activity>
+     <activity android:name=".gui.main.MainActivity"
          	   android:label="@string/app_name"
                android:launchMode="singleInstance" >
             <intent-filter>

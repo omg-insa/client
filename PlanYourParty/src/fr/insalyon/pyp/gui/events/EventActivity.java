@@ -2,23 +2,32 @@ package fr.insalyon.pyp.gui.events;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
@@ -28,10 +37,18 @@ import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
 import fr.insalyon.pyp.tools.PYPContext;
 
-public class GetEventDetailActivity extends BaseActivity {
+public class EventActivity extends BaseActivity {
 	private LinearLayout abstractView;
-	private ScrollView mainView;
+	private LinearLayout mainView;
 	private TextView windowTitle;
+	private ListView list;
+	private ChatAdapter chatAdapter;
+	private Location lastLocation;
+	private Long lastRefresh = System.currentTimeMillis() / 1000;
+	private ViewFlipper vf;
+	private float lastX;
+	
+	// Get event details
 	private TextView eventNameField;
 	private TextView eventTypeField;
 	private TextView eventHoursField;
@@ -52,17 +69,20 @@ public class GetEventDetailActivity extends BaseActivity {
 	private ImageView star3;
 	private ImageView star4;
 	private ImageView star5;
-	
 	private Button checkInButton;
 	
 	private String eventGrade;
-	private String id;
+	private String event_id;
+	
+	// Chat conversation
+	private EditText MessageChat;
+	private Button SendButtonChat;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState,
-				Constants.GET_EVENT_DETAIL_CONST);
-		AppTools.info("on create GetEventDetailActivity");
+		// TODO: change constant
+		super.onCreate(savedInstanceState, Constants.GET_EVENT_DETAIL_CONST);
+		AppTools.info("on create EventActivity");
 		initGraphicalInterface();
 	}
 
@@ -70,12 +90,16 @@ public class GetEventDetailActivity extends BaseActivity {
 		// set layouts
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-		mainView = (ScrollView) mInflater.inflate(
-				R.layout.get_event_detail_activity, null);
+		abstractView.setVisibility(LinearLayout.GONE);
+		abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayoutTop);
+		abstractView.setVisibility(LinearLayout.VISIBLE);
+		mainView = (LinearLayout) mInflater.inflate(R.layout.event_layout, null);
 		abstractView.addView(mainView);
+		vf = (ViewFlipper) findViewById(R.id.view_flipper);
 		windowTitle = (TextView) findViewById(R.id.pageTitle);
-		windowTitle.setText(R.string.GetEventDetail);
+		windowTitle.setText(R.string.NoTitle);
 		
+		// Get event details
 		eventNameField = (TextView) findViewById(R.id.event_name);
 		eventHoursField = (TextView) findViewById(R.id.event_hours);
 		eventTypeField = (TextView) findViewById(R.id.event_type);
@@ -98,7 +122,7 @@ public class GetEventDetailActivity extends BaseActivity {
 			public void onClick(View v) {
 				//TODO: give a mark to the party
 				//TODO: are you sure you want to send this grade
-				new GradeRateEvent().execute(id);
+				new GradeRateEvent().execute(event_id);
 			}
 			
 		});
@@ -199,25 +223,230 @@ public class GetEventDetailActivity extends BaseActivity {
 			}
 		});
 		
+		
+		
 		final String[] data = IntentHelper.getActiveIntentParam(String[].class);
-		id = data[0];
-
-		new GetEventDetails().execute(id);
+		event_id = data[0];
+		
+		new GetEventDetails().execute(event_id);
 		hideHeader(false);
+		
+		MessageChat = (EditText) findViewById(R.id.MessageChat);
+		SendButtonChat = (Button) findViewById(R.id.sendButtonChat);
+
+		SendButtonChat.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				if( "".equals(MessageChat.getText().toString())){
+					Popups.showPopup(Constants.IncompleatData);
+					return;
+				}
+				new SendMessageTask().execute();
+			}
+		});
+		
+		
+		
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-
+		// check if logged in
+		checkLoggedIn();
+		new GetEventDetails().execute(event_id);
+		final Handler handler = new Handler();
+//		Timer timer = new Timer();
+//		TimerTask doAsynchronousTask = new TimerTask() {
+//			@Override
+//			public void run() {
+//				handler.post(new Runnable() {
+//					public void run() {
+//						try {
+//							GetEventDetails ev = new GetEventDetails();
+//							ev.execute(event_id);
+//						} catch (Exception e) {
+//							AppTools.error(e.getMessage());
+//						}
+//					}
+//				});
+//			}
+//		};
+//		timer.schedule(doAsynchronousTask, 0, 20000);
+		new GetConversation().execute();
 	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent touchevent) {
+		switch (touchevent.getAction()) {
+		case MotionEvent.ACTION_DOWN: {
+			lastX = touchevent.getX();
+			break;
+		}
+
+		case MotionEvent.ACTION_UP: {
+
+			float currentX = touchevent.getX();
+			AppTools.debug("Old:" + lastX + "New:" + currentX);
+
+			if (lastX < currentX && lastX != 0 && currentX - lastX > 100) {
+				if (vf.getDisplayedChild() == 0)
+					break;
+				vf.setInAnimation(this, R.anim.in_from_left);
+				vf.setOutAnimation(this, R.anim.out_to_right);
+				lastLocation = null;
+				new GetEventDetails().execute(event_id);
+				vf.showNext();
+			}
+
+			if (lastX > currentX && lastX != 0 && lastX - currentX > 100) {
+				if (vf.getDisplayedChild() == 1)
+					break;
+				vf.setInAnimation(this, R.anim.in_from_right);
+				vf.setOutAnimation(this, R.anim.out_to_left);
+				new GetConversation().execute();
+				vf.showPrevious();
+			}
+			lastX = 0;
+			break;
+		}
+		}
+		return false;
+	}
+	
 	
 	public void networkError(String error) {
 		if (error.equals("Incomplete data")) {
 			Popups.showPopup(Constants.IncompleatData);
 		}
 	}
+	
+	
+	// Chat conversation
+	
+	private void buildList(ArrayList<String[]> data) {
 
+		list = (ListView) findViewById(R.id.get_chat_list);
+
+		// Getting adapter by passing xml data ArrayList
+		chatAdapter = new ChatAdapter(this, data);
+		list.setAdapter(chatAdapter);
+	}
+	
+	
+
+	private class SendMessageTask extends AsyncTask<Void, Void, Void> {
+
+		//ProgressDialog mProgressDialog;
+		JSONObject res;
+
+		@Override
+		protected void onPostExecute(Void result) {
+			if (res != null) {
+				try {
+					if (res.has("error")) {
+						// Error
+						String error;
+						error = res.getString("error");
+						EventActivity.this.networkError(error);
+					}
+					else
+					{
+						MessageChat.setText("");
+						new GetConversation().execute(event_id);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// Send request to server for login
+
+			ServerConnection srvCon = ServerConnection.GetServerConnection();
+			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+			parameters.add(new BasicNameValuePair("message", MessageChat.getText()
+					.toString()));
+			if (event_id != null)
+				parameters.add(new BasicNameValuePair("event_id", event_id));
+			parameters.add(new BasicNameValuePair("auth_token", PYPContext
+					.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0)
+					.getString("auth_token", "")));
+			try {
+				res = srvCon.connect(ServerConnection.ADD_MESSAGE,
+						parameters);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+	}
+
+	private class GetConversation extends AsyncTask<String, Void, Void> {
+
+		JSONObject res;
+		ProgressDialog mProgressDialog;
+
+		@Override
+		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
+			if (res != null) {
+				try {
+					JSONArray array = res.getJSONArray("list");
+					ArrayList<String[]> data = new ArrayList<String[]>();
+					for (int i = 0; i < array.length(); i++) {
+						JSONObject obj = array.getJSONObject(i);
+						data.add(new String[] { obj.getString("date"),
+								obj.getString("message"),
+								obj.getString("user")});
+					}
+					EventActivity.this.buildList(data);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+			mProgressDialog = ProgressDialog.show(EventActivity.this,
+					getString(R.string.app_name), getString(R.string.loading));
+		}
+
+		@Override
+		protected Void doInBackground(String... params) {
+			// Send request to server for login
+			ServerConnection srvCon = ServerConnection.GetServerConnection();
+			try {
+				List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+				SharedPreferences settings = PYPContext.getContext()
+						.getSharedPreferences(AppTools.PREFS_NAME, 0);
+				parameters.add(new BasicNameValuePair("auth_token", settings
+						.getString("auth_token", "")));
+				parameters.add(new BasicNameValuePair("event_id", params[0]));
+				AppTools.debug("ID of the event: " + params[0]);
+				res = srvCon.connect(ServerConnection.GET_CONVERSATION,
+						parameters);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	}
+	
+	
+	
+	// Event Details
+	
 	private class GetEventDetails extends AsyncTask<String, Void, Void> {
 
 		JSONObject res;
@@ -232,7 +461,7 @@ public class GetEventDetailActivity extends BaseActivity {
 						// Error
 						String error;
 						error = res.getString("error");
-						GetEventDetailActivity.this.networkError(error);
+						EventActivity.this.networkError(error);
 					}else{
 						// Put the data in form
 						eventNameField.setText(res.getString("name"));
@@ -258,9 +487,9 @@ public class GetEventDetailActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
-			mProgressDialog = ProgressDialog.show(GetEventDetailActivity.this,
+			mProgressDialog = ProgressDialog.show(EventActivity.this,
 					getString(R.string.app_name), getString(R.string.loading));
-			AppTools.debug("Loading events");
+			AppTools.debug("Loading event details");
 		}
 
 		@Override
@@ -300,7 +529,7 @@ public class GetEventDetailActivity extends BaseActivity {
 						// Error
 						String error;
 						error = res.getString("error");
-						GetEventDetailActivity.this.networkError(error);
+						EventActivity.this.networkError(error);
 					}else{
 						// Disable button
 						// TODO: already grade it
@@ -314,7 +543,7 @@ public class GetEventDetailActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
-			mProgressDialog = ProgressDialog.show(GetEventDetailActivity.this,
+			mProgressDialog = ProgressDialog.show(EventActivity.this,
 					getString(R.string.app_name), getString(R.string.loading));
 			AppTools.debug("Loading events");
 		}
@@ -340,5 +569,7 @@ public class GetEventDetailActivity extends BaseActivity {
 			return null;
 		}
 	}
+	
+	
 
 }
