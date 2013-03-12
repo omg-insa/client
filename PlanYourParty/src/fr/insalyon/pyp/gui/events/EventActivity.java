@@ -35,7 +35,6 @@ import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
-import fr.insalyon.pyp.gui.main.MainActivity;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
@@ -499,7 +498,7 @@ public class EventActivity extends BaseActivity {
 								+ res.getString("price") + " €");
 						String description = res.getString("description");
 						TextView DescriptionLabel = (TextView) findViewById(R.id.event_description_label);
-						if( !"".equals(description) ){
+						if( "".equals(description) ){
 							DescriptionLabel.setVisibility(View.GONE);
 						}else{
 							DescriptionLabel.setVisibility(View.VISIBLE);
@@ -537,7 +536,7 @@ public class EventActivity extends BaseActivity {
 						
 						String placeDescription = res.getString("place_description");
 						TextView EventDescriptionLabel = (TextView) findViewById(R.id.event_place_description_label);
-						if( !"".equals(placeDescription) ){
+						if( "".equals(placeDescription) ){
 							EventDescriptionLabel.setVisibility(View.GONE);
 						}else{
 							EventDescriptionLabel.setVisibility(View.VISIBLE);
@@ -546,7 +545,7 @@ public class EventActivity extends BaseActivity {
 						
 						String placeAddress = res.getString("place_address");
 						TextView AddressLabel = (TextView) findViewById(R.id.event_address_label);
-						if( !"".equals(placeAddress) ){
+						if( "".equals(placeAddress) ){
 							AddressLabel.setVisibility(View.GONE);
 						}else{
 							AddressLabel.setVisibility(View.VISIBLE);
