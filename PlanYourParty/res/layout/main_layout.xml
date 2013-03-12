@@ -25,16 +25,6 @@
 		        android:listSelector="@drawable/list_selector"
 	    
 	         />
-            <!-- 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="A dog limps into a saloon and says..."
-                android:textColor="#00ff00"
-                android:textSize="14sp"
-                android:textStyle="bold" >
-            </TextView>
-            -->
         </LinearLayout>
 
         <ListView
