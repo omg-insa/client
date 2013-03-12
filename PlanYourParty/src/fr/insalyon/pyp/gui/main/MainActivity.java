@@ -280,7 +280,7 @@ public class MainActivity extends BaseActivity {
 					});
 					toast.show();
 					Bitmap icon = BitmapFactory.decodeResource(PYPContext.getContext().getResources(),
-                            R.drawable.logo);
+                            R.drawable.logo_notification);
 					NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 							MainActivity.this)
 							.setSmallIcon(R.drawable.logo)

@@ -116,6 +116,7 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 						intent.putExtra(Constants.PARAMNAME, row_values );
 						setResult(RESULT_OK, intent);
 			    		this.finish();
+			    		return;
 			    	}
 			    	event_id = row_values[0];
 			    	place_id = row_values[1];
