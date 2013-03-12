@@ -93,8 +93,12 @@ public class CreateLocalPlaceActivity extends BaseActivity {
 					@Override
 					public void onClick(View v) {
 						if( !"".equals(LocalPlaceName.getText().toString()) &&
-							!"".equals(DescriptionLocalPlace.getText().toString())	)
-						new CreateLocalPlaceTask().execute();
+							!"".equals(DescriptionLocalPlace.getText().toString())	){
+							new CreateLocalPlaceTask().execute();
+						}else{
+							Popups.showPopup(Constants.IncompleatData);
+						}
+							
 					}
 				});
 				

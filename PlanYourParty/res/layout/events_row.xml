@@ -20,6 +20,7 @@
         android:textSize="25dip"
         android:textStyle="bold"
         android:typeface="sans"
+        android:maxWidth="255dp"
     />
       
      <TextView
