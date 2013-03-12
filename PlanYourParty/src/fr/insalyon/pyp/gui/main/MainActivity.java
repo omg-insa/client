@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.locks.Lock;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -28,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 import fr.insalyon.pyp.R;
+import fr.insalyon.pyp.entities.EventEnitity;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.events.CreateEventActivity;
@@ -52,6 +52,7 @@ public class MainActivity extends BaseActivity {
 	private Long lastRefresh = System.currentTimeMillis() / 1000;
 	private ViewFlipper vf;
 	private float lastX;
+	private ArrayList<EventEnitity> eventsLis = new ArrayList<EventEnitity>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -198,7 +199,7 @@ public class MainActivity extends BaseActivity {
 						JSONObject obj = array.getJSONObject(i);
 						double lon = Double.parseDouble(obj.getString("lon"));
 						double lat = Double.parseDouble(obj.getString("lat"));
-						AppTools.error(lon+" "+lat);
+						AppTools.error(lon + " " + lat);
 						data.add(new String[] {
 								obj.getString("name"),
 								obj.getString("start_time") + " - "
@@ -207,6 +208,7 @@ public class MainActivity extends BaseActivity {
 										Constants.AREA_RADIUS).toString(),
 								obj.getString("id"),
 								obj.getString("description") });
+
 					}
 					AppTools.debug("Number of personal events:" + data.size());
 					MainActivity.this.buildList(data);
@@ -232,6 +234,91 @@ public class MainActivity extends BaseActivity {
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
 				res = srvCon.connect(ServerConnection.GET_PERSONAL_EVENTS,
+						parameters);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	}
+	
+	private class CheckIn extends AsyncTask<EventEnitity, Void, Void> {
+
+		JSONObject res;
+		EventEnitity entity;
+		@Override
+		protected void onPostExecute(Void result) {
+			if (res != null) {
+				try {
+					entity.setIsCheckedIn(true);
+					//TODO Alert popoup
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+			AppTools.debug("Checking in..");
+		
+		}
+
+		@Override
+		protected Void doInBackground(EventEnitity... params) {
+			// Send request to server for login
+			entity = params[0];
+			ServerConnection srvCon = ServerConnection.GetServerConnection();
+			try {
+				List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+				SharedPreferences settings = PYPContext.getContext()
+						.getSharedPreferences(AppTools.PREFS_NAME, 0);
+				parameters.add(new BasicNameValuePair("auth_token", settings
+						.getString("auth_token", "")));
+				parameters.add(new BasicNameValuePair("event_id", params[0].getId()));
+				res = srvCon.connect(ServerConnection.CHECK_IN,
+						parameters);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	}
+	
+	private class CheckOut extends AsyncTask<EventEnitity, Void, Void> {
+
+		JSONObject res;
+		EventEnitity entity;
+		@Override
+		protected void onPostExecute(Void result) {
+			if (res != null) {
+				try {
+					entity.setIsCheckedIn(false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+			AppTools.debug("Checking out..");
+		
+		}
+
+		@Override
+		protected Void doInBackground(EventEnitity... params) {
+			// Send request to server for login
+			entity = params[0];
+			ServerConnection srvCon = ServerConnection.GetServerConnection();
+			try {
+				List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+				SharedPreferences settings = PYPContext.getContext()
+						.getSharedPreferences(AppTools.PREFS_NAME, 0);
+				parameters.add(new BasicNameValuePair("auth_token", settings
+						.getString("auth_token", "")));
+				parameters.add(new BasicNameValuePair("event_id", params[0].getId()));
+				res = srvCon.connect(ServerConnection.CHECK_OUT,
 						parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -284,11 +371,14 @@ public class MainActivity extends BaseActivity {
 			if (res != null) {
 				try {
 					JSONArray array = res.getJSONArray("list");
+					eventsLis = new ArrayList<EventEnitity>();
+	
 					ArrayList<String[]> data = new ArrayList<String[]>();
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
 						double lon = Double.parseDouble(obj.getString("lon"));
 						double lat = Double.parseDouble(obj.getString("lat"));
+						eventsLis.add(new EventEnitity(obj.getString("id"),lon,lat));
 						data.add(new String[] {
 								obj.getString("name"),
 								obj.getString("start_time") + " - "
@@ -323,11 +413,19 @@ public class MainActivity extends BaseActivity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			Long currentTimeStamp = System.currentTimeMillis() / 1000;
-			//Check for check_in - check_out
-			
-			//Check barlist
+			// Check for check_in - check_out
+			for(int i =0;i<eventsLis.size();i++){
+				EventEnitity e = eventsLis.get(i);
+				if(AppTools.checkInArea(e.lon, e.lat, Constants.BAR_RADIOUS) && !e.getIsCheckedIn()){
+					new CheckIn().execute(e);
+				}
+				if(!AppTools.checkInArea(e.lon, e.lat, Constants.BAR_RADIOUS) && e.getIsCheckedIn()){
+					new CheckOut().execute(e);
+				}
+			}
+			// Check barlist
 			if (lastLocation == null
-					|| currentTimeStamp - lastRefresh > 60*5
+					|| currentTimeStamp - lastRefresh > 60 * 5
 					|| AppTools.checkInArea(lastLocation.getLongitude(),
 							lastLocation.getLatitude(), Constants.AREA_RADIUS) == false) {
 				lastRefresh = currentTimeStamp;
@@ -339,12 +437,12 @@ public class MainActivity extends BaseActivity {
 					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 					SharedPreferences settings = PYPContext.getContext()
 							.getSharedPreferences(AppTools.PREFS_NAME, 0);
-					parameters.add(new BasicNameValuePair("radius",
-							String.valueOf(Constants.AREA_RADIUS)));
-					parameters.add(new BasicNameValuePair("latitude",
-							String.valueOf(lastLocation.getLatitude())));
-					parameters.add(new BasicNameValuePair("longitude",
-							String.valueOf(lastLocation.getLongitude())));
+					parameters.add(new BasicNameValuePair("radius", String
+							.valueOf(Constants.AREA_RADIUS)));
+					parameters.add(new BasicNameValuePair("latitude", String
+							.valueOf(lastLocation.getLatitude())));
+					parameters.add(new BasicNameValuePair("longitude", String
+							.valueOf(lastLocation.getLongitude())));
 					parameters.add(new BasicNameValuePair("auth_token",
 							settings.getString("auth_token", "")));
 					res = srvCon.connect(ServerConnection.GET_EVENTS,
