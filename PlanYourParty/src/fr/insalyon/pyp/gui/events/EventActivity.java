@@ -284,6 +284,9 @@ public class EventActivity extends BaseActivity {
 		if (error.equals("Incomplete data")) {
 			Popups.showPopup(Constants.IncompleatData);
 		}
+		if (error.equals("Not checked in")) {
+			checkInButton.setVisibility(View.GONE);
+		}
 	}
 
 	// Chat conversation
@@ -507,7 +510,9 @@ public class EventActivity extends BaseActivity {
 						
 						eventGradeField.setText(res.getString("stars"));
 						
-						int stars = Integer.valueOf(res.getString("stars"));
+						int stars = 1;
+						if( !"".equals(stars))
+							stars = Integer.valueOf(res.getString("stars"));
 						// Set the smiley indicator
 						if( 1 >= stars && stars <= 2)
 							smiley.setImageDrawable((PYPContext.getContext().getResources()
