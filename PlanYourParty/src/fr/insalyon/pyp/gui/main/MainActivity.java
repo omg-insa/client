@@ -10,22 +10,34 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
+import android.app.*;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.entities.EventEnitity;
 import fr.insalyon.pyp.gui.common.BaseActivity;
@@ -239,17 +251,78 @@ public class MainActivity extends BaseActivity {
 			return null;
 		}
 	}
-	
+
 	private class CheckIn extends AsyncTask<EventEnitity, Void, Void> {
 
 		JSONObject res;
 		EventEnitity entity;
+
 		@Override
 		protected void onPostExecute(Void result) {
 			if (res != null) {
 				try {
 					entity.setIsCheckedIn(true);
-					//TODO Alert popoup
+					// TODO Alert popoup
+					Toast toast = Toast.makeText(
+							getApplicationContext(),
+							getString(R.string.checked_in) + " "
+									+ entity.getName() + " "
+									+ getString(R.string.checked_in_opinion),
+							Toast.LENGTH_LONG);
+					toast.setGravity(Gravity.BOTTOM, 0, 0);
+					LinearLayout toastView = (LinearLayout) toast.getView();
+					toastView.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							String[] tagData = new String[] { entity.getId() };
+							IntentHelper.openNewActivity(EventActivity.class,
+									tagData, false);
+						}
+					});
+					toast.show();
+					Bitmap icon = BitmapFactory.decodeResource(PYPContext.getContext().getResources(),
+                            R.drawable.logo);
+					NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+							MainActivity.this)
+							.setSmallIcon(R.drawable.logo)
+							.setContentTitle("Plan you party")
+							.setContentText(
+									getString(R.string.checked_in)
+											+ " "
+											+ entity.getName()
+											+ " "
+											+ getString(R.string.checked_in_opinion))
+							.setAutoCancel(true)
+							.setLargeIcon(icon);
+					// Creates an explicit intent for an Activity in your app
+					Intent resultIntent = new Intent(MainActivity.this,
+							EventActivity.class);
+					resultIntent.putExtra(Constants.PARAMNAME,
+							new String[] { entity.getId() });
+					// The stack builder object will contain an artificial back
+					// stack for the
+					// started Activity.
+					// This ensures that navigating backward from the Activity
+					// leads out of
+					// your application to the Home screen.
+					TaskStackBuilder stackBuilder = TaskStackBuilder
+							.create(MainActivity.this);
+					// Adds the back stack for the Intent (but not the Intent
+					// itself)
+					stackBuilder.addParentStack(EventActivity.class);
+					// Adds the Intent that starts the Activity to the top of
+					// the stack
+					stackBuilder.addNextIntent(resultIntent);
+					PendingIntent resultPendingIntent = stackBuilder
+							.getPendingIntent(0,
+									PendingIntent.FLAG_UPDATE_CURRENT);
+					mBuilder.setContentIntent(resultPendingIntent);
+					NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+					int mId = 1;
+					// mId allows you to update the notification later on.
+					mNotificationManager.notify(mId, mBuilder.build());
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -259,7 +332,7 @@ public class MainActivity extends BaseActivity {
 		@Override
 		protected void onPreExecute() {
 			AppTools.debug("Checking in..");
-		
+
 		}
 
 		@Override
@@ -273,20 +346,21 @@ public class MainActivity extends BaseActivity {
 						.getSharedPreferences(AppTools.PREFS_NAME, 0);
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
-				parameters.add(new BasicNameValuePair("event_id", params[0].getId()));
-				res = srvCon.connect(ServerConnection.CHECK_IN,
-						parameters);
+				parameters.add(new BasicNameValuePair("event_id", params[0]
+						.getId()));
+				res = srvCon.connect(ServerConnection.CHECK_IN, parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return null;
 		}
 	}
-	
+
 	private class CheckOut extends AsyncTask<EventEnitity, Void, Void> {
 
 		JSONObject res;
 		EventEnitity entity;
+
 		@Override
 		protected void onPostExecute(Void result) {
 			if (res != null) {
@@ -301,7 +375,7 @@ public class MainActivity extends BaseActivity {
 		@Override
 		protected void onPreExecute() {
 			AppTools.debug("Checking out..");
-		
+
 		}
 
 		@Override
@@ -315,9 +389,9 @@ public class MainActivity extends BaseActivity {
 						.getSharedPreferences(AppTools.PREFS_NAME, 0);
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
-				parameters.add(new BasicNameValuePair("event_id", params[0].getId()));
-				res = srvCon.connect(ServerConnection.CHECK_OUT,
-						parameters);
+				parameters.add(new BasicNameValuePair("event_id", params[0]
+						.getId()));
+				res = srvCon.connect(ServerConnection.CHECK_OUT, parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -350,8 +424,8 @@ public class MainActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				String[] tagData = (String[]) arg1.getTag();
-				IntentHelper.openNewActivity(EventActivity.class,
-						tagData, false);
+				IntentHelper.openNewActivity(EventActivity.class, tagData,
+						false);
 			}
 		});
 	}
@@ -370,13 +444,14 @@ public class MainActivity extends BaseActivity {
 				try {
 					JSONArray array = res.getJSONArray("list");
 					eventsLis = new ArrayList<EventEnitity>();
-	
+
 					ArrayList<String[]> data = new ArrayList<String[]>();
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
 						double lon = Double.parseDouble(obj.getString("lon"));
 						double lat = Double.parseDouble(obj.getString("lat"));
-						eventsLis.add(new EventEnitity(obj.getString("id"),lon,lat));
+						eventsLis.add(new EventEnitity(obj.getString("id"),
+								lon, lat, obj.getString("name")));
 						data.add(new String[] {
 								obj.getString("name"),
 								obj.getString("start_time") + " - "
@@ -412,12 +487,14 @@ public class MainActivity extends BaseActivity {
 		protected Void doInBackground(Void... params) {
 			Long currentTimeStamp = System.currentTimeMillis() / 1000;
 			// Check for check_in - check_out
-			for(int i =0;i<eventsLis.size();i++){
+			for (int i = 0; i < eventsLis.size(); i++) {
 				EventEnitity e = eventsLis.get(i);
-				if(AppTools.checkInArea(e.lon, e.lat, Constants.BAR_RADIOUS) && !e.getIsCheckedIn()){
+				if (AppTools.checkInArea(e.getLon(), e.getLat(),
+						Constants.BAR_RADIOUS) && !e.getIsCheckedIn()) {
 					new CheckIn().execute(e);
 				}
-				if(!AppTools.checkInArea(e.lon, e.lat, Constants.BAR_RADIOUS) && e.getIsCheckedIn()){
+				if (!AppTools.checkInArea(e.getLon(), e.getLat(),
+						Constants.BAR_RADIOUS) && e.getIsCheckedIn()) {
 					new CheckOut().execute(e);
 				}
 			}
