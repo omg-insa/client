@@ -12,26 +12,26 @@
   <string name="password_confirmation">Confirmer</string>
   <string name="loggin">Connexion</string>
   <string name="register">Inscription</string>
-  <string name="forgotten_password">Mot de passe oublié ?</string>
+  <string name="forgotten_password">Mot de passe oubli&#233; ?</string>
   <string name="loading">Chargement</string>
   <string name="alert_dialog_ok">OK</string>
       <string name="alert_dialog_yes">Oui</string>
     <string name="alert_dialog_no">Non</string>
-  <string name="secret_question_answer">Votre réponse</string>
+  <string name="secret_question_answer">Votre r&#233;ponse</string>
   <string name="validate">Valider</string>
   <string name="old_password">Ancien mot de passe</string>
   <string name="new_password">Nouveau mot de passe</string>
   <string name="email">Email</string>
   <string name="confirm">Valider</string>
   <string name="cancel">Annuler</string>
-  <string name="settings">Paramètres</string>
+  <string name="settings">Param&#232;tres</string>
   <string name="logout">Quitter</string>
   <string name="profils_activity_Informations_Perso">Informations Perso</string>
-  <string name="profils_activity_Interets">Intérêts</string>
-  <string name="profils_activity_Securite">Sécurité</string>
+  <string name="profils_activity_Interets">Int&#233;rêts</string>
+  <string name="profils_activity_Securite">S&#233;curit&#233;</string>
   <string name="security_activity_question">Entrer votre question</string>
-  <string name="security_activity_reponse">Entrer votre réponse</string>
-  <string name="security_activity_question_secrete">Récupération du mot de passe</string>
+  <string name="security_activity_reponse">Entrer votre r&#233;ponse</string>
+  <string name="security_activity_question_secrete">R&#233;cup&#233;ration du mot de passe</string>
   <string name="security_activity_changement_mdp">Changement du mot de passe</string>
   <string name="security_activity_ancien_mdp">Ancien mdp</string>
   <string name="security_activity_nouveau_mdp">Nouveau mdp</string>
@@ -40,7 +40,7 @@
   <string name="security_activity_button_changement_question">Enregistrer</string>
   <string name="security_activity_mdp_question">Mot de passe</string>
   <string name="Sexe">Sexe</string>
-  <string name="fullName">Nom et prénom</string>
+  <string name="fullName">Nom et pr&#233;nom</string>
   <string name="DateDeNaissance">Date de naissance</string>
   <string name="checkin">Noter</string>
   
@@ -53,7 +53,7 @@
   <string-array name="status_array">
     <item>Statut</item>
     <item>En couple</item>
-    <item>Célibataire</item>
+    <item>C&#233;libataire</item>
   </string-array>
 
   	<string name="ManagePersonalEventActivity_Edit">Editer</string>
@@ -65,7 +65,7 @@
     <string name="BirthdayDate">JJ/MM/AAAA</string>
     
     <string name="Events">Evenements</string>
-    <string name="Add_Event">Ajouter evenement</string>
+    <string name="Add_Event">Ajouter &#233;venement</string>
     
     <string name="EventName">Nom</string>
     <string name="StartEventHour">14</string>
@@ -75,7 +75,7 @@
     <string name="PriceEvent">Prix</string>
     <string name="DescriptionEvent">Description</string>
     <string name="NextStep">Etape suivante</string>
-	<string name="StartEvent">Heure de début</string>
+	<string name="StartEvent">Heure de d&#233;but</string>
     <string name="EndEvent">Heure de fin</string>
 	
     
@@ -96,60 +96,60 @@
 
 	
     <string name="initWrongUsernameOrPassword_title">Informations incorrectes</string>
-    <string name="initWrongUsernameOrPassword_text">Vous avez entré un mot de passe ou un nom d\'utilisateur erroné</string>
-    <string name="initIncompleatData_title">Données incomplètes</string>
-    <string name="initIncompleatData_text">Vous n\'avez pas complété tous les champs</string>
+    <string name="initWrongUsernameOrPassword_text">Vous avez entr&#233; un mot de passe ou un nom d\'utilisateur erron&#233;</string>
+    <string name="initIncompleatData_title">Donn&#233;es incompl&#232;tes</string>
+    <string name="initIncompleatData_text">Vous n\'avez pas compl&#233;t&#233; tous les champs</string>
     <string name="InvalidEmail_title">E-mail invalide</string>
-    <string name="InvalidEmail_text">Vous n\'avez pas rentré un e-mail valide</string>
-    <string name="EmailAlreadyUsed_title">Adresse e-mail déjà utilisée</string>
-    <string name="EmailAlreadyUsed_text">L\'adresse e-mail que vous avez entré est déjà utilisée</string>
-    <string name="UsernameAlreadyUsed_title">Nom d\'utilisateur déjà utilisé</string>
-    <string name="UsernameAlreadyUsed_text">Le nom d\'utilisateur que vous avez entré est déjà utilisé</string>
+    <string name="InvalidEmail_text">Vous n\'avez pas rentr&#233; un e-mail valide</string>
+    <string name="EmailAlreadyUsed_title">Adresse e-mail d&#233;j&#224; utilis&#233;e</string>
+    <string name="EmailAlreadyUsed_text">L\'adresse e-mail que vous avez entr&#233; est d&#233;j&#224; utilis&#233;e</string>
+    <string name="UsernameAlreadyUsed_title">Nom d\'utilisateur d&#233;j&#224; utilis&#233;</string>
+    <string name="UsernameAlreadyUsed_text">Le nom d\'utilisateur que vous avez entr&#233; est d&#233;j&#224; utilis&#233;</string>
     <string name="passwordTooShort_title">Le mot de passe est trop court</string>
-    <string name="passwordTooShort_text">S\'il vous plait entrer un minimum de 4 caractères pour le mot de passe</string>
+    <string name="passwordTooShort_text">S\'il vous plait entrer un minimum de 4 caract&#232;res pour le mot de passe</string>
     <string name="passwordsDontMatch_title">Mot de passe incorrect</string>
     <string name="passwordsDontMatch_text">Le mot de passe est incorrect</string>
     <string name="curentPasswordWrong_title">Mot de passe incorrect</string>
     <string name="curentPasswordWrong_text">Le mot de passe actuel est incorrect</string>
     <string name="WrongUsername_title">Utilisateur inconnu</string>
     <string name="WrongUsername_text">L\'utilisateur que vous cherchez n\'existe pas.</string>
-    <string name="NoSecretQuestion_title">Aucune question de securite</string>
-    <string name="NoSecretQuestion_text">Vous n\'avez specifie aucune information de securite dans votre profil.</string>
+    <string name="NoSecretQuestion_title">Aucune question de s&#233;curit&#233;</string>
+    <string name="NoSecretQuestion_text">Vous n\'avez sp&#233;cifi&#233; aucune information de s&#233;curit&#233; dans votre profil.</string>
 	<string name="WrongAnswer_title">Reponse incorrecte</string>
-	<string name="WrongAnswer_text">Votre reponse ou votre date d\'anniversaire est incorrecte.</string>
+	<string name="WrongAnswer_text">Votre r&#233;ponse ou votre date d\'anniversaire est incorrecte.</string>
 	<string name="dateFormatWrong_title">Date incorrecte </string>
     <string name="dateFormatWrong_text">S\'il vous plait entrer une date valide (DD MM YYYY)</string>
     <string name="timeFormatWrong_title">Horaires incorrectes </string>
-    <string name="timeFormatWrong_text">S\'il vous plait entrer une heure valide.</string>
-    <string name="WrongData_title">Donnees erronees</string>
-    <string name="WrongData_text">Les donnees envoyees au serveur sont erronees.</string>
+    <string name="timeFormatWrong_text">S\'il vous plait entrez une heure valide.</string>
+    <string name="WrongData_title">Donnees erron&#233;es</string>
+    <string name="WrongData_text">Les donn&#233;es envoy&#233;es au serveur sont erron&#233;es.</string>
     <string name="DifferentPassword_title">Mot de passe differents</string>
-    <string name="DifferentPassword_text">Le mot de passe specifie  n\'est pas le meme.</string>
-    <string name="canteditArea_title">Vous ne pouvez pas editer cet evenement </string>
-    <string name="canteditArea_text">Vous n\'etes pas proche de la location d\'evenement</string>
-    <string name="delete_event_title">Supression d\'evenement</string>
-    <string name="delete_event_text">Est-ce que vous etes sure de suprime cet evenement? </string>
+    <string name="DifferentPassword_text">Le mot de passe specifi&#233; n\'est pas le meme.</string>
+    <string name="canteditArea_title">Vous ne pouvez pas &#233;diter cet &#233;venement </string>
+    <string name="canteditArea_text">Vous n\'etes pas proche de la location d\'&#233;venement</string>
+    <string name="delete_event_title">Supression d\'&#233;venement</string>
+    <string name="delete_event_text">Est-ce que vous etes sure de vouloir suprimer cet &#233;venement? </string>
     <string name="personal_info_update_ok_title">Informations personnelles</string>
-    <string name="personal_info_update_ok_text">Vos données ont été mise à jour avec succès !</string>
-    <string name="security_question_update_ok_title">Question de sécurité</string>
-    <string name="security_question_update_ok_text">Votre question de sécurité a été mise à jour avec succès !</string>
-    <string name="ViewName">Name</string>
+    <string name="personal_info_update_ok_text">Vos donn&#233;es ont &#233;t&#233; mise &#224; jour avec succ&#232;s !</string>
+    <string name="security_question_update_ok_title">Question de s&#233;curit&#233;</string>
+    <string name="security_question_update_ok_text">Votre question de s&#233;curit&#233; a &#233;t&#233; mise &#224; jour avec succ&#232;s !</string>
+    <string name="ViewName">Nom</string>
     
     <!-- Pages title -->
-	<string name="ForgotPasswordTitle">Recuperation mdp</string>
+	<string name="ForgotPasswordTitle">R&#233;cuperation mdp</string>
 	<string name="LoginTitle">Connexion</string>
 	<string name="RegisterTitle">Inscription</string>
 	<string name="ResetPasswordTitle">Changer mdp</string>
-	<string name="CreateEventTitle">Nouvel evenement</string>
+	<string name="CreateEventTitle">Nouvel &#233;venement</string>
 	<string name="AccountTitle">Compte</string>
-	<string name="InterestTitle">Interets</string>
+	<string name="InterestTitle">Int&#233;rets</string>
 	<string name="PersonalInfoTitle">Infos personelles</string>
-	<string name="SecurityTitle">Securite</string>
+	<string name="SecurityTitle">Securit&#233;</string>
 	<string name="NoTitle"></string>
-	<string name="ManagePersonalEvent">Gestion d\'evenement</string>
+	<string name="ManagePersonalEvent">Gestion d\'&#233;venement</string>
 	<string name="CreateLocalPlace">Location courante</string>
 	<string name="GetPlaces">Location</string>
-	<string name="GetEventDetail">Details</string>
+	<string name="GetEventDetail">D&#233;tails</string>
 
 </resources>
 
