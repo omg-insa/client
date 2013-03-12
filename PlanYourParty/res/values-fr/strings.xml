@@ -43,6 +43,7 @@
   <string name="fullName">Nom et pr&#233;nom</string>
   <string name="DateDeNaissance">Date de naissance</string>
   <string name="checkin">Noter</string>
+  <string name="grade">Note</string>
   
 
   <string-array name="sex_array">
