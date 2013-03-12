@@ -91,6 +91,7 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 		// set the active activity
 		PYPContext.setActiveActivity(this);
 		myMenu = new CustomMenuHelper(2, this);
+		showHomeButton(true);
 
 	}
 
@@ -100,6 +101,7 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	 * @param hide
 	 */
 	public void hideHeader(boolean hide) {
+		
 		LinearLayout headerView = (LinearLayout) findViewById(R.id.abstract_header_layout);
 		if (hide) {
 			headerView.setVisibility(View.GONE);
@@ -122,6 +124,7 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 
 				public void onClick(View v) {
 // home button
+					goToHome();
 				}
 
 			});
@@ -129,6 +132,11 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 		}
 	}
 	
+	private void goToHome(){
+		AppTools.log(this.getClass().getSimpleName() + " is redirecting to the home activity", Level.INFO);
+		Intent i = new Intent(this, MainActivity.class);
+		startActivity(i);
+	}
 	protected void checkLoggedIn(){
 		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0);
 		AppTools.debug("Token: " + settings.getAll());
