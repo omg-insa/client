@@ -60,6 +60,8 @@ public class EventActivity extends BaseActivity {
 	private TextView eventFemaleRatioField;
 	private TextView eventSingleRatioField;
 	private TextView eventHeadcountField;
+	private TextView eventGradeField;
+	private ImageView smiley;
 
 	private TextView eventPlaceNameField;
 	private TextView eventPlaceDescriptionField;
@@ -72,7 +74,7 @@ public class EventActivity extends BaseActivity {
 	private ImageView star5;
 	private Button checkInButton;
 
-	private String eventGrade;
+	private String event_grade;
 	private String event_id;
 
 	// Chat conversation
@@ -120,6 +122,8 @@ public class EventActivity extends BaseActivity {
 		eventFemaleRatioField = (TextView) findViewById(R.id.event_female);
 		eventSingleRatioField = (TextView) findViewById(R.id.event_single);
 		eventHeadcountField = (TextView) findViewById(R.id.event_headcount);
+		eventGradeField = (TextView) findViewById(R.id.event_grade);
+		smiley = (ImageView) findViewById(R.id.smiley);
 
 		eventPlaceNameField = (TextView) findViewById(R.id.event_place_name);
 		eventPlaceDescriptionField = (TextView) findViewById(R.id.event_place_description);
@@ -147,8 +151,8 @@ public class EventActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				eventGrade = "1";
-				SetStars(Integer.decode(eventGrade));
+				event_grade = "1";
+				SetStars(Integer.decode(event_grade));
 			}
 		});
 
@@ -156,8 +160,8 @@ public class EventActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				eventGrade = "2";
-				SetStars(Integer.decode(eventGrade));
+				event_grade = "2";
+				SetStars(Integer.decode(event_grade));
 			}
 		});
 
@@ -165,8 +169,8 @@ public class EventActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				eventGrade = "3";
-				SetStars(Integer.decode(eventGrade));
+				event_grade = "3";
+				SetStars(Integer.decode(event_grade));
 			}
 		});
 
@@ -174,8 +178,8 @@ public class EventActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				eventGrade = "4";
-				SetStars(Integer.decode(eventGrade));
+				event_grade = "4";
+				SetStars(Integer.decode(event_grade));
 			}
 		});
 
@@ -183,8 +187,8 @@ public class EventActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				eventGrade = "5";
-				SetStars(Integer.decode(eventGrade));
+				event_grade = "5";
+				SetStars(Integer.decode(event_grade));
 			}
 		});
 
@@ -494,16 +498,27 @@ public class EventActivity extends BaseActivity {
 								.getString("single_ratio"));
 						eventHeadcountField.setText(res.getString("headcount"));
 						
+						
+						eventGradeField.setText(res.getString("stars"));
+						
+						int stars = Integer.valueOf(res.getString("stars"));
+						// Set the smiley indicator
+						if( 1 >= stars && stars <= 2)
+							smiley.setImageDrawable((PYPContext.getContext().getResources()
+						.getDrawable(R.drawable.smiley_bad)));
+						else if( 2 > stars && stars <= 4 )
+							smiley.setImageDrawable((PYPContext.getContext().getResources()
+									.getDrawable(R.drawable.smiley_normal)));
+						else
+							smiley.setImageDrawable((PYPContext.getContext().getResources()
+									.getDrawable(R.drawable.smiley_happy)));
+						
 						eventPlaceNameField
 								.setText(res.getString("place_name"));
 						eventPlaceDescriptionField.setText(res
 								.getString("place_description"));
 						eventPlaceAddressField.setText(res
 								.getString("place_address"));
-						
-//						String stars = res.getString("stars");
-//						if( "".equals(stars))
-//						SetStars(Integer.decode(stars));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -583,7 +598,7 @@ public class EventActivity extends BaseActivity {
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
 				parameters.add(new BasicNameValuePair("event_id", params[0]));
-				parameters.add(new BasicNameValuePair("stars", eventGrade));
+				parameters.add(new BasicNameValuePair("stars", event_grade));
 				AppTools.debug("ID of the event: " + params[0]);
 				res = srvCon.connect(ServerConnection.STAR, parameters);
 			} catch (Exception e) {
