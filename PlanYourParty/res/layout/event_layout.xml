@@ -14,7 +14,8 @@
         <ScrollView
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:id="@+id/scroll_view_event_activity">
     
         <LinearLayout
     android:layout_width="fill_parent"
