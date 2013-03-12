@@ -32,6 +32,7 @@ import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
+import fr.insalyon.pyp.gui.main.MainActivity;
 import fr.insalyon.pyp.network.ServerConnection;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
@@ -295,6 +296,13 @@ public class EventActivity extends BaseActivity {
 		// Getting adapter by passing xml data ArrayList
 		chatAdapter = new ChatAdapter(this, data);
 		list.setAdapter(chatAdapter);
+		list.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+
+				return EventActivity.this.onTouchEvent(event);
+			}
+		});
 	}
 
 	private class SendMessageTask extends AsyncTask<Void, Void, Void> {

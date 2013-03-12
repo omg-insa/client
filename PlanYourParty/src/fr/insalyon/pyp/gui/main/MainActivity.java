@@ -37,7 +37,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
-import android.app.*;
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.entities.EventEnitity;
 import fr.insalyon.pyp.gui.common.BaseActivity;
@@ -262,7 +261,6 @@ public class MainActivity extends BaseActivity {
 			if (res != null) {
 				try {
 					entity.setIsCheckedIn(true);
-					// TODO Alert popoup
 					Toast toast = Toast.makeText(
 							getApplicationContext(),
 							getString(R.string.checked_in) + " "
