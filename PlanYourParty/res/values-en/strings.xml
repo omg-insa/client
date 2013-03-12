@@ -43,6 +43,7 @@
   <string name="fullName">Full name</string>
   <string name="DateDeNaissance">Birthday</string>
   <string name="checkin">Check\'in</string>
+  <string name="grade">Grade</string>
 
   <string-array name="sex_array">
     <item>Sex</item>
@@ -124,7 +125,11 @@
     <string name="personal_info_update_ok_text">Your data have been successfully updated !</string>
     <string name="security_question_update_ok_title">Security question</string>
     <string name="security_question_update_ok_text">Your security question has been successfully updated !</string>
+    <string name="thank_grade_event_title">Event grade</string>
+    <string name="thank_grade_event_text">Thank you for grading this event !</string>
     <string name="ViewName">Name</string>
+    <string name ="checked_in">You have been check-in into </string>
+        <string name ="checked_in_opinion">How is the buzz? </string>
     
     
     <!-- Page titles -->
