@@ -1,10 +1,11 @@
 package fr.insalyon.pyp.entities;
 
 public class EventEnitity {
-	public String id;
-	public double lon;
-	public double lat;
-	public Boolean isCheckedIn;
+	private String id;
+	private double lon;
+	private double lat;
+	private String name;
+	private Boolean isCheckedIn;
 	
 	public Boolean getIsCheckedIn() {
 		return isCheckedIn;
@@ -30,11 +31,18 @@ public class EventEnitity {
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
-	public EventEnitity(String id, double lon, double lat) {
+	public EventEnitity(String id, double lon, double lat,String name) {
 		this.id = id;
 		this.lon = lon;
 		this.lat = lat;
+		this.name = name;
 		isCheckedIn = false;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

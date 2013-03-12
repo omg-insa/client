@@ -125,6 +125,8 @@
     <string name="security_question_update_ok_title">Security question</string>
     <string name="security_question_update_ok_text">Your security question has been successfully updated !</string>
     <string name="ViewName">Name</string>
+    <string name ="checked_in">You have been check-in into </string>
+        <string name ="checked_in_opinion">How is the buzz? </string>
     
     
     <!-- Page titles -->
