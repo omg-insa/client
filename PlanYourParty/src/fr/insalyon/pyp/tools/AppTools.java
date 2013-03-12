@@ -258,11 +258,11 @@ public abstract class AppTools {
 		double R=6378137;
 		double dLat = (double) (radius/R);
 		double dLon = (double) (radius/(R*Math.cos(Math.PI*lat/180)));
-		AppTools.debug("Searching for lon" + lon + " lat "+lat);
-		AppTools.debug("Radious: "+ dLat+ " "+dLon);
-		AppTools.debug("Lon: "+ myLocation.getLongitude() + " Lat"+myLocation.getLatitude());
-		AppTools.debug("Min Lon: "+ (lon - dLat * 180/Math.PI) + " Max lon"+(lon + dLat * 180/Math.PI));
-		AppTools.debug("Min Lat: "+ (lat -  dLat * 180/Math.PI) + " Max lat"+(lat +  dLat * 180/Math.PI));
+		//AppTools.debug("Searching for lon" + lon + " lat "+lat);
+		//AppTools.debug("Radious: "+ dLat+ " "+dLon);
+		//AppTools.debug("Lon: "+ myLocation.getLongitude() + " Lat"+myLocation.getLatitude());
+		//AppTools.debug("Min Lon: "+ (lon - dLat * 180/Math.PI) + " Max lon"+(lon + dLat * 180/Math.PI));
+		//AppTools.debug("Min Lat: "+ (lat -  dLat * 180/Math.PI) + " Max lat"+(lat +  dLat * 180/Math.PI));
 
 		if (myLocation.getLongitude() >= lon - dLon * 180/Math.PI
 				&& myLocation.getLongitude() <= lon + dLon * 180/Math.PI
