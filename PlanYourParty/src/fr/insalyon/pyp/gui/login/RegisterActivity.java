@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -172,10 +173,10 @@ public class RegisterActivity extends BaseActivity {
 			// Send request to server for login
 			ServerConnection srvCon = ServerConnection.GetServerConnection();
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-			parameters.add(new BasicNameValuePair("username", usernameField
-					.getText().toString()));
-			parameters.add(new BasicNameValuePair("password", passwordField
-					.getText().toString()));
+			parameters.add(new BasicNameValuePair("username", Html.fromHtml(usernameField
+					.getText().toString()).toString()));
+			parameters.add(new BasicNameValuePair("password", Html.fromHtml(passwordField
+					.getText().toString()).toString()));
 			parameters.add(new BasicNameValuePair("email", emailField.getText()
 					.toString()));
 			try {
