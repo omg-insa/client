@@ -45,7 +45,6 @@
   <string name="checkin">Noter</string>
   <string name="grade">Note</string>
   
-
   <string-array name="sex_array">
     <item>Sexe</item>
     <item>Homme</item>
@@ -134,7 +133,10 @@
     <string name="personal_info_update_ok_text">Vos donn&#233;es ont &#233;t&#233; mise &#224; jour avec succ&#232;s !</string>
     <string name="security_question_update_ok_title">Question de s&#233;curit&#233;</string>
     <string name="security_question_update_ok_text">Votre question de s&#233;curit&#233; a &#233;t&#233; mise &#224; jour avec succ&#232;s !</string>
+    <string name="thank_grade_event_title">Notation evenement</string>
+    <string name="thank_grade_event_text">Merci d\'avoir pris le temps de noter la soiree !</string>
     <string name="ViewName">Nom</string>
+    
     
     <!-- Pages title -->
 	<string name="ForgotPasswordTitle">R&#233;cuperation mdp</string>

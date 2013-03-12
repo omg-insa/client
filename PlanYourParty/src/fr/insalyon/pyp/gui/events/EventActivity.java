@@ -134,8 +134,6 @@ public class EventActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO: give a mark to the party
-				// TODO: are you sure you want to send this grade
 				new GradeRateEvent().execute(event_id);
 			}
 
@@ -488,8 +486,16 @@ public class EventActivity extends BaseActivity {
 
 						eventPriceField.setText("Price : "
 								+ res.getString("price") + " €");
-						eventDescriptionField.setText(res
-								.getString("description"));
+						String description = res.getString("description");
+						TextView DescriptionLabel = (TextView) findViewById(R.id.event_description_label);
+						if( !"".equals(description) ){
+							DescriptionLabel.setVisibility(View.GONE);
+						}else{
+							DescriptionLabel.setVisibility(View.VISIBLE);
+						}
+						eventDescriptionField.setText(description);
+						
+						
 						eventAgeAverageField.setText(res
 								.getString("age_average"));
 						eventFemaleRatioField.setText(res
@@ -515,10 +521,33 @@ public class EventActivity extends BaseActivity {
 						
 						eventPlaceNameField
 								.setText(res.getString("place_name"));
-						eventPlaceDescriptionField.setText(res
-								.getString("place_description"));
-						eventPlaceAddressField.setText(res
-								.getString("place_address"));
+						
+						String placeDescription = res.getString("place_description");
+						TextView EventDescriptionLabel = (TextView) findViewById(R.id.event_place_description_label);
+						if( !"".equals(placeDescription) ){
+							EventDescriptionLabel.setVisibility(View.GONE);
+						}else{
+							EventDescriptionLabel.setVisibility(View.VISIBLE);
+						}
+						eventPlaceDescriptionField.setText(placeDescription);
+						
+						String placeAddress = res.getString("place_address");
+						TextView AddressLabel = (TextView) findViewById(R.id.event_address_label);
+						if( !"".equals(placeAddress) ){
+							AddressLabel.setVisibility(View.GONE);
+						}else{
+							AddressLabel.setVisibility(View.VISIBLE);
+						}
+						eventPlaceAddressField.setText(description);
+						
+						// Set the seperators and smiley to visible
+						smiley.setVisibility(View.VISIBLE);
+						LinearLayout separator1 = (LinearLayout) findViewById(R.id.separator1);
+						separator1.setVisibility(View.VISIBLE);
+						LinearLayout separator2 = (LinearLayout) findViewById(R.id.separator2);
+						separator2.setVisibility(View.VISIBLE);
+						LinearLayout separator3 = (LinearLayout) findViewById(R.id.separator3);
+						separator3.setVisibility(View.VISIBLE);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -573,6 +602,7 @@ public class EventActivity extends BaseActivity {
 						// Disable button
 						// TODO: already grade it
 						// TODO: pop up
+						Popups.showPopup(Constants.ThankGradeEvent);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
