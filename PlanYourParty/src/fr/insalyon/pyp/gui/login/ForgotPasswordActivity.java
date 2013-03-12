@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -223,8 +224,8 @@ public class ForgotPasswordActivity extends BaseActivity {
 			// Send request to server for forgot password
 			ServerConnection srvCon = ServerConnection.GetServerConnection();
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-			parameters.add(new BasicNameValuePair("username", usernameText
-					.getText().toString()));
+			parameters.add(new BasicNameValuePair("username", Html.fromHtml(usernameText
+					.getText().toString()).toString()));
 			try {
 				res = srvCon.connect(ServerConnection.GET_SECRET_QUESTION_FOR_RECOVERY, parameters);
 			} catch (Exception e) {
@@ -260,7 +261,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 						String tmpToken = res.getString("tmp_token");
 						
 					    String[] params = new String[2];
-					    params[0] = usernameText.getText().toString();
+					    params[0] = Html.fromHtml(usernameText.getText().toString()).toString();
 					    params[1] = tmpToken;
 					    
 					    // Redirect to reset password after recovery
@@ -283,10 +284,10 @@ public class ForgotPasswordActivity extends BaseActivity {
 			// Send request to server for forgot password
 			ServerConnection srvCon = ServerConnection.GetServerConnection();
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-			parameters.add(new BasicNameValuePair("username", usernameText
-					.getText().toString()));
-			parameters.add(new BasicNameValuePair("answer", secretAnswerText
-					.getText().toString()));
+			parameters.add(new BasicNameValuePair("username", Html.fromHtml(usernameText
+					.getText().toString()).toString()));
+			parameters.add(new BasicNameValuePair("answer", Html.fromHtml(secretAnswerText
+					.getText().toString()).toString()));
 			parameters.add(new BasicNameValuePair("birthday", yearsText.getText()
 					.toString()
 					+ monthsText.getText().toString()

@@ -16,6 +16,7 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -158,10 +159,10 @@ public class LoginActivity extends BaseActivity {
 			// Send request to server for login
 			ServerConnection srvCon = ServerConnection.GetServerConnection();
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-			parameters.add(new BasicNameValuePair("username", usernameField
-					.getText().toString()));
-			parameters.add(new BasicNameValuePair("password", passwordField
-					.getText().toString()));
+			parameters.add(new BasicNameValuePair("username", Html.fromHtml(usernameField
+					.getText().toString()).toString()));
+			parameters.add(new BasicNameValuePair("password", Html.fromHtml(passwordField
+					.getText().toString()).toString()));
 			parameters.add(new BasicNameValuePair("device_type", TerminalInfo
 					.getTerminalName()));
 			parameters.add(new BasicNameValuePair("device_manufacture",

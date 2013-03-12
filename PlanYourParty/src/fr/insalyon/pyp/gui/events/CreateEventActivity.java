@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -192,13 +193,13 @@ public class CreateEventActivity extends BaseActivity {
 			parameters.add(new BasicNameValuePair("name", EventName.getText()
 					.toString()));
 			parameters.add(new BasicNameValuePair("description",
-					DescriptionEvent.getText().toString()));
+					Html.fromHtml(DescriptionEvent.getText().toString()).toString()));
 			parameters.add(new BasicNameValuePair("start_time", StartEventHour.getText()
 					+ ":" + StartEventMinute.getText().toString()));
 			parameters.add(new BasicNameValuePair("end_time", EndEventHour.getText()
 					+ ":" + EndEventMinute.getText().toString()));
-			parameters.add(new BasicNameValuePair("price", PriceEvent.getText()
-					.toString()));
+			parameters.add(new BasicNameValuePair("price", Html.fromHtml(PriceEvent.getText()
+					.toString()).toString()));
 			if (event_id != null)
 				parameters.add(new BasicNameValuePair("id", event_id));
 			parameters.add(new BasicNameValuePair("auth_token", PYPContext

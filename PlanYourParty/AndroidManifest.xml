@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
      <activity android:name=".gui.events.GetPlacesActivity"></activity>
-     <activity android:name=".gui.events.CreateLocalPlaceActivity"></activity>
+     <activity android:name=".gui.events.CreateLocalPlaceActivity"></activity>     
     </application>
 
 </manifest>
