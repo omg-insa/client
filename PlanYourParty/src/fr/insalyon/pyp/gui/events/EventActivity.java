@@ -518,14 +518,14 @@ public class EventActivity extends BaseActivity {
 						
 						eventGradeField.setText(res.getString("stars"));
 						
-						int stars = 1;
+						int stars = Integer.valueOf(res.getString("stars"));
 						if( !"".equals(stars))
-							stars = Integer.valueOf(res.getString("stars"));
+							stars = 1;
 						// Set the smiley indicator
-						if( 1 >= stars && stars <= 2)
+						if( stars >= 1 && stars <= 2)
 							smiley.setImageDrawable((PYPContext.getContext().getResources()
 						.getDrawable(R.drawable.smiley_bad)));
-						else if( 2 > stars && stars <= 4 )
+						else if( stars > 2 && stars <= 4 )
 							smiley.setImageDrawable((PYPContext.getContext().getResources()
 									.getDrawable(R.drawable.smiley_normal)));
 						else
@@ -671,7 +671,7 @@ public class EventActivity extends BaseActivity {
 						EventActivity.this.networkError(error);
 					} else {
 						event_grade = res.getString("stars");
-						gradeZone.setVisibility(View.GONE);
+						gradeZone.setVisibility(View.VISIBLE);
 						if( "".equals(event_grade) )
 							//TODO: show pop up or something
 							SetStars(Integer.decode(event_grade));
