@@ -7,7 +7,7 @@
 <ListView
         android:id="@+id/create_event_intrests_list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="420dp"
         android:divider="#b5b5b5"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/list_selector"
