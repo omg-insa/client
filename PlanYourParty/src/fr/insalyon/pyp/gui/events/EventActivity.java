@@ -312,11 +312,12 @@ public class EventActivity extends BaseActivity {
 
 	private class SendMessageTask extends AsyncTask<Void, Void, Void> {
 
-		// ProgressDialog mProgressDialog;
+		ProgressDialog mProgressDialog;
 		JSONObject res;
 
 		@Override
 		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
 			if (res != null) {
 				try {
 					if (res.has("error")) {
@@ -336,6 +337,8 @@ public class EventActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
+			mProgressDialog = ProgressDialog.show(EventActivity.this,
+					getString(R.string.app_name), getString(R.string.loading));
 		}
 
 		@Override
@@ -364,6 +367,7 @@ public class EventActivity extends BaseActivity {
 	private class GetConversation extends AsyncTask<String, Void, Void> {
 
 		JSONObject res;
+		
 
 		@Override
 		protected void onPostExecute(Void result) {
@@ -494,7 +498,7 @@ public class EventActivity extends BaseActivity {
 								+ " - " + res.getString("end_time"));
 
 						eventPriceField.setText("Price : "
-								+ res.getString("price") + " €");
+								+ res.getString("price") + " euro");
 						String description = res.getString("description");
 						TextView DescriptionLabel = (TextView) findViewById(R.id.event_description_label);
 						if( "".equals(description) ){
@@ -693,11 +697,9 @@ public class EventActivity extends BaseActivity {
 						String eventGrade = res.getString("stars");
 						gradeZone.setVisibility(View.VISIBLE);
 						if( "".equals(eventGrade) )
-							//TODO: show pop up or something
-							SetStars(Integer.decode(eventGrade));
+							SetStars(Integer.decode(event_grade));
 						else
 							SetStars(Integer.decode(eventGrade));
-						// TODO: able disable button
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

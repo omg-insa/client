@@ -15,8 +15,8 @@
   <string name="forgotten_password">Forgot your password?</string>
   <string name="loading">Loading</string>
   <string name="alert_dialog_ok">OK</string>
-    <string name="alert_dialog_yes">Yes</string>
-    <string name="alert_dialog_no">No</string>
+  <string name="alert_dialog_yes">Yes</string>
+  <string name="alert_dialog_no">No</string>
   <string name="secret_question_answer">Your answer</string>
   <string name="validate">Validate</string>
   <string name="old_password">Old password</string>

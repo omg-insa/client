@@ -15,8 +15,8 @@
   <string name="forgotten_password">Mot de passe oubli&#233; ?</string>
   <string name="loading">Chargement</string>
   <string name="alert_dialog_ok">OK</string>
-      <string name="alert_dialog_yes">Oui</string>
-    <string name="alert_dialog_no">Non</string>
+  <string name="alert_dialog_yes">Oui</string>
+  <string name="alert_dialog_no">Non</string>
   <string name="secret_question_answer">Votre r&#233;ponse</string>
   <string name="validate">Valider</string>
   <string name="old_password">Ancien mot de passe</string>
