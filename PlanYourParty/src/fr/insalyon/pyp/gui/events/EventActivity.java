@@ -265,7 +265,6 @@ public class EventActivity extends BaseActivity {
 				vf.setInAnimation(this, R.anim.in_from_left);
 				vf.setOutAnimation(this, R.anim.out_to_right);
 				lastLocation = null;
-				new GetEventDetails().execute(event_id);
 				vf.showNext();
 			}
 
@@ -507,13 +506,30 @@ public class EventActivity extends BaseActivity {
 						
 						
 						eventAgeAverageField.setText(res
-								.getString("age_average"));
-						eventFemaleRatioField.setText(res
-								.getString("female_ratio"));
-						eventSingleRatioField.setText(res
-								.getString("single_ratio"));
-						eventHeadcountField.setText(res.getString("headcount"));
+								.getString("age_average")
+								+ " "
+								+ getString(R.string.years));
 						
+						int headCount = Integer.parseInt(res.getString("headcount"));
+						eventHeadcountField.setText(headCount
+								+ " " + getString(R.string.people));
+						
+						if( !"".equals(res.getString("females")) ){
+							int femaleRatio = Integer.parseInt(res.getString("females"));
+							femaleRatio = (1/100) * (femaleRatio / headCount);
+							eventFemaleRatioField.setText(res.getString("females"));
+						}else{
+							eventFemaleRatioField.setText(R.string.NotAvailable);
+						}
+						
+						if( !"".equals(res.getString("singles") )){
+							int singleRatio = Integer.parseInt(res.getString("singles"));
+							singleRatio = (1/100) * (singleRatio / headCount);
+							eventSingleRatioField.setText(res.getString("singles"));
+						}else{
+							eventSingleRatioField.setText(R.string.NotAvailable);
+						}
+
 						int stars = 0;
 						if( "".equals(res.getString("stars"))){
 							stars = 3;
