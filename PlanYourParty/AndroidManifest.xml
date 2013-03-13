@@ -10,6 +10,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
+    <permission
+        android:name=".gui.main.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name=".gui.main.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
         android:allowBackup="true"
@@ -40,7 +48,11 @@
             </intent-filter>
         </activity>
      <activity android:name=".gui.events.GetPlacesActivity"></activity>
-     <activity android:name=".gui.events.CreateLocalPlaceActivity"></activity>     
+     <activity android:name=".gui.events.CreateLocalPlaceActivity"></activity>  
+     
+      <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBLHdzA-5F9DCllQbLmataclCyVp8MSXok" />
+     
     </application>
-
 </manifest>
