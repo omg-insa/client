@@ -30,6 +30,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -88,6 +89,7 @@ public class MainActivity extends BaseActivity {
 		buildList(data);
 		new GetPersonalEvents().execute();
 		hideHeader(false);
+	
 	}
 
 	@Override
@@ -113,6 +115,8 @@ public class MainActivity extends BaseActivity {
 			}
 		};
 		timer.schedule(doAsynchronousTask, 0, 20000);
+		GetEvents ev = new GetEvents();
+		ev.execute();
 		new GetPersonalEvents().execute();
 	}
 
@@ -436,7 +440,24 @@ public class MainActivity extends BaseActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			if (mProgressDialog != null && mProgressDialog.isShowing())
+			{
 				mProgressDialog.dismiss();
+				if(AppTools.isFirstLaunch()){
+					LayoutInflater inflater = getLayoutInflater();
+					View layout = inflater.inflate(R.layout.tutorial_layout,
+					                               (ViewGroup) findViewById(R.id.toast_layout_root));
+					
+					Toast toast = new Toast(getApplicationContext());
+					toast.setGravity(Gravity.CENTER, 0, 0);
+					toast.setDuration(Toast.LENGTH_LONG);
+					toast.setView(layout);
+					toast.show();
+					
+					AppTools.setFirstLaunch(false);
+				}
+				
+				
+			}
 
 			if (res != null) {
 				try {
