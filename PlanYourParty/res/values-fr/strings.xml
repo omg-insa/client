@@ -148,6 +148,7 @@
     <string name="thank_grade_event_text">Merci d\'avoir pris le temps de noter la soiree !</string>
     <string name="ViewName">Nom</string>
     
+            <string name="new_event">Youpi! Un nouvel evenement a &#233;t&#233; ajoute! </string>
     
     <!-- Pages title -->
 	<string name="ForgotPasswordTitle">R&#233;cuperation mdp</string>

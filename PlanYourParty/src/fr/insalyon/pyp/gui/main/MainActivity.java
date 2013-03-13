@@ -1,6 +1,9 @@
 package fr.insalyon.pyp.gui.main;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -63,7 +66,8 @@ public class MainActivity extends BaseActivity {
 	private Long lastRefresh = System.currentTimeMillis() / 1000;
 	private ViewFlipper vf;
 	private float lastX;
-	private ArrayList<EventEnitity> eventsLis = new ArrayList<EventEnitity>();
+	private HashMap<String, EventEnitity> eventsLis = new HashMap<String, EventEnitity>();
+	private HashMap<String, EventEnitity> tmpList = new HashMap<String, EventEnitity>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +93,7 @@ public class MainActivity extends BaseActivity {
 		buildList(data);
 		new GetPersonalEvents().execute();
 		hideHeader(false);
-	
+
 	}
 
 	@Override
@@ -283,8 +287,9 @@ public class MainActivity extends BaseActivity {
 						}
 					});
 					toast.show();
-					Bitmap icon = BitmapFactory.decodeResource(PYPContext.getContext().getResources(),
-                            R.drawable.logo_notification);
+					Bitmap icon = BitmapFactory.decodeResource(PYPContext
+							.getContext().getResources(),
+							R.drawable.logo_notification);
 					NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 							MainActivity.this)
 							.setSmallIcon(R.drawable.logo)
@@ -295,8 +300,7 @@ public class MainActivity extends BaseActivity {
 											+ entity.getName()
 											+ " "
 											+ getString(R.string.checked_in_opinion))
-							.setAutoCancel(true)
-							.setLargeIcon(icon);
+							.setAutoCancel(true).setLargeIcon(icon);
 					// Creates an explicit intent for an Activity in your app
 					Intent resultIntent = new Intent(MainActivity.this,
 							EventActivity.class);
@@ -439,38 +443,37 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			if (mProgressDialog != null && mProgressDialog.isShowing())
-			{
+			if (mProgressDialog != null && mProgressDialog.isShowing()) {
 				mProgressDialog.dismiss();
-				if(AppTools.isFirstLaunch()){
+				if (AppTools.isFirstLaunch()) {
 					LayoutInflater inflater = getLayoutInflater();
 					View layout = inflater.inflate(R.layout.tutorial_layout,
-					                               (ViewGroup) findViewById(R.id.toast_layout_root));
-					
+							(ViewGroup) findViewById(R.id.toast_layout_root));
+
 					Toast toast = new Toast(getApplicationContext());
 					toast.setGravity(Gravity.CENTER, 0, 0);
 					toast.setDuration(Toast.LENGTH_LONG);
 					toast.setView(layout);
 					toast.show();
-					
+
 					AppTools.setFirstLaunch(false);
 				}
-				
-				
+
 			}
 
 			if (res != null) {
 				try {
 					JSONArray array = res.getJSONArray("list");
-					eventsLis = new ArrayList<EventEnitity>();
+					tmpList = new HashMap<String, EventEnitity>();
 
 					ArrayList<String[]> data = new ArrayList<String[]>();
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
 						double lon = Double.parseDouble(obj.getString("lon"));
 						double lat = Double.parseDouble(obj.getString("lat"));
-						eventsLis.add(new EventEnitity(obj.getString("id"),
-								lon, lat, obj.getString("name")));
+						tmpList.put(obj.getString("id"),
+								new EventEnitity(obj.getString("id"), lon, lat,
+										obj.getString("name")));
 						data.add(new String[] {
 								obj.getString("name"),
 								obj.getString("start_time") + " - "
@@ -482,6 +485,68 @@ public class MainActivity extends BaseActivity {
 								obj.getString("start_time") + " - "
 										+ obj.getString("end_time"),
 								obj.getString("id") });
+					}
+					Enumeration<String> strEnum = Collections.enumeration(eventsLis.keySet());
+
+					 while(strEnum.hasMoreElements()) {
+						EventEnitity ev = eventsLis.get(strEnum.nextElement());
+						if (tmpList.get(ev.getId()) == null) {
+							eventsLis.remove(ev);
+						}
+					}
+					 strEnum = Collections.enumeration(tmpList.keySet());
+
+					 while(strEnum.hasMoreElements()) {
+					
+						EventEnitity ev = tmpList.get(strEnum.nextElement());
+						AppTools.error(ev.getId());
+						if (eventsLis.get(ev.getId()) == null) {
+							eventsLis.put(ev.getId(), ev);
+							Bitmap icon = BitmapFactory.decodeResource(
+									PYPContext.getContext().getResources(),
+									R.drawable.logo_notification);
+							NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+									MainActivity.this)
+									.setSmallIcon(R.drawable.logo)
+									.setContentTitle("Plan you party")
+									.setContentText(
+											getString(R.string.new_event) + " "
+													+ ev.getName())
+									.setAutoCancel(true).setLargeIcon(icon);
+							// Creates an explicit intent for an Activity in
+							// your app
+							Intent resultIntent = new Intent(MainActivity.this,
+									EventActivity.class);
+							resultIntent.putExtra(Constants.PARAMNAME,
+									new String[] { ev.getId() });
+							// The stack builder object will contain an
+							// artificial back
+							// stack for the
+							// started Activity.
+							// This ensures that navigating backward from the
+							// Activity
+							// leads out of
+							// your application to the Home screen.
+							TaskStackBuilder stackBuilder = TaskStackBuilder
+									.create(MainActivity.this);
+							// Adds the back stack for the Intent (but not the
+							// Intent
+							// itself)
+							stackBuilder.addParentStack(EventActivity.class);
+							// Adds the Intent that starts the Activity to the
+							// top of
+							// the stack
+							stackBuilder.addNextIntent(resultIntent);
+							PendingIntent resultPendingIntent = stackBuilder
+									.getPendingIntent(0,
+											PendingIntent.FLAG_UPDATE_CURRENT);
+							mBuilder.setContentIntent(resultPendingIntent);
+							NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+							int mId = 2;
+							// mId allows you to update the notification later
+							// on.
+							mNotificationManager.notify(mId, mBuilder.build());
+						}
 					}
 					AppTools.debug("Number of events:" + data.size());
 					MainActivity.this.buildListEvents(data);
@@ -506,8 +571,10 @@ public class MainActivity extends BaseActivity {
 		protected Void doInBackground(Void... params) {
 			Long currentTimeStamp = System.currentTimeMillis() / 1000;
 			// Check for check_in - check_out
-			for (int i = 0; i < eventsLis.size(); i++) {
-				EventEnitity e = eventsLis.get(i);
+			Enumeration<String> strEnum = Collections.enumeration(eventsLis.keySet());
+
+			 while(strEnum.hasMoreElements()) {
+				EventEnitity e = eventsLis.get(strEnum.nextElement());
 				if (AppTools.checkInArea(e.getLon(), e.getLat(),
 						Constants.BAR_RADIOUS) && !e.getIsCheckedIn()) {
 					new CheckIn().execute(e);
