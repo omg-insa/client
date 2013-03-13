@@ -516,11 +516,13 @@ public class EventActivity extends BaseActivity {
 						
 						int stars = 0;
 						if( "".equals(res.getString("stars"))){
-							stars = 1;
-							eventGradeField.setText(Integer.toString(stars));
+							stars = 3;
+							smiley.setVisibility(View.GONE);
+							eventGradeField.setText(R.string.NoGrade);
 						}else{
+							smiley.setVisibility(View.VISIBLE);
 							stars = Integer.parseInt(res.getString("stars"));
-							eventGradeField.setText(res.getString("stars"));
+							eventGradeField.setText(res.getString("stars") + " / 5");
 						}
 						
 						
@@ -557,7 +559,6 @@ public class EventActivity extends BaseActivity {
 						eventPlaceAddressField.setText(description);
 						
 						// Set the seperators and smiley to visible
-						smiley.setVisibility(View.VISIBLE);
 						LinearLayout separator1 = (LinearLayout) findViewById(R.id.separator1);
 						separator1.setVisibility(View.VISIBLE);
 						LinearLayout separator2 = (LinearLayout) findViewById(R.id.separator2);
@@ -673,13 +674,13 @@ public class EventActivity extends BaseActivity {
 						error = res.getString("error");
 						EventActivity.this.networkError(error);
 					} else {
-						event_grade = res.getString("stars");
+						String eventGrade = res.getString("stars");
 						gradeZone.setVisibility(View.VISIBLE);
-						if( "".equals(event_grade) )
+						if( "".equals(eventGrade) )
 							//TODO: show pop up or something
-							SetStars(Integer.decode(event_grade));
+							SetStars(Integer.decode(eventGrade));
 						else
-							SetStars(Integer.decode(event_grade));
+							SetStars(Integer.decode(eventGrade));
 						// TODO: able disable button
 					}
 				} catch (Exception e) {

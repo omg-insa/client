@@ -46,6 +46,7 @@
   <string name="grade">Note</string>
       <string name ="checked_in">Vous avez &#233;t&#233; enregistr&#233; dans  </string>
    <string name ="checked_in_opinion">Est-ce que c\'est chaud?</string>
+   <string name ="NoGrade">Aucune note</string>
 
   <string-array name="sex_array">
     <item>Sexe</item>
