@@ -498,7 +498,7 @@ public class EventActivity extends BaseActivity {
 								+ " - " + res.getString("end_time"));
 
 						eventPriceField.setText("Price : "
-								+ res.getString("price") + " €");
+								+ res.getString("price") + " euro");
 						String description = res.getString("description");
 						TextView DescriptionLabel = (TextView) findViewById(R.id.event_description_label);
 						if( "".equals(description) ){
@@ -697,11 +697,9 @@ public class EventActivity extends BaseActivity {
 						String eventGrade = res.getString("stars");
 						gradeZone.setVisibility(View.VISIBLE);
 						if( "".equals(eventGrade) )
-							//TODO: show pop up or something
-							SetStars(Integer.decode(eventGrade));
+							SetStars(Integer.decode(event_grade));
 						else
 							SetStars(Integer.decode(eventGrade));
-						// TODO: able disable button
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

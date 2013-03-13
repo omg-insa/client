@@ -271,24 +271,6 @@ public class MainActivity extends BaseActivity {
 			if (res != null) {
 				try {
 					entity.setIsCheckedIn(true);
-					Toast toast = Toast.makeText(
-							getApplicationContext(),
-							getString(R.string.checked_in) + " "
-									+ entity.getName() + " "
-									+ getString(R.string.checked_in_opinion),
-							Toast.LENGTH_LONG);
-					toast.setGravity(Gravity.BOTTOM, 0, 0);
-					LinearLayout toastView = (LinearLayout) toast.getView();
-					toastView.setOnClickListener(new OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							String[] tagData = new String[] { entity.getId() };
-							IntentHelper.openNewActivity(EventActivity.class,
-									tagData, false);
-						}
-					});
-					toast.show();
 					Bitmap icon = BitmapFactory.decodeResource(PYPContext
 							.getContext().getResources(),
 							R.drawable.logo_notification);
