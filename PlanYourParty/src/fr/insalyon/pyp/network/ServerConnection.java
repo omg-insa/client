@@ -15,7 +15,7 @@ public class ServerConnection {
 
 	// base
 	private static final String LOCAL_URL = "http://localhost:8000/api/";
-	private static final String REMOTE_URL = "http://planyourpty.appspot.com/api/";
+	private static final String REMOTE_URL = "http://planyourpty2.appspot.com/api/";
 
 	static final boolean LOCAL = false;
 
