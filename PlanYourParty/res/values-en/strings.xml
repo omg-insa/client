@@ -130,6 +130,8 @@
     <string name="ViewName">Name</string>
     <string name ="checked_in">You have been check-in into </string>
         <string name ="checked_in_opinion">How is the buzz? </string>
+        
+        <string name="new_event">Yahoo! A new event has been added!</string>
     
     
     <!-- Page titles -->
