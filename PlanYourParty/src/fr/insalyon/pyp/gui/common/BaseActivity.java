@@ -137,12 +137,14 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);
 	}
-	protected void checkLoggedIn(){
+	protected boolean checkLoggedIn(){
 		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0);
 		AppTools.debug("Token: " + settings.getAll());
 		if(settings.getString("auth_token", "").equals("")){
 			IntentHelper.openNewActivity(LoginActivity.class, null, false);
+			return false;
 		}
+		return true;
 	}
 	
 	
