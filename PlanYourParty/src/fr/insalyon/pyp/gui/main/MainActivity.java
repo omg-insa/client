@@ -37,6 +37,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.entities.EventEnitity;
 import fr.insalyon.pyp.gui.common.BaseActivity;
@@ -49,6 +53,7 @@ import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
 import fr.insalyon.pyp.tools.PYPContext;
 import fr.insalyon.pyp.tools.TerminalInfo;
+
 
 public class MainActivity extends BaseActivity {
 	private LinearLayout abstractView;
@@ -63,6 +68,7 @@ public class MainActivity extends BaseActivity {
 	private ViewFlipper vf;
 	private float lastX;
 	private ArrayList<EventEnitity> eventsLis = new ArrayList<EventEnitity>();
+	private GoogleMap map;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -83,6 +89,8 @@ public class MainActivity extends BaseActivity {
 		vf = (ViewFlipper) findViewById(R.id.view_flipper);
 		windowTitle = (TextView) findViewById(R.id.pageTitle);
 		windowTitle.setText(R.string.NoTitle);
+		map = ((SupportMapFragment)  new SupportMapFragment().getFragmentManager().findFragmentById(R.id.map))
+		        .getMap();
 		ArrayList<String[]> data = new ArrayList<String[]>();
 		data.add(new String[] { getString(R.string.Add_Event) });
 		buildList(data);
