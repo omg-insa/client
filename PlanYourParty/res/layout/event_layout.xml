@@ -156,9 +156,17 @@
         android:hint="@string/female_label"
         android:visibility="gone"
         android:ems="10"/>
+
+<ProgressBar 
+    android:id="@+id/event_female"
+    android:layout_width="200dp"
+    style="@android:style/Widget.ProgressBar.Horizontal"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:visibility="gone" />
         
 <TextView
-        android:id="@+id/event_female"
+        android:id="@+id/event_female_not"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"/>
@@ -171,11 +179,21 @@
         android:visibility="gone"
         android:ems="10"/>
 
+<ProgressBar 
+    android:id="@+id/event_single"
+    android:layout_width="200dp"
+    style="@android:style/Widget.ProgressBar.Horizontal"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:visibility="gone" />
+
 <TextView
-        android:id="@+id/event_single"
+        android:id="@+id/event_single_not"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"/>
+
+
 
 <TextView
         android:id="@+id/event_headcount_label"
@@ -293,7 +311,7 @@
         android:layout_gravity="center_vertical"
         android:src="@android:drawable/btn_star_big_off"
         android:visibility="visible" />
-</LinearLayout>
+
     
     <LinearLayout
         android:layout_width="fill_parent"
@@ -311,6 +329,8 @@
             android:text="@string/checkin" />
 
     </LinearLayout>
+    
+</LinearLayout>
 </LinearLayout>
 
 

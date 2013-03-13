@@ -15,7 +15,7 @@ public class ServerConnection {
 
 	// base
 	private static final String LOCAL_URL = "http://localhost:8000/api/";
-	private static final String REMOTE_URL = "http://planyourpty.appspot.com/api/";
+	private static final String REMOTE_URL = "http://planyourpty2.appspot.com/api/";
 
 	static final boolean LOCAL = false;
 
@@ -54,7 +54,7 @@ public class ServerConnection {
 	public static final String CHECK_IN = "checkin/";
 	public static final String CHECK_OUT = "checkout/";
 	public static final String GET_USER_STARS = "get_user_stars/";
-	public static final String CHECK_COMPLETION_STATUS = "check_completion_satus/";
+	public static final String CHECK_COMPLETION_STATUS = "check_completion_status/";
 
 	private ServerConnection() {
 		if (LOCAL)

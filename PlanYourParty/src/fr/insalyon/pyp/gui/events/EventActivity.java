@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -60,8 +61,10 @@ public class EventActivity extends BaseActivity {
 	private TextView eventPriceField;
 	private TextView eventDescriptionField;
 	private TextView eventAgeAverageField;
-	private TextView eventFemaleRatioField;
-	private TextView eventSingleRatioField;
+	private ProgressBar eventFemaleRatioField;
+	private TextView eventFemaleNotRatioField;
+	private ProgressBar eventSingleRatioField;
+	private TextView eventSingleNotRatioField;
 	private TextView eventHeadcountField;
 	private TextView eventGradeField;
 	private ImageView smiley;
@@ -123,8 +126,10 @@ public class EventActivity extends BaseActivity {
 		eventPriceField = (TextView) findViewById(R.id.event_price);
 		eventDescriptionField = (TextView) findViewById(R.id.event_description);
 		eventAgeAverageField = (TextView) findViewById(R.id.event_age);
-		eventFemaleRatioField = (TextView) findViewById(R.id.event_female);
-		eventSingleRatioField = (TextView) findViewById(R.id.event_single);
+		eventFemaleRatioField = (ProgressBar) findViewById(R.id.event_female);
+		eventFemaleNotRatioField = (TextView) findViewById(R.id.event_female_not);
+		eventSingleRatioField = (ProgressBar) findViewById(R.id.event_single);
+		eventSingleNotRatioField = (TextView) findViewById(R.id.event_single_not);
 		eventHeadcountField = (TextView) findViewById(R.id.event_headcount);
 		eventGradeField = (TextView) findViewById(R.id.event_grade);
 		smiley = (ImageView) findViewById(R.id.smiley);
@@ -518,20 +523,28 @@ public class EventActivity extends BaseActivity {
 						eventHeadcountField.setText(headCount
 								+ " " + getString(R.string.people));
 						
-						if( !"".equals(res.getString("females")) ){
+						if( !"".equals(res.getString("females")) &&  headCount > 0){
 							int femaleRatio = Integer.parseInt(res.getString("females"));
 							femaleRatio = (1/100) * (femaleRatio / headCount);
-							eventFemaleRatioField.setText(res.getString("females"));
+							eventFemaleRatioField.setProgress(femaleRatio);
+							eventFemaleRatioField.setVisibility(View.VISIBLE);
+							eventFemaleNotRatioField.setVisibility(View.GONE);
 						}else{
-							eventFemaleRatioField.setText(R.string.NotAvailable);
+							eventFemaleNotRatioField.setVisibility(View.VISIBLE);
+							eventFemaleRatioField.setVisibility(View.GONE);
+							eventFemaleNotRatioField.setText(R.string.NotAvailable);
 						}
 						
-						if( !"".equals(res.getString("singles") )){
+						if( !"".equals(res.getString("singles")) &&  headCount > 0){
 							int singleRatio = Integer.parseInt(res.getString("singles"));
 							singleRatio = (1/100) * (singleRatio / headCount);
-							eventSingleRatioField.setText(res.getString("singles"));
+							eventSingleRatioField.setProgress(singleRatio);
+							eventSingleRatioField.setVisibility(View.VISIBLE);
+							eventSingleNotRatioField.setVisibility(View.GONE);
 						}else{
-							eventSingleRatioField.setText(R.string.NotAvailable);
+							eventSingleNotRatioField.setText(R.string.NotAvailable);
+							eventSingleNotRatioField.setVisibility(View.VISIBLE);
+							eventSingleRatioField.setVisibility(View.GONE);
 						}
 
 						int stars = 0;
@@ -704,7 +717,7 @@ public class EventActivity extends BaseActivity {
 						String eventGrade = res.getString("stars");
 						gradeZone.setVisibility(View.VISIBLE);
 						if( "".equals(eventGrade) )
-							SetStars(Integer.decode(event_grade));
+							SetStars(3);
 						else
 							SetStars(Integer.decode(eventGrade));
 					}
