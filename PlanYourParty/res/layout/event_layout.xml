@@ -135,9 +135,24 @@
 </LinearLayout>
 
 <TextView
+        android:id="@+id/event_age_label"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/age_label"
+        android:ems="10"/>
+
+
+<TextView
         android:id="@+id/event_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ems="10"/>
+
+<TextView
+        android:id="@+id/event_female_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/female_label"
         android:ems="10"/>
         
 <TextView
@@ -147,9 +162,23 @@
         android:ems="10"/>
 
 <TextView
+        android:id="@+id/event_single_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/single_label"
+        android:ems="10"/>
+
+<TextView
         android:id="@+id/event_single"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ems="10"/>
+
+<TextView
+        android:id="@+id/event_headcount_label"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/headcount_label"
         android:ems="10"/>
 
 <TextView
@@ -157,7 +186,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"/>
-
 
 <LinearLayout
      android:id="@+id/separator3"  

@@ -45,6 +45,13 @@
   <string name="checkin">Check\'in</string>
   <string name="grade">Grade</string>
   <string name="NoGrade">No grade</string>
+  <string name ="age_label">Age average</string>
+  <string name ="female_label">Man/Woman</string>
+  <string name ="single_label">Single/Couple</string>
+   <string name ="headcount_label">Headcount</string>
+   <string name ="years">years</string>
+   <string name ="people">people</string>
+   <string name ="NotAvailable">Not available</string>
 
   <string-array name="sex_array">
     <item>Sex</item>
