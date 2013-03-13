@@ -81,7 +81,9 @@ public class Popups {
 		PopupEntity popup = new PopupEntity(
 				R.string.delete_event_title,
 				R.string.delete_event_text,
-				R.string.alert_dialog_yes, R.string.alert_dialog_no, android.R.drawable.ic_dialog_info,
+				R.string.alert_dialog_yes, 
+				R.string.alert_dialog_no, 
+				android.R.drawable.ic_dialog_info,
 				null, null, false);
 		popupList.put(Constants.deleteQuestion, popup);
 

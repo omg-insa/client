@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 
 
 /**
- * @author A510944
  * The entity of a new popup
  */
 public class PopupEntity {

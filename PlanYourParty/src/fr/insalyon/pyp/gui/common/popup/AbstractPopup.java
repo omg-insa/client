@@ -52,7 +52,7 @@ public class AbstractPopup {
 			}
 			if (popup.getIdButton2Text() != 0) {
 				if (positive != null) {
-					builder.setNegativeButton(popup.getIdButton1Text(),
+					builder.setNegativeButton(popup.getIdButton2Text(),
 							negative);
 				} else if (popup.getSecondButtonListener() != null) {
 					builder.setNegativeButton(popup.getIdButton2Text(),

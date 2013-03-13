@@ -313,11 +313,12 @@ public class EventActivity extends BaseActivity {
 
 	private class SendMessageTask extends AsyncTask<Void, Void, Void> {
 
-		// ProgressDialog mProgressDialog;
+		ProgressDialog mProgressDialog;
 		JSONObject res;
 
 		@Override
 		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
 			if (res != null) {
 				try {
 					if (res.has("error")) {
@@ -337,6 +338,8 @@ public class EventActivity extends BaseActivity {
 
 		@Override
 		protected void onPreExecute() {
+			mProgressDialog = ProgressDialog.show(EventActivity.this,
+					getString(R.string.app_name), getString(R.string.loading));
 		}
 
 		@Override
@@ -365,6 +368,7 @@ public class EventActivity extends BaseActivity {
 	private class GetConversation extends AsyncTask<String, Void, Void> {
 
 		JSONObject res;
+		
 
 		@Override
 		protected void onPostExecute(Void result) {
