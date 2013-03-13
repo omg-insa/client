@@ -100,7 +100,9 @@ public class MainActivity extends BaseActivity {
 	public void onResume() {
 		super.onResume();
 		// check if logged in
-		checkLoggedIn();
+		if (!checkLoggedIn()){
+			return;
+		}
 		final Handler handler = new Handler();
 		Timer timer = new Timer();
 		TimerTask doAsynchronousTask = new TimerTask() {
