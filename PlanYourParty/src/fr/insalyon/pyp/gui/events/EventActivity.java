@@ -243,7 +243,7 @@ public class EventActivity extends BaseActivity {
 		 });
 		 }
 		 };
-		 timer.schedule(doAsynchronousTask, 0, 20000);
+		 timer.schedule(doAsynchronousTask, 0, 120000);
 	}
 
 	@Override
