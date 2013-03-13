@@ -265,7 +265,6 @@ public class EventActivity extends BaseActivity {
 				vf.setInAnimation(this, R.anim.in_from_left);
 				vf.setOutAnimation(this, R.anim.out_to_right);
 				lastLocation = null;
-				new GetEventDetails().execute(event_id);
 				vf.showNext();
 			}
 
@@ -511,20 +510,39 @@ public class EventActivity extends BaseActivity {
 						
 						
 						eventAgeAverageField.setText(res
-								.getString("age_average"));
-						eventFemaleRatioField.setText(res
-								.getString("female_ratio"));
-						eventSingleRatioField.setText(res
-								.getString("single_ratio"));
-						eventHeadcountField.setText(res.getString("headcount"));
+								.getString("age_average")
+								+ " "
+								+ getString(R.string.years));
 						
+						int headCount = Integer.parseInt(res.getString("headcount"));
+						eventHeadcountField.setText(headCount
+								+ " " + getString(R.string.people));
+						
+						if( !"".equals(res.getString("females")) ){
+							int femaleRatio = Integer.parseInt(res.getString("females"));
+							femaleRatio = (1/100) * (femaleRatio / headCount);
+							eventFemaleRatioField.setText(res.getString("females"));
+						}else{
+							eventFemaleRatioField.setText(R.string.NotAvailable);
+						}
+						
+						if( !"".equals(res.getString("singles") )){
+							int singleRatio = Integer.parseInt(res.getString("singles"));
+							singleRatio = (1/100) * (singleRatio / headCount);
+							eventSingleRatioField.setText(res.getString("singles"));
+						}else{
+							eventSingleRatioField.setText(R.string.NotAvailable);
+						}
+
 						int stars = 0;
 						if( "".equals(res.getString("stars"))){
-							stars = 1;
-							eventGradeField.setText(Integer.toString(stars));
+							stars = 3;
+							smiley.setVisibility(View.GONE);
+							eventGradeField.setText(R.string.NoGrade);
 						}else{
+							smiley.setVisibility(View.VISIBLE);
 							stars = Integer.parseInt(res.getString("stars"));
-							eventGradeField.setText(res.getString("stars"));
+							eventGradeField.setText(res.getString("stars") + " / 5");
 						}
 						
 						
@@ -561,7 +579,6 @@ public class EventActivity extends BaseActivity {
 						eventPlaceAddressField.setText(description);
 						
 						// Set the seperators and smiley to visible
-						smiley.setVisibility(View.VISIBLE);
 						LinearLayout separator1 = (LinearLayout) findViewById(R.id.separator1);
 						separator1.setVisibility(View.VISIBLE);
 						LinearLayout separator2 = (LinearLayout) findViewById(R.id.separator2);
@@ -677,13 +694,13 @@ public class EventActivity extends BaseActivity {
 						error = res.getString("error");
 						EventActivity.this.networkError(error);
 					} else {
-						event_grade = res.getString("stars");
+						String eventGrade = res.getString("stars");
 						gradeZone.setVisibility(View.VISIBLE);
-						if( "".equals(event_grade) )
+						if( "".equals(eventGrade) )
 							//TODO: show pop up or something
-							SetStars(Integer.decode(event_grade));
+							SetStars(Integer.decode(eventGrade));
 						else
-							SetStars(Integer.decode(event_grade));
+							SetStars(Integer.decode(eventGrade));
 						// TODO: able disable button
 					}
 				} catch (Exception e) {

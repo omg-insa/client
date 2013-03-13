@@ -46,6 +46,15 @@
   <string name="grade">Note</string>
       <string name ="checked_in">Vous avez &#233;t&#233; enregistr&#233; dans  </string>
    <string name ="checked_in_opinion">Est-ce que c\'est chaud?</string>
+   <string name ="NoGrade">Aucune note</string>
+   <string name ="age_label">Moyenne d\'age</string>
+   <string name ="female_label">Hommes/Femmes</string>
+   <string name ="single_label">Celibataire/En couple</string>
+   <string name ="headcount_label">Present</string>
+   <string name ="years">ans</string>
+   <string name ="people">personnes</string>
+   <string name ="NotAvailable">Non disponible</string>
+   
 
   <string-array name="sex_array">
     <item>Sexe</item>
@@ -139,6 +148,7 @@
     <string name="thank_grade_event_text">Merci d\'avoir pris le temps de noter la soiree !</string>
     <string name="ViewName">Nom</string>
     
+            <string name="new_event">Youpi! Un nouvel evenement a &#233;t&#233; ajoute! </string>
     
     <!-- Pages title -->
 	<string name="ForgotPasswordTitle">R&#233;cuperation mdp</string>

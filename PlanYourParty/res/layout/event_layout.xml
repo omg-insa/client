@@ -101,7 +101,10 @@
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
     	android:orientation="horizontal"
+    	android:gravity="center"
     	android:layout_marginTop="5dp">
+    	
+    
 <TextView
         android:id="@+id/event_grade_label"
         android:layout_width="60dp"
@@ -113,16 +116,18 @@
 
 <TextView
         android:id="@+id/event_grade"
-        android:layout_width="20dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textSize="18sp"
-        android:ems="10"/>
+        android:ems="10"
+        />
 
+    	
 <ImageView 
     android:id="@+id/smiley"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical"
     android:src="@drawable/smiley_normal"
     android:visibility="visible" />
 
@@ -130,9 +135,24 @@
 </LinearLayout>
 
 <TextView
+        android:id="@+id/event_age_label"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/age_label"
+        android:ems="10"/>
+
+
+<TextView
         android:id="@+id/event_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ems="10"/>
+
+<TextView
+        android:id="@+id/event_female_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/female_label"
         android:ems="10"/>
         
 <TextView
@@ -142,9 +162,23 @@
         android:ems="10"/>
 
 <TextView
+        android:id="@+id/event_single_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/single_label"
+        android:ems="10"/>
+
+<TextView
         android:id="@+id/event_single"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ems="10"/>
+
+<TextView
+        android:id="@+id/event_headcount_label"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/headcount_label"
         android:ems="10"/>
 
 <TextView
@@ -152,7 +186,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"/>
-
 
 <LinearLayout
      android:id="@+id/separator3"  
