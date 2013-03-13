@@ -45,6 +45,7 @@ import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.entities.EventEnitity;
 import fr.insalyon.pyp.gui.common.BaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
+import fr.insalyon.pyp.gui.common.popup.Popups;
 import fr.insalyon.pyp.gui.events.CreateEventActivity;
 import fr.insalyon.pyp.gui.events.EventActivity;
 import fr.insalyon.pyp.gui.events.ManagePersonalEvents;
@@ -91,7 +92,7 @@ public class MainActivity extends BaseActivity {
 		ArrayList<String[]> data = new ArrayList<String[]>();
 		data.add(new String[] { getString(R.string.Add_Event) });
 		buildList(data);
-		new GetPersonalEvents().execute();
+		new CheckCompletionStatusEvent().execute();
 		hideHeader(false);
 
 	}
@@ -617,5 +618,62 @@ public class MainActivity extends BaseActivity {
 			return null;
 		}
 	}
+	
+	public void networkError(String error) {
+		if (error.equals("No data")) {
+			Popups.showPopup(Constants.IncompleatData);
+		}
+	}
+	
+	
+	private class CheckCompletionStatusEvent extends AsyncTask<String, Void, Void> {
+
+		JSONObject res;
+		ProgressDialog mProgressDialog;
+
+		@Override
+		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
+			if (res != null) {
+				try {
+					if (res.has("error")) {
+						// Error
+						String error;
+						error = res.getString("error");
+						MainActivity.this.networkError(error);
+					} else {
+						
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+			mProgressDialog = ProgressDialog.show(MainActivity.this,
+					getString(R.string.app_name), getString(R.string.loading));
+			AppTools.debug("Loading events");
+		}
+
+		@Override
+		protected Void doInBackground(String... params) {
+			// Send request to server for login
+			ServerConnection srvCon = ServerConnection.GetServerConnection();
+			try {
+				List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+				SharedPreferences settings = PYPContext.getContext()
+						.getSharedPreferences(AppTools.PREFS_NAME, 0);
+				parameters.add(new BasicNameValuePair("auth_token", settings
+						.getString("auth_token", "")));
+				res = srvCon.connect(ServerConnection.CHECK_COMPLETION_STATUS, parameters);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	}
+	
 
 }

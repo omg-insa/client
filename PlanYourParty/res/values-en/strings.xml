@@ -136,6 +136,10 @@
     <string name="thank_grade_event_title">Event grade</string>
     <string name="thank_grade_event_text">Thank you for grading this event !</string>
     <string name="ViewName">Name</string>
+    <string name="incomplete_profile_title">Incomplete Data</string>
+    <string name="incomplete_profile_text">Please fill your personal data</string>
+    
+    
     <string name ="checked_in">You have been check-in into </string>
         <string name ="checked_in_opinion">How is the buzz? </string>
         

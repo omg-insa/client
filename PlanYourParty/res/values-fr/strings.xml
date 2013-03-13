@@ -147,6 +147,8 @@
     <string name="thank_grade_event_title">Notation evenement</string>
     <string name="thank_grade_event_text">Merci d\'avoir pris le temps de noter la soiree !</string>
     <string name="ViewName">Nom</string>
+    <string name="incomplete_profile_title">Donnees incompletes</string>
+    <string name="incomplete_profile_text">Pensez a remplir vos donnees personnelles</string>
     
             <string name="new_event">Youpi! Un nouvel evenement a &#233;t&#233; ajoute! </string>
     

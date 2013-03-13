@@ -40,6 +40,7 @@ public class Popups {
 		initUpdatePersonalInfoOk();
 		initUpdateSecurityQuestionOk();
 		initThankGradeEvent();
+		initIncompleteProfil();
 	}
 
 	/**
@@ -256,6 +257,15 @@ public class Popups {
 				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
 				null, null, false);
 		popupList.put(Constants.ThankGradeEvent, popup);
+	}
+	
+	private static void initIncompleteProfil() {
+		PopupEntity popup = new PopupEntity(
+				R.string.incomplete_profile_title,
+				R.string.incomplete_profile_text,
+				R.string.alert_dialog_ok, 0, android.R.drawable.ic_dialog_info,
+				null, null, false);
+		popupList.put(Constants.IncompleteProfile, popup);
 	}
 	
 }

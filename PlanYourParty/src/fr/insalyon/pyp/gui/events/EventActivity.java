@@ -586,6 +586,13 @@ public class EventActivity extends BaseActivity {
 						LinearLayout separator3 = (LinearLayout) findViewById(R.id.separator3);
 						separator3.setVisibility(View.VISIBLE);
 						
+						TextView femaleLabel = (TextView) findViewById(R.id.event_female_label);
+						femaleLabel.setVisibility(View.VISIBLE);
+						TextView singleLabel = (TextView) findViewById(R.id.event_single_label);
+						singleLabel.setVisibility(View.VISIBLE);
+						TextView headcountLabel = (TextView) findViewById(R.id.event_headcount_label);
+						headcountLabel.setVisibility(View.VISIBLE);
+						
 						new GetPersonalRateEvent().execute();
 					}
 				} catch (Exception e) {

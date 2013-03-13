@@ -54,6 +54,7 @@ public class ServerConnection {
 	public static final String CHECK_IN = "checkin/";
 	public static final String CHECK_OUT = "checkout/";
 	public static final String GET_USER_STARS = "get_user_stars/";
+	public static final String CHECK_COMPLETION_STATUS = "check_completion_satus/";
 
 	private ServerConnection() {
 		if (LOCAL)
@@ -242,6 +243,11 @@ public class ServerConnection {
 				AppTools.debug(returnObj.toString());
 			}
 			if (service.equals(GET_USER_STARS)) {
+				request = new HttpRequest(requestUrl, parameters);
+				returnObj = request.executePost();
+				AppTools.debug(returnObj.toString());
+			}
+			if (service.equals(CHECK_COMPLETION_STATUS)) {
 				request = new HttpRequest(requestUrl, parameters);
 				returnObj = request.executePost();
 				AppTools.debug(returnObj.toString());
