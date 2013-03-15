@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import android.content.res.Resources;
 import fr.insalyon.pyp.R;
+import fr.insalyon.pyp.gui.common.BaseActivity;
+import fr.insalyon.pyp.gui.common.FragmentBaseActivity;
 import fr.insalyon.pyp.gui.common.menu.CustomMenu.OnMenuItemSelectedListener;
 import fr.insalyon.pyp.tools.AppTools;
 import fr.insalyon.pyp.tools.Constants;
@@ -14,7 +16,15 @@ public class CustomMenuHelper {
 	private CustomMenu mMenu;
 
 	public CustomMenuHelper(int size, OnMenuItemSelectedListener listener) {
-		mMenu = new CustomMenu(PYPContext.getContext(), listener, PYPContext.getActiveActivity().getLayoutInflater());
+		if(PYPContext.getContext() == null){
+			AppTools.error("PULA");
+		}
+		BaseActivity b = PYPContext.getActiveActivity();
+		FragmentBaseActivity f = PYPContext.getFragmentActiveActivity();
+		if (b !=null)
+			mMenu = new CustomMenu(PYPContext.getContext(), listener, b.getLayoutInflater());
+		else if(f !=null)
+			mMenu = new CustomMenu(PYPContext.getContext(), listener, f.getLayoutInflater());
 		mMenu.setHideOnSelect(true);
 		mMenu.setItemsPerLineInPortraitOrientation(size);
 		loadMenuItems(size);
@@ -54,7 +64,13 @@ public class CustomMenuHelper {
 		} else {
 			// Note it doesn't matter what widget you send the menu as long as
 			// it gets view.
-			mMenu.show(PYPContext.getActiveActivity().findViewById(R.id.abstract_header_layout));
+			BaseActivity b = PYPContext.getActiveActivity();
+			FragmentBaseActivity f = PYPContext.getFragmentActiveActivity();
+			if (b !=null)
+				mMenu.show(b.findViewById(R.id.abstract_header_layout));
+			else if(f !=null)
+				mMenu.show(f.findViewById(R.id.abstract_header_layout));
+			
 		}
 	}
 }

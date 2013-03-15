@@ -10,15 +10,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import fr.insalyon.pyp.R;
-import fr.insalyon.pyp.gui.common.BaseActivity;
+import fr.insalyon.pyp.gui.common.FragmentBaseActivity;
 
 public class EventsAdapter extends BaseAdapter {
 
-	private BaseActivity activity;
+	private FragmentBaseActivity activity;
 	private ArrayList<String[]> data;
 	private static LayoutInflater inflater = null;
 
-	public EventsAdapter(BaseActivity a, ArrayList<String[]> d) {
+	public EventsAdapter(FragmentBaseActivity a, ArrayList<String[]> d) {
 		activity = a;
 		data = d;
 		inflater = (LayoutInflater) activity
