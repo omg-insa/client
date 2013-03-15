@@ -21,17 +21,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -41,9 +42,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.Projection;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import fr.insalyon.pyp.R;
 import fr.insalyon.pyp.entities.EventEnitity;
-import fr.insalyon.pyp.gui.common.BaseActivity;
+import fr.insalyon.pyp.gui.common.FragmentBaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
 import fr.insalyon.pyp.gui.events.CreateEventActivity;
@@ -55,7 +68,7 @@ import fr.insalyon.pyp.tools.Constants;
 import fr.insalyon.pyp.tools.PYPContext;
 import fr.insalyon.pyp.tools.TerminalInfo;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends FragmentBaseActivity {
 	private LinearLayout abstractView;
 	private LinearLayout mainView;
 	private TextView windowTitle;
@@ -67,8 +80,13 @@ public class MainActivity extends BaseActivity {
 	private Long lastRefresh = System.currentTimeMillis() / 1000;
 	private ViewFlipper vf;
 	private float lastX;
+
 	private HashMap<String, EventEnitity> eventsLis = new HashMap<String, EventEnitity>();
 	private HashMap<String, EventEnitity> tmpList = new HashMap<String, EventEnitity>();
+	private HashMap<String, Marker> markersList = new HashMap<String, Marker>();
+	private GoogleMap map;
+
+	private int radious = Constants.AREA_RADIUS;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -87,8 +105,12 @@ public class MainActivity extends BaseActivity {
 		mainView = (LinearLayout) mInflater.inflate(R.layout.main_layout, null);
 		abstractView.addView(mainView);
 		vf = (ViewFlipper) findViewById(R.id.view_flipper);
+		vf.showNext();
 		windowTitle = (TextView) findViewById(R.id.pageTitle);
 		windowTitle.setText(R.string.NoTitle);
+
+		map = ((SupportMapFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.map)).getMap();
 		ArrayList<String[]> data = new ArrayList<String[]>();
 		data.add(new String[] { getString(R.string.Add_Event) });
 		buildList(data);
@@ -97,11 +119,87 @@ public class MainActivity extends BaseActivity {
 
 	}
 
+	private void buildMap() {
+
+		Location l = TerminalInfo.getPosition();
+		LatLng device = new LatLng(l.getLatitude(), l.getLongitude());
+
+		markersList.clear();
+		double scale = radious / 500;
+		int zoomLevel = (int) (16 - Math.log(scale) / Math.log(2)) + 1;
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(device, zoomLevel));
+		Marker m = map
+				.addMarker(new MarkerOptions()
+						.position(device)
+						.title("Device position")
+						.icon(BitmapDescriptorFactory
+								.fromResource(R.drawable.ic_maps_indicator_current_position)));
+		markersList.put("position", m);
+		map.setOnMapClickListener(new OnMapClickListener() {
+
+			@Override
+			public void onMapClick(LatLng arg0) {
+				Projection projection = map.getProjection();
+				Point p = projection.toScreenLocation(arg0);
+				Display display = getWindowManager().getDefaultDisplay();
+
+				if (p.x > display.getWidth() - 100) {
+					vf.setInAnimation(MainActivity.this, R.anim.in_from_right);
+					vf.setOutAnimation(MainActivity.this, R.anim.out_to_left);
+					lastLocation = null;
+					new GetEvents().execute();
+					vf.showNext();
+				}
+
+			}
+		});
+		map.setOnMarkerClickListener(new OnMarkerClickListener() {
+
+			@Override
+			public boolean onMarkerClick(Marker arg0) {
+
+				Enumeration<String> strEnum = Collections
+						.enumeration(markersList.keySet());
+
+				while (strEnum.hasMoreElements()) {
+					String id = strEnum.nextElement();
+					Marker e = markersList.get(id);
+					if (e.equals(arg0)) {
+						if (id.equals("position"))
+							return false;
+						String[] tagData = new String[] { id };
+						IntentHelper.openNewActivity(EventActivity.class,
+								tagData, false);
+						break;
+					}
+				}
+				return false;
+			}
+		});
+
+		Enumeration<String> strEnum = Collections.enumeration(eventsLis
+				.keySet());
+
+		while (strEnum.hasMoreElements()) {
+			EventEnitity e = eventsLis.get(strEnum.nextElement());
+			if (e != null) {
+				m = map.addMarker(new MarkerOptions()
+						.position(new LatLng(e.getLat(), e.getLon()))
+						.title(e.getName())
+						.snippet(e.getDescription())
+						.icon(BitmapDescriptorFactory
+								.fromResource(R.drawable.marker)));
+				markersList.put(e.getId(), m);
+			}
+		}
+
+	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
 		// check if logged in
-		if (!checkLoggedIn()){
+		if (!checkLoggedIn()) {
 			return;
 		}
 		final Handler handler = new Handler();
@@ -137,26 +235,43 @@ public class MainActivity extends BaseActivity {
 
 		case MotionEvent.ACTION_UP: {
 
+			AppTools.error(vf.getDisplayedChild() + " ");
 			float currentX = touchevent.getX();
 			AppTools.debug("Old:" + lastX + "New:" + currentX);
 
 			if (lastX < currentX && lastX != 0 && currentX - lastX > 100) {
+
 				if (vf.getDisplayedChild() == 0)
 					break;
 				vf.setInAnimation(this, R.anim.in_from_left);
 				vf.setOutAnimation(this, R.anim.out_to_right);
-				lastLocation = null;
-				new GetEvents().execute();
-				vf.showNext();
+
+				if (vf.getDisplayedChild() == 1) {
+					buildMap();
+				}
+				if (vf.getDisplayedChild() == 2) {
+					lastLocation = null;
+					new GetEvents().execute();
+				}
+
+				vf.showPrevious();
+
 			}
 
 			if (lastX > currentX && lastX != 0 && lastX - currentX > 100) {
-				if (vf.getDisplayedChild() == 1)
+				if (vf.getDisplayedChild() == 2)
 					break;
 				vf.setInAnimation(this, R.anim.in_from_right);
 				vf.setOutAnimation(this, R.anim.out_to_left);
-				new GetPersonalEvents().execute();
-				vf.showPrevious();
+				if (vf.getDisplayedChild() == 0) {
+					lastLocation = null;
+					new GetEvents().execute();
+				}
+				if (vf.getDisplayedChild() == 1) {
+					new GetPersonalEvents().execute();
+				}
+
+				vf.showNext();
 			}
 			lastX = 0;
 			break;
@@ -456,9 +571,11 @@ public class MainActivity extends BaseActivity {
 						JSONObject obj = array.getJSONObject(i);
 						double lon = Double.parseDouble(obj.getString("lon"));
 						double lat = Double.parseDouble(obj.getString("lat"));
-						tmpList.put(obj.getString("id"),
+						tmpList.put(
+								obj.getString("id"),
 								new EventEnitity(obj.getString("id"), lon, lat,
-										obj.getString("name")));
+										obj.getString("name"), obj
+												.getString("description")));
 						data.add(new String[] {
 								obj.getString("name"),
 								obj.getString("start_time") + " - "
@@ -471,18 +588,19 @@ public class MainActivity extends BaseActivity {
 										+ obj.getString("end_time"),
 								obj.getString("id") });
 					}
-					Enumeration<String> strEnum = Collections.enumeration(eventsLis.keySet());
+					Enumeration<String> strEnum = Collections
+							.enumeration(eventsLis.keySet());
 
-					 while(strEnum.hasMoreElements()) {
+					while (strEnum.hasMoreElements()) {
 						EventEnitity ev = eventsLis.get(strEnum.nextElement());
 						if (tmpList.get(ev.getId()) == null) {
 							eventsLis.remove(ev);
 						}
 					}
-					 strEnum = Collections.enumeration(tmpList.keySet());
+					strEnum = Collections.enumeration(tmpList.keySet());
 
-					 while(strEnum.hasMoreElements()) {
-					
+					while (strEnum.hasMoreElements()) {
+
 						EventEnitity ev = tmpList.get(strEnum.nextElement());
 						AppTools.error(ev.getId());
 						if (eventsLis.get(ev.getId()) == null) {
@@ -556,9 +674,10 @@ public class MainActivity extends BaseActivity {
 		protected Void doInBackground(Void... params) {
 			Long currentTimeStamp = System.currentTimeMillis() / 1000;
 			// Check for check_in - check_out
-			Enumeration<String> strEnum = Collections.enumeration(eventsLis.keySet());
+			Enumeration<String> strEnum = Collections.enumeration(eventsLis
+					.keySet());
 
-			 while(strEnum.hasMoreElements()) {
+			while (strEnum.hasMoreElements()) {
 				EventEnitity e = eventsLis.get(strEnum.nextElement());
 				if (AppTools.checkInArea(e.getLon(), e.getLat(),
 						Constants.BAR_RADIOUS) && !e.getIsCheckedIn()) {

@@ -22,12 +22,15 @@ public class IntentHelper {
 	 * @param forceExit
 	 * 		if true, the initiator will be overpassed on back action
 	 */
-	public static void openNewActivity(Class<? extends BaseActivity> cls, Serializable params,boolean forceExit) {
+	public static void openNewActivity(Class cls, Serializable params,boolean forceExit) {
 	
 		Intent intent = new Intent(PYPContext.getContext(), cls);
 		intent.putExtra(Constants.PARAMNAME,params);
 		PYPContext.getContext().startActivity(intent);
 	}
+	
+	
+	
 	
 	/**
 	 * Gets the params from the intent that lunched the activity
