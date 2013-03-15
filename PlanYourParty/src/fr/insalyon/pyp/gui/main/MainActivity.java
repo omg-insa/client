@@ -119,6 +119,7 @@ public class MainActivity extends FragmentBaseActivity {
 
 	}
 
+	// Added Maps //
 	private void buildMap() {
 
 		Location l = TerminalInfo.getPosition();
