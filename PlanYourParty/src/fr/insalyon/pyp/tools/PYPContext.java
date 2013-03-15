@@ -4,11 +4,13 @@ import java.util.logging.Level;
 
 import android.content.Context;
 import fr.insalyon.pyp.gui.common.BaseActivity;
+import fr.insalyon.pyp.gui.common.FragmentBaseActivity;
 
 public abstract class PYPContext {
 
 	private static Context context = null;
 	private static BaseActivity activeActivity = null;
+	private static FragmentBaseActivity fragmentActiveActivity = null;
 
 	/**
 	 * Sets the context for the rest of the application. <b>The first thing to
@@ -45,12 +47,32 @@ public abstract class PYPContext {
 			PYPContext.activeActivity = activity;
 		}
 	}
+	
+	/**
+	 * @param activity
+	 *            the cureent active activity to set
+	 */
+	public static void setActiveActivity(FragmentBaseActivity activity) {
+		AssertUtils.notNull(activity, "activity is null");
+		if (fragmentActiveActivity != activity) {
+			AppTools.log("Application's active activity has been set", Level.INFO);
+			PYPContext.fragmentActiveActivity = activity;
+		}
+	}
+
 
 	/**
 	 * @return the activity
 	 */
 	public static BaseActivity getActiveActivity() {
 		return activeActivity;
+	}
+	
+	/**
+	 * @return the activity
+	 */
+	public static FragmentBaseActivity getFragmentActiveActivity() {
+		return fragmentActiveActivity;
 	}
 
 	/**

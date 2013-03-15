@@ -7,6 +7,17 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="10" />
 
+    <permission
+        android:name="fr.insalyon.pyp.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="fr.insalyon.pyp.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -14,33 +25,51 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name">
-        
+        android:label="@string/app_name" >
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDIZ1tqsQm9EWOlIEN4SZG51lXFJqlUhyI" />
 
-     <activity android:name=".gui.login.LoginActivity"></activity>
-     <activity android:name=".gui.login.RegisterActivity"></activity>
-     <activity android:name=".gui.login.ForgotPasswordActivity"></activity>
-     <activity android:name=".gui.login.ResetPasswordAfterRecoveryActivity"></activity>
-     <activity android:name=".gui.account.AcountActivity"></activity>
-     <activity android:name=".gui.account.SecurityActivity"></activity>
-     <activity android:name=".gui.account.PersonalInfoActivity"></activity>
-     <activity android:name=".gui.account.IntrestActivity" ></activity>
-     <activity android:name=".gui.events.IntrestActivity"></activity>
-     <activity android:name=".gui.events.ManagePersonalEvents"></activity>
-     <activity android:name=".gui.events.GetEventDetailActivity"></activity>
-     <activity android:name=".gui.events.CreateEventActivity"></activity>
-     <activity android:name=".gui.events.EventActivity"></activity>
-     <activity android:name=".gui.main.MainActivity"
-         	   android:label="@string/app_name"
-               android:launchMode="singleInstance" >
+        <activity android:name=".gui.login.LoginActivity" >
+        </activity>
+        <activity android:name=".gui.login.RegisterActivity" >
+        </activity>
+        <activity android:name=".gui.login.ForgotPasswordActivity" >
+        </activity>
+        <activity android:name=".gui.login.ResetPasswordAfterRecoveryActivity" >
+        </activity>
+        <activity android:name=".gui.account.AcountActivity" >
+        </activity>
+        <activity android:name=".gui.account.SecurityActivity" >
+        </activity>
+        <activity android:name=".gui.account.PersonalInfoActivity" >
+        </activity>
+        <activity android:name=".gui.account.IntrestActivity" >
+        </activity>
+        <activity android:name=".gui.events.IntrestActivity" >
+        </activity>
+        <activity android:name=".gui.events.ManagePersonalEvents" >
+        </activity>
+        <activity android:name=".gui.events.GetEventDetailActivity" >
+        </activity>
+        <activity android:name=".gui.events.CreateEventActivity" >
+        </activity>
+        <activity android:name=".gui.events.EventActivity" >
+        </activity>
+        <activity
+            android:name=".gui.main.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-     <activity android:name=".gui.events.GetPlacesActivity"></activity>
-     <activity android:name=".gui.events.CreateLocalPlaceActivity"></activity>     
+        <activity android:name=".gui.events.GetPlacesActivity" >
+        </activity>
+        <activity android:name=".gui.events.CreateLocalPlaceActivity" >
+        </activity>
     </application>
 
 </manifest>
