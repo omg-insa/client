@@ -322,7 +322,8 @@ public class MainActivity extends FragmentBaseActivity {
 		quickAction.setOnDismissListener(new QuickAction.OnDismissListener() {
 			@Override
 			public void onDismiss() {
-				AppTools.debug(filter_intrest+ " "+ filter_prix+" "+ filter_time + " "+filter_Radiou);
+				AppTools.debug(filter_intrest + " " + filter_prix + " "
+						+ filter_time + " " + filter_Radiou);
 				lastLocation = null;
 				new GetEvents().execute();
 
@@ -515,6 +516,23 @@ public class MainActivity extends FragmentBaseActivity {
 		}
 		}
 		return false;
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (vf.getDisplayedChild() == 0) {
+			vf.setInAnimation(this, R.anim.in_from_right);
+			vf.setOutAnimation(this, R.anim.out_to_left);
+			ImageView filter = (ImageView) findViewById(R.id.abstract_header_picto_search_left);
+
+			filter.setVisibility(View.VISIBLE);
+			lastLocation = null;
+			new GetEvents().execute();
+			vf.showNext();
+
+			return;
+		}
+		super.onBackPressed();
 	}
 
 	private void buildList(ArrayList<String[]> data) {
