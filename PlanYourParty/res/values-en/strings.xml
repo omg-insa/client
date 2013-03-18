@@ -116,15 +116,20 @@
     <string name="passwordsDontMatch_text">The passwrods don\'t match</string>
     <string name="curentPasswordWrong_title">Password don\'t match</string>
     <string name="curentPasswordWrong_text">The current password is wrong</string>
+    <string name="WrongUsername_title">Wrong Username</string>
+    <string name="WrongUsername_text">The username does not exist.</string>
+    <string name="NoSecretQuestion_title">No security question</string>
+    <string name="NoSecretQuestion_text">You have not specified any secret question in your profile.</string>
+	<string name="WrongAnswer_title">Wrong Answer</string>
+	<string name="WrongAnswer_text">Your answer or birthday is incorrect.</string>
+	<string name="dateFormatWrong_title">Wrong date </string>
+    <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
+    <string name="timeFormatWrong_title">Wrong time</string>
+    <string name="timeFormatWrong_text">Please enter a valid time.</string>
     <string name="WrongData_title">Wrong Data</string>
     <string name="WrongData_text">The specified data are wrong.</string>
     <string name="DifferentPassword_title">Different password</string>
     <string name="DifferentPassword_text">The two passwords are not the same.</string>
-    
-    <string name="dateFormatWrong_title">Wrong date </string>
-    <string name="dateFormatWrong_text">Please enter a valid date (DD MM YYYY)</string>
-    <string name="timeFormatWrong_title">Wrong time</string>
-    <string name="timeFormatWrong_text">Please enter a valid time.</string>
     <string name="canteditArea_title">You can\'t edit this event </string>
     <string name="canteditArea_text">You are not close enough to the event location to edit this event</string>
     <string name="delete_event_title">Delete event</string>
