@@ -5,6 +5,8 @@ import java.util.logging.Level;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -34,7 +36,8 @@ import fr.insalyon.pyp.tools.PYPContext;
 /**
  * This class acts as a base class to all the activities in the PYP project
  */
-public class BaseActivity extends Activity implements OnMenuItemSelectedListener {
+public class BaseActivity extends Activity implements
+		OnMenuItemSelectedListener {
 
 	protected static final int ABSTRACT_CONST = 1000;
 
@@ -62,12 +65,10 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 		// sets the context for the rest of the application.
 		PYPContext.setContext(this);
 
-		
 		AppTools.setToExit(false);
 
-		
-		AppTools.log(this.getClass().getSimpleName() + " is creating", Level.INFO);
-		
+		AppTools.log(this.getClass().getSimpleName() + " is creating",
+				Level.INFO);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -76,13 +77,17 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 		// restoring the state
 		if (savedInstanceState != null) {
 			paused = savedInstanceState.getBoolean(PAUSED_STATE, false);
-			startingActivity = savedInstanceState.getBoolean(STARTING_ACTIVITY_STATE, false);
+			startingActivity = savedInstanceState.getBoolean(
+					STARTING_ACTIVITY_STATE, false);
 
-			AppTools.log(this.getClass().getSimpleName() + " is load from saved state with variables:", Level.INFO);
+			AppTools.log(this.getClass().getSimpleName()
+					+ " is load from saved state with variables:", Level.INFO);
 
-			AppTools.log(this.getClass().getSimpleName() + " : paused = " + paused, Level.INFO);
+			AppTools.log(this.getClass().getSimpleName() + " : paused = "
+					+ paused, Level.INFO);
 
-			AppTools.log(this.getClass().getSimpleName() + " : startingActivity = " + startingActivity, Level.INFO);
+			AppTools.log(this.getClass().getSimpleName()
+					+ " : startingActivity = " + startingActivity, Level.INFO);
 		} else {
 			paused = false;
 			startingActivity = false;
@@ -101,7 +106,7 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	 * @param hide
 	 */
 	public void hideHeader(boolean hide) {
-		
+
 		LinearLayout headerView = (LinearLayout) findViewById(R.id.abstract_header_layout);
 		if (hide) {
 			headerView.setVisibility(View.GONE);
@@ -112,7 +117,8 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	}
 
 	/**
-	 *  Hide or show the home button in the header bar
+	 * Hide or show the home button in the header bar
+	 * 
 	 * @param show
 	 */
 	public void showHomeButton(boolean show) {
@@ -123,7 +129,7 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 			headerView.setOnClickListener(new OnClickListener() {
 
 				public void onClick(View v) {
-// home button
+					// home button
 					goToHome();
 				}
 
@@ -132,27 +138,32 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 		}
 	}
 	
-	private void goToHome(){
-		AppTools.log(this.getClass().getSimpleName() + " is redirecting to the home activity", Level.INFO);
+	
+
+	private void goToHome() {
+		AppTools.log(this.getClass().getSimpleName()
+				+ " is redirecting to the home activity", Level.INFO);
 		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);
 	}
-	protected boolean checkLoggedIn(){
-		SharedPreferences settings = PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0);
+
+	protected boolean checkLoggedIn() {
+		SharedPreferences settings = PYPContext.getContext()
+				.getSharedPreferences(AppTools.PREFS_NAME, 0);
 		AppTools.debug("Token: " + settings.getAll());
-		if(settings.getString("auth_token", "").equals("")){
+		if (settings.getString("auth_token", "").equals("")) {
 			IntentHelper.openNewActivity(LoginActivity.class, null, false);
 			return false;
 		}
 		return true;
 	}
-	
-	
+
 	@Override
 	public void onRestart() {
 		super.onRestart();
 
-		AppTools.log(this.getClass().getSimpleName() + " is restarting", Level.INFO);
+		AppTools.log(this.getClass().getSimpleName() + " is restarting",
+				Level.INFO);
 
 	}
 
@@ -160,7 +171,8 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	protected void onStart() {
 		super.onStart();
 
-		AppTools.log(this.getClass().getSimpleName() + " is starting", Level.INFO);
+		AppTools.log(this.getClass().getSimpleName() + " is starting",
+				Level.INFO);
 		// set the active activity
 		PYPContext.setActiveActivity(this);
 
@@ -173,11 +185,13 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 			finish();
 		super.onResume();
 
-		AppTools.log(this.getClass().getSimpleName() + " is resuming", Level.INFO);
+		AppTools.log(this.getClass().getSimpleName() + " is resuming",
+				Level.INFO);
 
 		startingActivity = false;
 		if (paused) {
-			AppTools.log(this.getClass().getSimpleName() + " has been resumed from a paused state", Level.INFO);
+			AppTools.log(this.getClass().getSimpleName()
+					+ " has been resumed from a paused state", Level.INFO);
 			paused = false;
 			startupProcess();
 		}
@@ -188,11 +202,13 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 			finish();
 		super.onResume();
 
-		AppTools.log(this.getClass().getSimpleName() + " is resuming", Level.INFO);
+		AppTools.log(this.getClass().getSimpleName() + " is resuming",
+				Level.INFO);
 
 		startingActivity = false;
 		if (paused) {
-			AppTools.log(this.getClass().getSimpleName() + " has been resumed from a paused state", Level.INFO);
+			AppTools.log(this.getClass().getSimpleName()
+					+ " has been resumed from a paused state", Level.INFO);
 			paused = false;
 			startupProcess();
 		}
@@ -209,22 +225,26 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 		if (!startingActivity) {
 			paused = true;
 
-			AppTools.log(this.getClass().getSimpleName() + " is on pause", Level.INFO);
+			AppTools.log(this.getClass().getSimpleName() + " is on pause",
+					Level.INFO);
 		}
 
 		outState.putBoolean(PAUSED_STATE, paused);
 		outState.putBoolean(STARTING_ACTIVITY_STATE, startingActivity);
 
-		AppTools.log(this.getClass().getSimpleName() + " : paused = " + paused, Level.INFO);
+		AppTools.log(this.getClass().getSimpleName() + " : paused = " + paused,
+				Level.INFO);
 
-		AppTools.log(this.getClass().getSimpleName() + " : startingActivity = " + startingActivity, Level.INFO);
+		AppTools.log(this.getClass().getSimpleName() + " : startingActivity = "
+				+ startingActivity, Level.INFO);
 	}
 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 
-		AppTools.log(this.getClass().getSimpleName() + " is restoring bundle", Level.INFO);
+		AppTools.log(this.getClass().getSimpleName() + " is restoring bundle",
+				Level.INFO);
 
 	}
 
@@ -232,7 +252,8 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	protected void onStop() {
 		super.onStop();
 
-		AppTools.log(this.getClass().getSimpleName() + " is stopping...", Level.INFO);
+		AppTools.log(this.getClass().getSimpleName() + " is stopping...",
+				Level.INFO);
 		cancelAllRunningTasks();
 
 		// NetworkNotificationUtils.hideNetworkUsageNotification();
@@ -241,7 +262,8 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		AppTools.log(this.getClass().getSimpleName() + " is dying...", Level.INFO);
+		AppTools.log(this.getClass().getSimpleName() + " is dying...",
+				Level.INFO);
 		// NetworkNotificationUtils.hideNetworkUsageNotification();
 
 		// Clean all drawable to avoir Out Of Memory
@@ -260,7 +282,8 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	 * send or not Statistics / Enrollement
 	 */
 	protected void startupProcess() {
-		AppTools.debug(this.getClass().getSimpleName() + " is launching startup process (Check appVersion / get IS / Statistics / Enrollment)");
+		AppTools.debug(this.getClass().getSimpleName()
+				+ " is launching startup process (Check appVersion / get IS / Statistics / Enrollment)");
 	}
 
 	/**
@@ -282,26 +305,29 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 
 			break;
 		case Constants.MENU_ITEM_2:
-			SharedPreferences settings = PYPContext.getContext().getSharedPreferences(AppTools.PREFS_NAME, 0);
-		    Editor editor = settings.edit();
-		    editor.remove("auth_token");
-		    editor.commit();
+			SharedPreferences settings = PYPContext.getContext()
+					.getSharedPreferences(AppTools.PREFS_NAME, 0);
+			Editor editor = settings.edit();
+			editor.remove("auth_token");
+			editor.commit();
 			IntentHelper.openNewActivity(MainActivity.class, null, false);
-		    break;
+			break;
 		}
 	}
+
+	
 
 	protected void cancelAllRunningTasks() {
 		if (asyncTasks != null) {
 			for (AsyncTask<?, ?, ?> task : asyncTasks) {
 
-				AppTools.log("Force exiting task : " + task + " (status=" + task.getStatus() + ")", Level.INFO);
+				AppTools.log("Force exiting task : " + task + " (status="
+						+ task.getStatus() + ")", Level.INFO);
 				task.cancel(true);
 			}
 			asyncTasks.clear();
 		}
 	}
-
 
 	public void setGraphicalInterface() {
 		// this will be overrided by childs
@@ -311,14 +337,16 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	public void startActivity(Intent intent) {
 		startingActivity = true;
 
-		AppTools.log(this.getClass().getSimpleName() + " starts an activity", Level.INFO);
+		AppTools.log(this.getClass().getSimpleName() + " starts an activity",
+				Level.INFO);
 		super.startActivity(intent);
 	}
 
 	public void setMainLayout(int layoutId) {
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		LinearLayout abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
-		LinearLayout accountView = (LinearLayout) mInflater.inflate(layoutId, null);
+		LinearLayout accountView = (LinearLayout) mInflater.inflate(layoutId,
+				null);
 		abstractView.addView(accountView);
 	}
 
@@ -329,14 +357,17 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 	 * @param isRelativeLayoutOrFrameLayout
 	 *            : if true : Relative else Frame
 	 */
-	public void setMainLayout(int layoutId, boolean isRelativeLayoutOrFrameLayout) {
+	public void setMainLayout(int layoutId,
+			boolean isRelativeLayoutOrFrameLayout) {
 		LayoutInflater mInflater = LayoutInflater.from(this);
 		LinearLayout abstractView = (LinearLayout) findViewById(R.id.abstractLinearLayout);
 		if (isRelativeLayoutOrFrameLayout) {
-			RelativeLayout accountView = (RelativeLayout) mInflater.inflate(layoutId, null);
+			RelativeLayout accountView = (RelativeLayout) mInflater.inflate(
+					layoutId, null);
 			abstractView.addView(accountView);
 		} else {
-			FrameLayout accountView = (FrameLayout) mInflater.inflate(layoutId, null);
+			FrameLayout accountView = (FrameLayout) mInflater.inflate(layoutId,
+					null);
 			abstractView.addView(accountView);
 		}
 
@@ -365,7 +396,4 @@ public class BaseActivity extends Activity implements OnMenuItemSelectedListener
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-
-
 }
-

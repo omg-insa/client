@@ -162,4 +162,10 @@
 	<string name="GetPlaces">Location</string>
 	<string name="GetEventDetail">Details</string>
 	
+	<!-- Popup_filter -->
+	<string name="int_pop_filt">Intrests</string>
+	<string name="radious_pop_filt">Distance</string>
+		<string name="prix_pop_filt">Price</string>
+		<string name="hours_pop_filt">Time</string>
+		
 </resources>

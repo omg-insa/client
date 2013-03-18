@@ -168,5 +168,10 @@
 	<string name="GetPlaces">Location</string>
 	<string name="GetEventDetail">D&#233;tails</string>
 
+	<!-- Popup_filter -->
+	<string name="int_pop_filt">Int&#233;res</string>
+	<string name="radious_pop_filt">Distance</string>
+		<string name="prix_pop_filt">Prix</string>
+		<string name="hours_pop_filt">Temps</string>
 </resources>
 

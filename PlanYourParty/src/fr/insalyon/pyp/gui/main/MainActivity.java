@@ -13,10 +13,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -33,10 +35,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,6 +64,8 @@ import fr.insalyon.pyp.entities.EventEnitity;
 import fr.insalyon.pyp.gui.common.FragmentBaseActivity;
 import fr.insalyon.pyp.gui.common.IntentHelper;
 import fr.insalyon.pyp.gui.common.popup.Popups;
+import fr.insalyon.pyp.gui.common.selector.ActionItem;
+import fr.insalyon.pyp.gui.common.selector.QuickAction;
 import fr.insalyon.pyp.gui.events.CreateEventActivity;
 import fr.insalyon.pyp.gui.events.EventActivity;
 import fr.insalyon.pyp.gui.events.ManagePersonalEvents;
@@ -86,8 +93,6 @@ public class MainActivity extends FragmentBaseActivity {
 	private HashMap<String, Marker> markersList = new HashMap<String, Marker>();
 	private GoogleMap map;
 
-	private int radious = Constants.AREA_RADIUS;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, Constants.MAIN_CONST);
@@ -104,6 +109,7 @@ public class MainActivity extends FragmentBaseActivity {
 		abstractView.setVisibility(LinearLayout.VISIBLE);
 		mainView = (LinearLayout) mInflater.inflate(R.layout.main_layout, null);
 		abstractView.addView(mainView);
+		createMenu();
 		vf = (ViewFlipper) findViewById(R.id.view_flipper);
 		vf.showNext();
 		windowTitle = (TextView) findViewById(R.id.pageTitle);
@@ -119,6 +125,222 @@ public class MainActivity extends FragmentBaseActivity {
 
 	}
 
+	ActionItem radiousItem;
+	ActionItem intrestsItem;
+	ActionItem hourItem;
+	ActionItem prixItem;
+	String filter_Radiou = String.valueOf(Constants.AREA_RADIUS);
+	String filter_intrest = "";
+	String filter_prix = "";
+	String filter_time = "";
+
+	public void createMenu() {
+
+		radiousItem = new ActionItem(Constants.ID_radious,
+				getString(R.string.radious_pop_filt), getResources()
+						.getDrawable(R.drawable.checkbox_unchecked));
+		intrestsItem = new ActionItem(Constants.ID_Intrests,
+				getString(R.string.int_pop_filt), getResources().getDrawable(
+						R.drawable.checkbox_unchecked));
+		hourItem = new ActionItem(Constants.ID_hour,
+				getString(R.string.hours_pop_filt), getResources().getDrawable(
+						R.drawable.checkbox_unchecked));
+		prixItem = new ActionItem(Constants.ID_prix,
+				getString(R.string.prix_pop_filt), getResources().getDrawable(
+						R.drawable.checkbox_unchecked));
+
+		radiousItem.setSticky(true);
+		intrestsItem.setSticky(true);
+		hourItem.setSticky(true);
+		prixItem.setSticky(true);
+		radiousItem.image_id = R.drawable.checkbox_unchecked;
+		intrestsItem.image_id = R.drawable.checkbox_unchecked;
+		hourItem.image_id = R.drawable.checkbox_unchecked;
+		prixItem.image_id = R.drawable.checkbox_unchecked;
+
+		final QuickAction quickAction = new QuickAction(this,
+				QuickAction.VERTICAL);
+
+		// add action items into QuickAction
+		quickAction.addActionItem(radiousItem);
+		quickAction.addActionItem(intrestsItem);
+		quickAction.addActionItem(hourItem);
+		quickAction.addActionItem(prixItem);
+
+		// Set listener for action item clicked
+		final QuickAction.OnActionItemClickListener item_action = new QuickAction.OnActionItemClickListener() {
+			@Override
+			public void onItemClick(QuickAction source, int pos, int actionId) {
+				final ActionItem actionItem = quickAction.getActionItem(pos);
+				final QuickAction Source = source;
+				final int Pos = pos;
+				if (actionItem.image_id == R.drawable.checkbox_unchecked) {
+					actionItem.image_id = R.drawable.checkbox_checked;
+					actionItem.setIcon(getResources().getDrawable(
+							R.drawable.checkbox_checked));
+				} else {
+					actionItem.setIcon(getResources().getDrawable(
+							R.drawable.checkbox_unchecked));
+					actionItem.image_id = R.drawable.checkbox_unchecked;
+					switch (actionItem.getActionId()) {
+					case Constants.ID_Intrests:
+						actionItem.setTitle(getString(R.string.int_pop_filt));
+						filter_intrest = "";
+						break;
+					case Constants.ID_hour:
+						actionItem.setTitle(getString(R.string.hours_pop_filt));
+						filter_time = "";
+						break;
+					case Constants.ID_prix:
+						actionItem.setTitle(getString(R.string.prix_pop_filt));
+						filter_prix = "";
+						break;
+					default:
+						actionItem
+								.setTitle(getString(R.string.radious_pop_filt));
+						filter_Radiou = String.valueOf(Constants.AREA_RADIUS);
+						break;
+					}
+					source.reDraw(pos);
+
+				}
+				AppTools.debug(actionItem.getActionId() + " ");
+				if (actionItem.getActionId() != Constants.ID_Intrests
+						&& actionItem.image_id == R.drawable.checkbox_checked) {
+					// get
+					// prompts.xml
+					// view
+					LayoutInflater li = LayoutInflater
+							.from(source.getContext());
+					View promptsView = li.inflate(R.layout.prompts, null);
+					AppTools.error(this.getClass().toString());
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+							source.getContext());
+
+					// set prompts.xml to alertdialog builder
+					alertDialogBuilder.setView(promptsView);
+
+					final EditText userInput = (EditText) promptsView
+							.findViewById(R.id.editTextDialogUserInput);
+					final TextView textExplaner = (TextView) promptsView
+							.findViewById(R.id.textView1_promp);
+					switch (actionItem.getActionId()) {
+					case Constants.ID_Intrests:
+						textExplaner.setText(R.string.int_pop_filt);
+						break;
+					case Constants.ID_hour:
+						textExplaner.setText(R.string.hours_pop_filt);
+						break;
+					case Constants.ID_prix:
+						textExplaner.setText(R.string.prix_pop_filt);
+						break;
+					default:
+						textExplaner.setText(R.string.radious_pop_filt);
+						break;
+					}
+					// set dialog message
+					alertDialogBuilder
+							.setCancelable(false)
+							.setPositiveButton(
+									getString(R.string.alert_dialog_ok),
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialog, int id) {
+											// get user input and set it
+											// to
+											// result
+											// edit text
+											AppTools.debug(userInput.getText()
+													.toString());
+											switch (actionItem.getActionId()) {
+											case Constants.ID_hour:
+												actionItem.setTitle(actionItem
+														.getTitle()
+														+ " - "
+														+ userInput.getText()
+																.toString()
+														+ " h");
+												filter_time = userInput
+														.getText().toString();
+												break;
+											case Constants.ID_prix:
+												actionItem.setTitle(actionItem
+														.getTitle()
+														+ " - "
+														+ userInput.getText()
+																.toString()
+														+ " euro");
+												filter_prix = userInput
+														.getText().toString();
+												break;
+											default:
+												actionItem.setTitle(actionItem
+														.getTitle()
+														+ " - "
+														+ userInput.getText()
+																.toString()
+														+ " m");
+												filter_Radiou = userInput
+														.getText().toString();
+												break;
+											}
+											Source.reDraw(Pos);
+
+										}
+									})
+							.setNegativeButton(getString(R.string.cancel),
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialog, int id) {
+											actionItem
+													.setIcon(getResources()
+															.getDrawable(
+																	R.drawable.checkbox_unchecked));
+											actionItem.image_id = R.drawable.checkbox_unchecked;
+											Source.reDraw(Pos);
+											dialog.cancel();
+
+										}
+									});
+
+					// create alert dialog
+					AlertDialog alertDialog = alertDialogBuilder.create();
+					alertDialog.show();
+				} else {
+					if (actionItem.getActionId() == Constants.ID_Intrests) {
+						filter_intrest = "true";
+					}
+				}
+
+			}
+		};
+		quickAction.setOnActionItemClickListener(item_action);
+
+		// set listnener for on dismiss event, this listener will be called only
+		// if QuickAction dialog was dismissed
+		// by clicking the area outside the dialog.
+		quickAction.setOnDismissListener(new QuickAction.OnDismissListener() {
+			@Override
+			public void onDismiss() {
+				lastLocation = null;
+				new GetEvents().execute();
+
+			}
+		});
+
+		ImageView filter = (ImageView) findViewById(R.id.abstract_header_picto_search_left);
+		filter.setVisibility(View.VISIBLE);
+		filter.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				AppTools.debug("Showing search");
+				quickAction.show(v);
+			}
+		});
+
+	}
+
 	// Added Maps //
 	private void buildMap() {
 
@@ -126,8 +348,13 @@ public class MainActivity extends FragmentBaseActivity {
 		LatLng device = new LatLng(l.getLatitude(), l.getLongitude());
 
 		markersList.clear();
-		double scale = radious / 500;
-		int zoomLevel = (int) (16 - Math.log(scale) / Math.log(2)) + 1;
+		int zoomLevel = 15;
+		try {
+			double scale = Integer.parseInt(filter_Radiou) / 500;
+			zoomLevel = (int) (16 - Math.log(scale) / Math.log(2)) + 1;
+		} catch (Exception e) {
+			zoomLevel = 15;
+		}
 		map.moveCamera(CameraUpdateFactory.newLatLngZoom(device, zoomLevel));
 		Marker m = map
 				.addMarker(new MarkerOptions()
@@ -148,6 +375,8 @@ public class MainActivity extends FragmentBaseActivity {
 					vf.setInAnimation(MainActivity.this, R.anim.in_from_right);
 					vf.setOutAnimation(MainActivity.this, R.anim.out_to_left);
 					lastLocation = null;
+					ImageView filter = (ImageView) findViewById(R.id.abstract_header_picto_search_left);
+					filter.setVisibility(View.VISIBLE);
 					new GetEvents().execute();
 					vf.showNext();
 				}
@@ -240,6 +469,7 @@ public class MainActivity extends FragmentBaseActivity {
 			float currentX = touchevent.getX();
 			AppTools.debug("Old:" + lastX + "New:" + currentX);
 
+			ImageView filter = (ImageView) findViewById(R.id.abstract_header_picto_search_left);
 			if (lastX < currentX && lastX != 0 && currentX - lastX > 100) {
 
 				if (vf.getDisplayedChild() == 0)
@@ -248,9 +478,12 @@ public class MainActivity extends FragmentBaseActivity {
 				vf.setOutAnimation(this, R.anim.out_to_right);
 
 				if (vf.getDisplayedChild() == 1) {
+					filter.setVisibility(View.GONE);
 					buildMap();
 				}
 				if (vf.getDisplayedChild() == 2) {
+					filter.setVisibility(View.VISIBLE);
+
 					lastLocation = null;
 					new GetEvents().execute();
 				}
@@ -265,10 +498,12 @@ public class MainActivity extends FragmentBaseActivity {
 				vf.setInAnimation(this, R.anim.in_from_right);
 				vf.setOutAnimation(this, R.anim.out_to_left);
 				if (vf.getDisplayedChild() == 0) {
+					filter.setVisibility(View.VISIBLE);
 					lastLocation = null;
 					new GetEvents().execute();
 				}
 				if (vf.getDisplayedChild() == 1) {
+					filter.setVisibility(View.GONE);
 					new GetPersonalEvents().execute();
 				}
 
@@ -703,8 +938,11 @@ public class MainActivity extends FragmentBaseActivity {
 					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 					SharedPreferences settings = PYPContext.getContext()
 							.getSharedPreferences(AppTools.PREFS_NAME, 0);
-					parameters.add(new BasicNameValuePair("radius", String
-							.valueOf(Constants.AREA_RADIUS)));
+					parameters.add(new BasicNameValuePair("radius", filter_Radiou));
+					parameters.add(new BasicNameValuePair("intrest", filter_intrest));
+					parameters.add(new BasicNameValuePair("prix", filter_prix));
+					parameters.add(new BasicNameValuePair("time", filter_time));
+
 					parameters.add(new BasicNameValuePair("latitude", String
 							.valueOf(lastLocation.getLatitude())));
 					parameters.add(new BasicNameValuePair("longitude", String
@@ -720,15 +958,15 @@ public class MainActivity extends FragmentBaseActivity {
 			return null;
 		}
 	}
-	
+
 	public void networkError(String error) {
 		if (error.equals("No data")) {
 			Popups.showPopup(Constants.IncompleatData);
 		}
 	}
-	
-	
-	private class CheckCompletionStatusEvent extends AsyncTask<String, Void, Void> {
+
+	private class CheckCompletionStatusEvent extends
+			AsyncTask<String, Void, Void> {
 
 		JSONObject res;
 		ProgressDialog mProgressDialog;
@@ -744,7 +982,7 @@ public class MainActivity extends FragmentBaseActivity {
 						error = res.getString("error");
 						MainActivity.this.networkError(error);
 					} else {
-						
+
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -769,13 +1007,13 @@ public class MainActivity extends FragmentBaseActivity {
 						.getSharedPreferences(AppTools.PREFS_NAME, 0);
 				parameters.add(new BasicNameValuePair("auth_token", settings
 						.getString("auth_token", "")));
-				res = srvCon.connect(ServerConnection.CHECK_COMPLETION_STATUS, parameters);
+				res = srvCon.connect(ServerConnection.CHECK_COMPLETION_STATUS,
+						parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return null;
 		}
 	}
-	
 
 }

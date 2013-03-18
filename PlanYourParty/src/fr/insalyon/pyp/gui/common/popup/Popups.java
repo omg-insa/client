@@ -68,6 +68,7 @@ public class Popups {
 		}
 		AbstractPopup.showPopup(popupList.get(id),positive,negative);
 	}
+	
 	private static void initWrongUsernameOrPassword() {
 		PopupEntity popup = new PopupEntity(
 				R.string.initWrongUsernameOrPassword_title,
