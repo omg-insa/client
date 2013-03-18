@@ -31,6 +31,7 @@
         android:ems="10"
         android:layout_gravity="center"
         android:inputType="none"
+        android:textColor="#ffffff"
         android:clickable="false" 
         android:cursorVisible="false" 
         android:focusable="false" 
