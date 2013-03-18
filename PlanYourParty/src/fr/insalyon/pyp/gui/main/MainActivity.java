@@ -306,10 +306,10 @@ public class MainActivity extends FragmentBaseActivity {
 					// create alert dialog
 					AlertDialog alertDialog = alertDialogBuilder.create();
 					alertDialog.show();
-				} else {
-					if (actionItem.getActionId() == Constants.ID_Intrests) {
-						filter_intrest = "true";
-					}
+				}
+				if (actionItem.getActionId() == Constants.ID_Intrests
+						&& actionItem.image_id == R.drawable.checkbox_checked) {
+					filter_intrest = "true";
 				}
 
 			}
@@ -322,6 +322,7 @@ public class MainActivity extends FragmentBaseActivity {
 		quickAction.setOnDismissListener(new QuickAction.OnDismissListener() {
 			@Override
 			public void onDismiss() {
+				AppTools.debug(filter_intrest+ " "+ filter_prix+" "+ filter_time + " "+filter_Radiou);
 				lastLocation = null;
 				new GetEvents().execute();
 
@@ -938,8 +939,10 @@ public class MainActivity extends FragmentBaseActivity {
 					List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 					SharedPreferences settings = PYPContext.getContext()
 							.getSharedPreferences(AppTools.PREFS_NAME, 0);
-					parameters.add(new BasicNameValuePair("radius", filter_Radiou));
-					parameters.add(new BasicNameValuePair("intrest", filter_intrest));
+					parameters.add(new BasicNameValuePair("radius",
+							filter_Radiou));
+					parameters.add(new BasicNameValuePair("intrest",
+							filter_intrest));
 					parameters.add(new BasicNameValuePair("prix", filter_prix));
 					parameters.add(new BasicNameValuePair("time", filter_time));
 
