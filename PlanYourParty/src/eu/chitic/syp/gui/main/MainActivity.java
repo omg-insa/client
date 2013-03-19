@@ -114,6 +114,7 @@ public class MainActivity extends FragmentBaseActivity {
 		vf.showNext();
 		windowTitle = (TextView) findViewById(R.id.pageTitle);
 		windowTitle.setText(R.string.NoTitle);
+		AppTools.error("PULA");
 
 		map = ((SupportMapFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.map)).getMap();

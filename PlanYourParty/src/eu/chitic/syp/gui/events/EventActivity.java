@@ -13,7 +13,6 @@ import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,8 +47,6 @@ public class EventActivity extends BaseActivity {
 	private TextView windowTitle;
 	private ListView list;
 	private ChatAdapter chatAdapter;
-	private Location lastLocation;
-	private Long lastRefresh = System.currentTimeMillis() / 1000;
 	private ViewFlipper vf;
 	private float lastX;
 
@@ -91,7 +88,7 @@ public class EventActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO: change constant
-		super.onCreate(savedInstanceState, Constants.GET_EVENT_DETAIL_CONST);
+		super.onCreate(savedInstanceState, Constants.EVENT_DETAILS);
 		AppTools.info("on create EventActivity");
 		initGraphicalInterface();
 	}
@@ -147,7 +144,7 @@ public class EventActivity extends BaseActivity {
 			}
 
 		});
-		
+
 		gradeZone = (LinearLayout) findViewById(R.id.grade_zone);
 
 		star1 = (ImageView) findViewById(R.id.star1);
@@ -204,7 +201,6 @@ public class EventActivity extends BaseActivity {
 		final String[] data = IntentHelper.getActiveIntentParam(String[].class);
 		event_id = data[0];
 
-		new GetEventDetails().execute(event_id);
 		hideHeader(false);
 
 		MessageChat = (EditText) findViewById(R.id.MessageChat);
@@ -232,23 +228,23 @@ public class EventActivity extends BaseActivity {
 		new GetEventDetails().execute(event_id);
 		new GetConversation().execute(event_id);
 		final Handler handler = new Handler();
-		 Timer timer = new Timer();
-		 TimerTask doAsynchronousTask = new TimerTask() {
-		 @Override
-		 public void run() {
-		 handler.post(new Runnable() {
-		 public void run() {
-		 try {
-		 GetConversation ev = new GetConversation();
-		 ev.execute(event_id);
-		 } catch (Exception e) {
-		 AppTools.error(e.getMessage());
-		 }
-		 }
-		 });
-		 }
-		 };
-		 timer.schedule(doAsynchronousTask, 0, 120000);
+		Timer timer = new Timer();
+		TimerTask doAsynchronousTask = new TimerTask() {
+			@Override
+			public void run() {
+				handler.post(new Runnable() {
+					public void run() {
+						try {
+							GetConversation ev = new GetConversation();
+							ev.execute(event_id);
+						} catch (Exception e) {
+							AppTools.error(e.getMessage());
+						}
+					}
+				});
+			}
+		};
+		timer.schedule(doAsynchronousTask, 0, 120000);
 	}
 
 	@Override
@@ -269,7 +265,7 @@ public class EventActivity extends BaseActivity {
 					break;
 				vf.setInAnimation(this, R.anim.in_from_left);
 				vf.setOutAnimation(this, R.anim.out_to_right);
-				lastLocation = null;
+
 				vf.showNext();
 			}
 
@@ -352,8 +348,8 @@ public class EventActivity extends BaseActivity {
 
 			ServerConnection srvCon = ServerConnection.GetServerConnection();
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-			parameters.add(new BasicNameValuePair("message", Html.fromHtml(MessageChat
-					.getText().toString()).toString()));
+			parameters.add(new BasicNameValuePair("message", Html.fromHtml(
+					MessageChat.getText().toString()).toString()));
 			if (event_id != null)
 				parameters.add(new BasicNameValuePair("event_id", event_id));
 			parameters.add(new BasicNameValuePair("auth_token", PYPContext
@@ -372,7 +368,6 @@ public class EventActivity extends BaseActivity {
 	private class GetConversation extends AsyncTask<String, Void, Void> {
 
 		JSONObject res;
-		
 
 		@Override
 		protected void onPostExecute(Void result) {
@@ -417,67 +412,72 @@ public class EventActivity extends BaseActivity {
 			return null;
 		}
 	}
-	
-	private void SetStars(int stars){
-		switch(stars){
-			case 1: star1.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-					star2.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-					star3.setImageDrawable(PYPContext.getContext().getResources()
-							.getDrawable(android.R.drawable.btn_star_big_off));
-					star4.setImageDrawable(PYPContext.getContext().getResources()
-							.getDrawable(android.R.drawable.btn_star_big_off));
-					star5.setImageDrawable(PYPContext.getContext().getResources()
-							.getDrawable(android.R.drawable.btn_star_big_off));
-					break;
-			case 2: star1.setImageDrawable(PYPContext.getContext().getResources()
+
+	private void SetStars(int stars) {
+		switch (stars) {
+		case 1:
+			star1.setImageDrawable(PYPContext.getContext().getResources()
 					.getDrawable(android.R.drawable.btn_star_big_on));
-				star2.setImageDrawable(PYPContext.getContext().getResources()
+			star2.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_off));
+			star3.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_off));
+			star4.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_off));
+			star5.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_off));
+			break;
+		case 2:
+			star1.setImageDrawable(PYPContext.getContext().getResources()
 					.getDrawable(android.R.drawable.btn_star_big_on));
-				star3.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				star4.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				star5.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				break;
-			case 3: star1.setImageDrawable(PYPContext.getContext().getResources()
+			star2.setImageDrawable(PYPContext.getContext().getResources()
 					.getDrawable(android.R.drawable.btn_star_big_on));
-				star2.setImageDrawable(PYPContext.getContext().getResources()
+			star3.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_off));
+			star4.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_off));
+			star5.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_off));
+			break;
+		case 3:
+			star1.setImageDrawable(PYPContext.getContext().getResources()
 					.getDrawable(android.R.drawable.btn_star_big_on));
-				star3.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star4.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				star5.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				break;
-			case 4: star1.setImageDrawable(PYPContext.getContext().getResources()
+			star2.setImageDrawable(PYPContext.getContext().getResources()
 					.getDrawable(android.R.drawable.btn_star_big_on));
-				star2.setImageDrawable(PYPContext.getContext().getResources()
+			star3.setImageDrawable(PYPContext.getContext().getResources()
 					.getDrawable(android.R.drawable.btn_star_big_on));
-				star3.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star4.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star5.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_off));
-				break;
-			case 5: star1.setImageDrawable(PYPContext.getContext().getResources()
+			star4.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_off));
+			star5.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_off));
+			break;
+		case 4:
+			star1.setImageDrawable(PYPContext.getContext().getResources()
 					.getDrawable(android.R.drawable.btn_star_big_on));
-				star2.setImageDrawable(PYPContext.getContext().getResources()
+			star2.setImageDrawable(PYPContext.getContext().getResources()
 					.getDrawable(android.R.drawable.btn_star_big_on));
-				star3.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star4.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				star5.setImageDrawable(PYPContext.getContext().getResources()
-						.getDrawable(android.R.drawable.btn_star_big_on));
-				break;
+			star3.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+			star4.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+			star5.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_off));
+			break;
+		case 5:
+			star1.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+			star2.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+			star3.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+			star4.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+			star5.setImageDrawable(PYPContext.getContext().getResources()
+					.getDrawable(android.R.drawable.btn_star_big_on));
+			break;
 		}
 	}
-	
+
 	// Event Details
 
 	private class GetEventDetails extends AsyncTask<String, Void, Void> {
@@ -488,6 +488,8 @@ public class EventActivity extends BaseActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			mProgressDialog.dismiss();
+			AppTools.error("PULA");
+
 			if (res != null) {
 				try {
 					if (res.has("error")) {
@@ -506,91 +508,103 @@ public class EventActivity extends BaseActivity {
 								+ res.getString("price") + " euro");
 						String description = res.getString("description");
 						TextView DescriptionLabel = (TextView) findViewById(R.id.event_description_label);
-						if( "".equals(description) ){
+						if ("".equals(description)) {
 							DescriptionLabel.setVisibility(View.GONE);
-						}else{
+						} else {
 							DescriptionLabel.setVisibility(View.VISIBLE);
 						}
 						eventDescriptionField.setText(description);
-						
-						
+
 						eventAgeAverageField.setText(res
 								.getString("age_average")
 								+ " "
 								+ getString(R.string.years));
-						
-						int headCount = Integer.parseInt(res.getString("headcount"));
-						eventHeadcountField.setText(headCount
-								+ " " + getString(R.string.people));
-						
-						if( !"".equals(res.getString("females")) &&  headCount > 0){
-							int femaleRatio = Integer.parseInt(res.getString("females"));
-							femaleRatio = (1/100) * (femaleRatio / headCount);
+
+						int headCount = Integer.parseInt(res
+								.getString("headcount"));
+						eventHeadcountField.setText(headCount + " "
+								+ getString(R.string.people));
+
+						if (!"".equals(res.getString("females"))
+								&& headCount > 0) {
+							int femaleRatio = Integer.parseInt(res
+									.getString("females"));
+							femaleRatio = (1 / 100) * (femaleRatio / headCount);
 							eventFemaleRatioField.setProgress(femaleRatio);
 							eventFemaleRatioField.setVisibility(View.VISIBLE);
 							eventFemaleNotRatioField.setVisibility(View.GONE);
-						}else{
-							eventFemaleNotRatioField.setVisibility(View.VISIBLE);
+						} else {
+							eventFemaleNotRatioField
+									.setVisibility(View.VISIBLE);
 							eventFemaleRatioField.setVisibility(View.GONE);
-							eventFemaleNotRatioField.setText(R.string.NotAvailable);
+							eventFemaleNotRatioField
+									.setText(R.string.NotAvailable);
 						}
-						
-						if( !"".equals(res.getString("singles")) &&  headCount > 0){
-							int singleRatio = Integer.parseInt(res.getString("singles"));
-							singleRatio = (1/100) * (singleRatio / headCount);
+
+						if (!"".equals(res.getString("singles"))
+								&& headCount > 0) {
+							int singleRatio = Integer.parseInt(res
+									.getString("singles"));
+							singleRatio = (1 / 100) * (singleRatio / headCount);
 							eventSingleRatioField.setProgress(singleRatio);
 							eventSingleRatioField.setVisibility(View.VISIBLE);
 							eventSingleNotRatioField.setVisibility(View.GONE);
-						}else{
-							eventSingleNotRatioField.setText(R.string.NotAvailable);
-							eventSingleNotRatioField.setVisibility(View.VISIBLE);
+						} else {
+							eventSingleNotRatioField
+									.setText(R.string.NotAvailable);
+							eventSingleNotRatioField
+									.setVisibility(View.VISIBLE);
 							eventSingleRatioField.setVisibility(View.GONE);
 						}
 
 						int stars = 0;
-						if( "".equals(res.getString("stars"))){
+						if ("".equals(res.getString("stars"))) {
 							stars = 3;
 							smiley.setVisibility(View.GONE);
 							eventGradeField.setText(R.string.NoGrade);
-						}else{
+						} else {
 							smiley.setVisibility(View.VISIBLE);
 							stars = Integer.parseInt(res.getString("stars"));
-							eventGradeField.setText(res.getString("stars") + " / 5");
+							eventGradeField.setText(res.getString("stars")
+									+ " / 5");
 						}
-						
-						
+
 						// Set the smiley indicator
-						if( stars <= 2)
-							smiley.setImageDrawable((PYPContext.getContext().getResources()
-						.getDrawable(R.drawable.smiley_bad)));
-						else if( stars > 2 && stars < 4 )
-							smiley.setImageDrawable((PYPContext.getContext().getResources()
+						if (stars <= 2)
+							smiley.setImageDrawable((PYPContext.getContext()
+									.getResources()
+									.getDrawable(R.drawable.smiley_bad)));
+						else if (stars > 2 && stars < 4)
+							smiley.setImageDrawable((PYPContext.getContext()
+									.getResources()
 									.getDrawable(R.drawable.smiley_normal)));
-						else if( stars >= 4 )
-							smiley.setImageDrawable((PYPContext.getContext().getResources()
+						else if (stars >= 4)
+							smiley.setImageDrawable((PYPContext.getContext()
+									.getResources()
 									.getDrawable(R.drawable.smiley_happy)));
-						
+
 						eventPlaceNameField
 								.setText(res.getString("place_name"));
-						
-						String placeDescription = res.getString("place_description");
+
+						String placeDescription = res
+								.getString("place_description");
 						TextView EventDescriptionLabel = (TextView) findViewById(R.id.event_place_description_label);
-						if( "".equals(placeDescription) ){
+						if ("".equals(placeDescription)) {
 							EventDescriptionLabel.setVisibility(View.GONE);
-						}else{
+						} else {
 							EventDescriptionLabel.setVisibility(View.VISIBLE);
 						}
 						eventPlaceDescriptionField.setText(placeDescription);
-						
+
 						String placeAddress = res.getString("place_address");
 						TextView AddressLabel = (TextView) findViewById(R.id.event_address_label);
-						if( "".equals(placeAddress) ){
+						if ("".equals(placeAddress)) {
 							AddressLabel.setVisibility(View.GONE);
-						}else{
+						} else {
 							AddressLabel.setVisibility(View.VISIBLE);
 						}
 						eventPlaceAddressField.setText(placeAddress);
-						
+
 						// Set the seperators and smiley to visible
 						LinearLayout separator1 = (LinearLayout) findViewById(R.id.separator1);
 						separator1.setVisibility(View.VISIBLE);
@@ -598,14 +612,14 @@ public class EventActivity extends BaseActivity {
 						separator2.setVisibility(View.VISIBLE);
 						LinearLayout separator3 = (LinearLayout) findViewById(R.id.separator3);
 						separator3.setVisibility(View.VISIBLE);
-						
+
 						TextView femaleLabel = (TextView) findViewById(R.id.event_female_label);
 						femaleLabel.setVisibility(View.VISIBLE);
 						TextView singleLabel = (TextView) findViewById(R.id.event_single_label);
 						singleLabel.setVisibility(View.VISIBLE);
 						TextView headcountLabel = (TextView) findViewById(R.id.event_headcount_label);
 						headcountLabel.setVisibility(View.VISIBLE);
-						
+
 						new GetPersonalRateEvent().execute();
 					}
 				} catch (Exception e) {
@@ -659,8 +673,7 @@ public class EventActivity extends BaseActivity {
 						EventActivity.this.networkError(error);
 					} else {
 						// Disable button
-						// TODO: already grade it
-						// TODO: pop up
+					
 						Popups.showPopup(Constants.ThankGradeEvent);
 					}
 				} catch (Exception e) {
@@ -673,7 +686,9 @@ public class EventActivity extends BaseActivity {
 		protected void onPreExecute() {
 			mProgressDialog = ProgressDialog.show(EventActivity.this,
 					getString(R.string.app_name), getString(R.string.loading));
-			AppTools.debug("Loading events");
+			AppTools.debug("Loading events details");
+			AppTools.error("PULA2");
+
 		}
 
 		@Override
@@ -696,8 +711,7 @@ public class EventActivity extends BaseActivity {
 			return null;
 		}
 	}
-	
-	
+
 	private class GetPersonalRateEvent extends AsyncTask<String, Void, Void> {
 
 		JSONObject res;
@@ -716,7 +730,7 @@ public class EventActivity extends BaseActivity {
 					} else {
 						String eventGrade = res.getString("stars");
 						gradeZone.setVisibility(View.VISIBLE);
-						if( "".equals(eventGrade) )
+						if ("".equals(eventGrade))
 							SetStars(3);
 						else
 							SetStars(Integer.decode(eventGrade));
@@ -746,13 +760,13 @@ public class EventActivity extends BaseActivity {
 						.getString("auth_token", "")));
 				parameters.add(new BasicNameValuePair("event_id", event_id));
 				AppTools.debug("ID of the event: " + event_id);
-				res = srvCon.connect(ServerConnection.GET_USER_STARS, parameters);
+				res = srvCon.connect(ServerConnection.GET_USER_STARS,
+						parameters);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return null;
 		}
 	}
-	
 
 }
