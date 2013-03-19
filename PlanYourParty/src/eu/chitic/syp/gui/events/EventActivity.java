@@ -589,7 +589,7 @@ public class EventActivity extends BaseActivity {
 						}else{
 							AddressLabel.setVisibility(View.VISIBLE);
 						}
-						eventPlaceAddressField.setText(description);
+						eventPlaceAddressField.setText(placeAddress);
 						
 						// Set the seperators and smiley to visible
 						LinearLayout separator1 = (LinearLayout) findViewById(R.id.separator1);
