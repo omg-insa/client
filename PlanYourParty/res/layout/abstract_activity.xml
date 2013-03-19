@@ -23,6 +23,7 @@
         <LinearLayout 
             android:id="@+id/abstract_header_layout2"
 	        android:layout_width="212dp"
+	        android:layout_gravity="right"
 	        android:layout_height="match_parent"
 	        android:orientation="horizontal">
 	        
@@ -35,7 +36,15 @@
             android:text="@string/ViewName" />
             
         </LinearLayout>
-        
+        <ImageView
+            android:id="@+id/abstract_header_picto_search_left"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_search"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:contentDescription="@string/home_logo"
+            android:visibility="invisible" />
         <ImageView
             android:id="@+id/abstract_header_picto_left"
             android:layout_width="38dp"
@@ -45,15 +54,7 @@
             android:gravity="right"
             android:contentDescription="@string/home_logo"
             android:visibility="visible" />
-        <ImageView
-            android:id="@+id/abstract_header_picto_search_left"
-            android:layout_width="38dp"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_search"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:contentDescription="@string/home_logo"
-            android:visibility="gone" />
+        
         
     </LinearLayout>
     <LinearLayout

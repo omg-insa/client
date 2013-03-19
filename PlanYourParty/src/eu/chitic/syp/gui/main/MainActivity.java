@@ -498,7 +498,7 @@ public class MainActivity extends FragmentBaseActivity {
 				vf.setOutAnimation(this, R.anim.out_to_right);
 
 				if (vf.getDisplayedChild() == 1) {
-					filter.setVisibility(View.GONE);
+					filter.setVisibility(View.INVISIBLE);
 					buildMap();
 				}
 				if (vf.getDisplayedChild() == 2) {
@@ -523,7 +523,7 @@ public class MainActivity extends FragmentBaseActivity {
 					new GetEvents().execute();
 				}
 				if (vf.getDisplayedChild() == 1) {
-					filter.setVisibility(View.GONE);
+					filter.setVisibility(View.INVISIBLE);
 					new GetPersonalEvents().execute();
 				}
 
